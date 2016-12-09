@@ -3,6 +3,7 @@
 <link rel="import" href="bower_components/paper-input/paper-input.html">
 <link rel="import" href="polymer-ui-router.html">
 <link rel="import" href="polymer-ui-router-state.html">
+<link rel="import" href="polymer-ui-view.html">
 
 <dom-module id="demo-app">
     <template>
@@ -47,11 +48,24 @@
         </ul>
 
 
+        <p>
+            <paper-input label="template string for UIView" value="{{dummyTemplate}}" always-float-label></paper-input>
+        </p>
+
+        <polymer-ui-view template="[[dummyTemplate]]"></polymer-ui-view>
+
+
     </template>
 
     <script>
         Polymer({
-            is: 'demo-app'
+            is: 'demo-app',
+            properties:{
+                dummyTemplate: {
+                    type: String,
+                    value: '<strong>this</strong> is a dummy template restamped by ui-view'
+                }
+            }
         });
     </script>
 </dom-module>

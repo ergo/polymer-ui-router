@@ -1,0 +1,36 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+
+<dom-module id="polymer-ui-view">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'polymer-ui-view',
+            properties: {
+                template: String
+            },
+            observers: [
+                'handleTemplateChange(template)'
+            ],
+            handleTemplateChange: function () {
+                var elem = document.createElement('div');
+                elem.innerHTML = this.template;
+                elem.className = 'ui-view-component';
+                var child = Polymer.dom(this.root).firstElementChild;
+                if (child !== null) {
+                    Polymer.dom(this.root).removeChild(child)
+                }
+                Polymer.dom(this.root).appendChild(elem);
+                Polymer.dom.flush();
+            }
+
+        });
+    </script>
+</dom-module>
