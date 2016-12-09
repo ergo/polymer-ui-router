@@ -1,0 +1,36 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+
+<dom-module id="polymer-ui-router-state">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <h2>State [[name]] [[url]] [[component.tagName]]</h2>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'polymer-ui-router-state',
+
+            properties: {
+                name: String,
+                url: String,
+                component: Object
+            },
+            attached: function () {
+                // load light dom child of state and make it component()HTML node?
+                // not even sure if this makes sense for router?
+                // In angular 1.5 I just passed component name here
+                var children = this.getEffectiveChildren();
+                if (children.length > 0) {
+                    this.component = children[0];
+                }
+            }
+
+        });
+    </script>
+</dom-module>

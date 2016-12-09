@@ -1,0 +1,82 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<!-- include compiled ui-router here - will be inlined in production -->
+<script src="ui-router.js"></script>
+<!--
+`polymer-ui-router`
+Polymer element for UI Router Core
+
+@demo demo/index.html
+-->
+
+<dom-module id="polymer-ui-router">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+    </template>
+
+    <script>
+        (function(){
+            // do we want to make this self-executed
+            // to share router object with all instances of router element?
+
+            var routerInstance = new routerCore.UIRouter();
+
+            Polymer({
+
+                is: 'polymer-ui-router',
+
+                properties: {
+                    _routes: {
+                        type: Array,
+                        value: function () {
+                            return [];
+                        }
+                    },
+                    //exposing states just for demo purposes
+                    states: {
+                        type: Array,
+                        value: function () {
+                            return [];
+                        },
+                        notify: true
+                    },
+                    router: {
+                        type: Object,
+                        value: function () {
+                            return routerInstance;
+                        }
+                    }
+                },
+                attached: function () {
+                    console.log(this.router);
+                    var children = this.getEffectiveChildren('entries');
+                    this._routes = children;
+                    // load all route children
+                    for (var x = 0; x < this._routes.length; x++) {
+                        var route = this._routes[x];
+                        var state = {
+                            name: route.name,
+                            url: route.url,
+                            component: route.component
+                        };
+                        this.push('states', state);
+                        this.router.stateRegistry.register(state);
+                    }
+                    console.log('route objects', this._routes, this.states);
+                },
+
+                start: function () {
+                    this.router.stateRegistry.stateQueue.autoFlush();
+                    this.router.listen();
+                    this.router.sync();
+                }
+
+            });
+
+        })()
+    </script>
+</dom-module>

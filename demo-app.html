@@ -1,0 +1,57 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-location/iron-location.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="polymer-ui-router.html">
+<link rel="import" href="polymer-ui-router-state.html">
+
+<dom-module id="demo-app">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+
+
+        <iron-location path="{{path}}" query="{{query}}" hash="{{hash}}"></iron-location>
+
+        <polymer-ui-router id="ui-router" router="{{router}}" states="{{states}}">
+            <polymer-ui-router-state name="index_route" url="/index">
+                <h1>component node?</h1>
+            </polymer-ui-router-state>
+            <polymer-ui-router-state name="bar_route" url="/bar">
+                <h1>bar component node?</h1>
+            </polymer-ui-router-state>
+        </polymer-ui-router>
+
+
+        <p>path: {{path}}</p>
+        <p>query: {{query}}</p>
+        <p>hash: {{hash}}</p>
+
+        <div class="inputs">
+            <h3>URL</h3>
+            <paper-input label="path" value="{{path}}" always-float-label>
+            </paper-input>
+            <paper-input label="hash" value="{{hash}}" always-float-label>
+            </paper-input>
+            <paper-input label="query" value="{{query}}" always-float-label>
+            </paper-input>
+        </div>
+
+        <p>States</p>
+        <ul>
+            <template is="dom-repeat" items="[[states]]">
+                <li>name: [[item.name]] url: [[item.url]]</li>
+            </template>
+        </ul>
+
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'demo-app'
+        });
+    </script>
+</dom-module>

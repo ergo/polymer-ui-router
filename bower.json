@@ -1,0 +1,17 @@
+{
+  "name": "polymer-ui-router",
+  "description": "Polymer element for UI Router Core",
+  "main": "polymer-ui-router.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "app-route": "PolymerElements/app-route#^0.9.3",
+    "iron-location": "PolymerElements/iron-location#^0.8.9",
+    "paper-input": "polymerElements/paper-input#^1.1.22"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}
