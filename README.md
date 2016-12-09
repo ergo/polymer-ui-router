@@ -4,7 +4,11 @@ Polymer element for UI Router Core
 
 ## Install the Polymer-CLI
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
+First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. 
+
+Install bower and npm dependencies.
+
+Then run `polymer serve` to serve your application locally.
 
 ## Viewing Your Application
 
