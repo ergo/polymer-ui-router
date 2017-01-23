@@ -8,7 +8,7 @@
                 display: block;
             }
         </style>
-        <h2>State [[name]] [[url]] [[component.tagName]]</h2>
+        <h2>State [[name]] [[url]] tpl: [[template]]</h2>
     </template>
 
     <script>
@@ -19,8 +19,9 @@
             properties: {
                 name: String,
                 url: String,
-                component: Object
+                template: String,
             },
+            
             attached: function () {
                 // load light dom child of state and make it component()HTML node?
                 // not even sure if this makes sense for router?

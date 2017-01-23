@@ -1,7 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 <!-- include compiled ui-router here - will be inlined in production -->
-<script src="ui-router.js"></script>
+<script src="dist/ui-router-polymer.js"></script>
 <!--
 `polymer-ui-router`
 Polymer element for UI Router Core
@@ -23,7 +23,102 @@ Polymer element for UI Router Core
             // do we want to make this self-executed
             // to share router object with all instances of router element?
 
-            var routerInstance = new routerCore.UIRouter();
+            var uirouter = new routerCore.UIRouter();
+            // Provide a html5 pushstate location implementation that uses `location` and `history
+            // uirouter.plugin(routerCore.pushStateLocationPlugin); 
+            // Provide a location implementation that uses the hash to manage the url
+            uirouter.plugin(routerCore.hashLocationPlugin); 
+            // Provide a in-memory location implementation (for headless/serverside)
+            // uirouter.plugin(routerCore.memoryLocationPlugin); // for headless
+
+            // Provide a $q-like and $injector-like API for internal use
+            uirouter.plugin(routerCore.servicesPlugin);
+
+            uirouter.viewService.uiviewcount = 0;
+            uirouter.viewService.viewconfigcount = 0;
+
+            // Create an internal ViewConfig representation from a state.views object
+            function viewConfigFactory(pathnodes, viewDeclaration) {
+                var config = { 
+                    $id: uirouter.viewService.viewconfigcount++,
+                    path: pathnodes,
+                    viewDecl: viewDeclaration,
+                    loaded: true,
+                    load: function() { return Promise.resolve() }
+                };
+
+                return [config];
+            }
+            // Register the factory. It will be used when the view type is `polymer`.
+            uirouter.viewService._pluginapi._viewConfigFactory('polymer', viewConfigFactory);
+
+            /** This is a [[StateBuilder.builder]] function for `views`. */
+            // https://ui-router.github.io/ng1/docs/latest/classes/ng1.stateprovider.html#decorator
+            function polymerViewsBuilder(state) {
+                var views= {}, viewsObject = state.views || { "$default": { template: state.template } };
+
+                let names = Object.keys(viewsObject);
+                names.forEach(function(name) {
+                    config = viewsObject[name];
+                    name = name || "$default"; // Account for views: { "": { template... } }
+                    if (Object.keys(config).length == 0) return;
+
+                    config.$type = "polymer";
+                    config.$context = state;
+                    config.$name = name;
+
+                    let normalized = routerCore.ViewService.normalizeUIViewTarget(config.$context, config.$name);
+                    config.$uiViewName = normalized.uiViewName;
+                    config.$uiViewContextAnchor = normalized.uiViewContextAnchor;
+
+                    views[name] = config;
+                });
+
+                return views;
+            }
+            uirouter.stateRegistry.decorator('views', polymerViewsBuilder);
+
+            // Trace whenever a transition starts, succeeds, or errors
+            // Trace whenever a ui-view is created or destroyed
+            // Trace whenever a view config for a state is activated 
+            uirouter.trace.enable("TRANSITION", "UIVIEW", "VIEWCONFIG");
+
+            // Add some states
+            uirouter.stateRegistry.register({ 
+                name: 'foo', 
+                url: '/foo',
+                template: '<h1>foo</h1>',
+             });
+
+            uirouter.stateRegistry.register({ 
+                name: 'bar',
+                url: '/bar',
+                views: {
+                    $default: { template: '<h1>bar</h1> <polymer-ui-view></polymer-ui-view>' },
+                    footer: { template: '<h3>bar setting the footer</h3>' },
+                }
+            });
+
+            uirouter.stateRegistry.register({ 
+                name: 'bar.baz',
+                url: '/baz',
+                views: { 
+                    $default: { template: '<h1>baz</h1>' },
+                    // four equivalent ways of targeting the header ui-view at the root
+                    "!header": { template: '<h3>baz setting the header</h3>' }, // absolute name targeting from root
+                    // "^.^.header": { template: '<h3>baz setting the header</h3>' }, // relative targeting header at grandparent
+                    // "header@^.^": { template: '<h3>baz setting the header</h3>' }, // relative targeting header at grandparent
+                    // "header@": { template: '<h3>baz setting the header</h3>' }, // absolute targeting header at "" (root)
+                },
+            });
+
+
+            // Enable the transition/state visualizer
+            window['ui-router-visualizer'].visualizer(uirouter);
+
+            // How can we provide the instance to all child ui-views?
+            // putting on window for now.
+            window.uirouter = uirouter;
 
             Polymer({
 
@@ -47,32 +142,40 @@ Polymer element for UI Router Core
                     router: {
                         type: Object,
                         value: function () {
-                            return routerInstance;
+                            return uirouter;
                         }
                     }
                 },
                 attached: function () {
-                    console.log(this.router);
+                    var registry = this.router.stateRegistry;
+
+                    var _self = this;
+                    function showState(state) { _self.push('states', state); }
+                    registry.get().forEach(showState);
+                    registry.onStatesChanged(function(event, states) {
+                        if (event === 'registered') states.forEach(showState);
+                    });
+
                     var children = this.getEffectiveChildren('entries');
                     this._routes = children;
+
                     // load all route children
                     for (var x = 0; x < this._routes.length; x++) {
                         var route = this._routes[x];
                         var state = {
                             name: route.name,
                             url: route.url,
-                            component: route.component
+                            views: { $default: { template: route.template } },
                         };
-                        this.push('states', state);
-                        this.router.stateRegistry.register(state);
+                        registry.register(state);
                     }
-                    console.log('route objects', this._routes, this.states);
+
+                    this.start();
                 },
 
                 start: function () {
-                    this.router.stateRegistry.stateQueue.autoFlush();
-                    this.router.listen();
-                    this.router.sync();
+                    this.router.urlService.listen();
+                    this.router.urlService.sync();
                 }
 
             });
