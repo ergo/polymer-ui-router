@@ -3,7 +3,8 @@
   "description": "State-based routing for Polymer 1.x",
   "version": "0.0.1",
   "scripts": {
-    "bundle": "rollup -c && rollup -c --environment MINIFY"
+    "bundle": "rollup -c && rollup -c --environment MINIFY",
+    "prepublish": "npm run bundle"
   },
   "homepage": "",
   "contributors": [],

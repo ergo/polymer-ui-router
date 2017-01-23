@@ -1,6 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-
 <dom-module id="polymer-ui-view">
     <template>
         <style>
@@ -11,25 +10,88 @@
     </template>
 
     <script>
+
+        var uirouter = window.uirouter;
+        var componentRef;
+        function findParentUIView(el) {
+            while ((el = el.parentElement) && el.tagName !== 'POLYMER-UI-VIEW');
+            return el;
+        }
+
         Polymer({
             is: 'polymer-ui-view',
+
             properties: {
-                template: String
+                template: String,
+                name: String
             },
-            observers: [
-                'handleTemplateChange(template)'
-            ],
-            handleTemplateChange: function () {
-                var elem = document.createElement('div');
-                elem.innerHTML = this.template;
-                elem.className = 'ui-view-component';
-                var child = Polymer.dom(this.root).firstElementChild;
-                if (child !== null) {
-                    Polymer.dom(this.root).removeChild(child)
+
+            attached: function() {
+                // Need a handle to `this` in configUpdated() ... how to do this less sucky?
+                componentRef = this;
+
+                var name = this.name || '$default';
+
+                var rootContext = uirouter.stateRegistry.root();
+                var parentUIView = findParentUIView(this);
+                var parentContext = parentUIView && 
+                        parentUIView.viewConfig && 
+                        parentUIView.viewConfig.viewDecl &&
+                        parentUIView.viewConfig.viewDecl.$context;
+
+                var parentFqn = parentUIView && 
+                        parentUIView.activeUIView &&
+                        parentUIView.activeUIView.fqn;
+
+                this.activeUIView = {
+                    $type: 'polymer',
+                    id: uirouter.viewService.uiviewcount++,
+                    name: name,
+
+                    // This should walk up the elements and find parent
+                    // ui-view. It should figure out what its own fqn is
+                    // by appending its name to the parent ui-view's fqn.
+                    fqn: parentFqn ? parentFqn + "." + name : name,
+
+                    // What state the ui-view was created by
+                    // When a state fills some ui-view with a component
+                    // and that component itself has a ui-view, then
+                    // creationContext for the nested ui-view should
+                    // be set to that state.
+                    creationContext: parentContext || rootContext,
+
+                    // When a ui-view should be filled by a component
+                    // because a state is activated, this will be called
+                    // with the configuration details.
+                    configUpdated: this.configUpdated.bind(this),
                 }
-                Polymer.dom(this.root).appendChild(elem);
+
+                // should call this callback when the polymer-ui-view element is destroyed
+                this.deregister = uirouter.viewService.registerUIView(this.activeUIView);
+            },
+
+            detached: function() {
+                this.deregister();
+            },
+
+            configUpdated: function(newConfig) { 
+                if (this.viewConfig === newConfig) return;
+                this.viewConfig = newConfig;
+
+                // a state is targeting this uiview
+                // Now we need to use the `newConfig` data to 
+                // update which component is inside this ui-view
+                var root = this.root;
+                var elem = document.createElement('div');
+                elem.innerHTML = (newConfig && newConfig.viewDecl.template) || this.template || "";
+                elem.className = 'ui-view-component';
+                var child = Polymer.dom(root).firstElementChild;
+                if (child !== null) {
+                    Polymer.dom(root).removeChild(child)
+                }
+                Polymer.dom(root).appendChild(elem);
                 Polymer.dom.flush();
-            }
+            },
 
         });
     </script>

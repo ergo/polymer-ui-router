@@ -1,2 +1,2 @@
-var routerCore = require('./node_modules/ui-router-core/lib/index.js');
+var routerCore = require('ui-router-core');
 window.routerCore = routerCore;

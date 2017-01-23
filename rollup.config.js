@@ -33,6 +33,12 @@ if (MINIFY) plugins.push(visualizer({ sourcemap: true }));
 
 let extension = MINIFY ? '.min.js' : '.js';
 
+function onwarn(warning) {
+  // Suppress this error message caused by typescript "extends" codegen
+  if (warning.code === 'THIS_IS_UNDEFINED') return;
+  console.error(warning.message);
+}
+
 const CONFIG = {
   moduleName: 'ui-router-polymer',
   entry: './ui-router-core.js',
@@ -43,6 +49,8 @@ const CONFIG = {
   exports: 'named',
   plugins: plugins,
   banner: banner,
+
+  onwarn: onwarn,
 };
 
 export default CONFIG;
