@@ -42,6 +42,7 @@
     "karma-systemjs": "^0.7.2",
     "karma-webpack": "^1.8.0",
     "lodash": "^4.5.1",
+    "polymer-cli": "^0.18.0-alpha.8",
     "remap-istanbul": "^0.6.3",
     "rollup": "^0.41.4",
     "rollup-plugin-commonjs": "^7.0.0",
