@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="polymer-ui-router-behavior.html">
 
 <template>
     <slot></slot>
@@ -8,7 +9,9 @@
 
     Polymer({
         is: 'polymer-ui-view',
-
+        behaviors: [
+            UIRouterBehavior
+        ],
         properties: {
             template: String,
             name: String
@@ -20,11 +23,9 @@
         },
 
         attached: function() {
-            var uirouter = window.uirouter;
-
             var name = this.name || '$default';
 
-            var rootContext = uirouter.stateRegistry.root();
+            var rootContext = this.uiRouter.stateRegistry.root();
             var parentUIView = this.findParentUIView(this);
             var parentContext = parentUIView &&
                     parentUIView.viewConfig &&
@@ -37,7 +38,7 @@
 
             this.activeUIView = {
                 $type: 'polymer',
-                id: uirouter.viewService.uiviewcount++,
+                id: this.uiRouter.viewService.uiviewcount++,
                 name: name,
 
                 // This should walk up the elements and find parent
@@ -59,7 +60,7 @@
             }
 
             // should call this callback when the polymer-ui-view element is destroyed
-            this.deregister = uirouter.viewService.registerUIView(this.activeUIView);
+            this.deregister = this.uiRouter.viewService.registerUIView(this.activeUIView);
         },
 
         detached: function() {

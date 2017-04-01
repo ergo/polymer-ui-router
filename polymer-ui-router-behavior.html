@@ -1,0 +1,137 @@
+<!--
+Copyright 2016 Marcin Lulek
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<script src="dist/ui-router-polymer.js"></script>
+<script>
+
+
+    var UIRouterBehavior;
+    (function () {
+        // encapsulate global router instance
+
+        var uirouter = new routerCore.UIRouter();
+        // Provide a html5 pushstate location implementation that uses `location` and `history
+        // uirouter.plugin(routerCore.pushStateLocationPlugin);
+        // Provide a location implementation that uses the hash to manage the url
+        uirouter.plugin(routerCore.hashLocationPlugin);
+        // Provide a in-memory location implementation (for headless/serverside)
+        // uirouter.plugin(routerCore.memoryLocationPlugin); // for headless
+
+        // Provide a $q-like and $injector-like API for internal use
+        uirouter.plugin(routerCore.servicesPlugin);
+
+        uirouter.viewService.uiviewcount = 0;
+        uirouter.viewService.viewconfigcount = 0;
+
+        // Create an internal ViewConfig representation from a state.views object
+        function viewConfigFactory(pathnodes, viewDeclaration) {
+            var config = {
+                $id: uirouter.viewService.viewconfigcount++,
+                path: pathnodes,
+                viewDecl: viewDeclaration,
+                loaded: true,
+                load: function() { return Promise.resolve() }
+            };
+
+            return [config];
+        }
+        // Register the factory. It will be used when the view type is `polymer`.
+        uirouter.viewService._pluginapi._viewConfigFactory('polymer', viewConfigFactory);
+
+        /** This is a [[StateBuilder.builder]] function for `views`. */
+        // https://ui-router.github.io/ng1/docs/latest/classes/ng1.stateprovider.html#decorator
+        function polymerViewsBuilder(state) {
+            var views= {}, viewsObject = state.views || { "$default": { template: state.template } };
+
+            let names = Object.keys(viewsObject);
+            names.forEach(function(name) {
+                config = viewsObject[name];
+                name = name || "$default"; // Account for views: { "": { template... } }
+                if (Object.keys(config).length == 0) return;
+
+                config.$type = "polymer";
+                config.$context = state;
+                config.$name = name;
+
+                let normalized = routerCore.ViewService.normalizeUIViewTarget(config.$context, config.$name);
+                config.$uiViewName = normalized.uiViewName;
+                config.$uiViewContextAnchor = normalized.uiViewContextAnchor;
+
+                views[name] = config;
+            });
+
+            return views;
+        }
+        uirouter.stateRegistry.decorator('views', polymerViewsBuilder);
+
+        // Trace whenever a transition starts, succeeds, or errors
+        // Trace whenever a ui-view is created or destroyed
+        // Trace whenever a view config for a state is activated
+        uirouter.trace.enable("TRANSITION", "UIVIEW", "VIEWCONFIG");
+
+        // Add some states
+        uirouter.stateRegistry.register({
+            name: 'foo',
+            url: '/foo',
+            template: '<h1>foo</h1>',
+        });
+
+        uirouter.stateRegistry.register({
+            name: 'bar',
+            url: '/bar',
+            views: {
+                $default: { template: '<h1>bar</h1> <polymer-ui-view></polymer-ui-view>' },
+                footer: { template: '<h3>bar setting the footer</h3>' },
+            }
+        });
+
+        uirouter.stateRegistry.register({
+            name: 'bar.baz',
+            url: '/baz',
+            views: {
+                $default: { template: '<h1>baz</h1>' },
+                // four equivalent ways of targeting the header ui-view at the root
+                "!header": { template: '<h3>baz setting the header</h3>' }, // absolute name targeting from root
+                // "^.^.header": { template: '<h3>baz setting the header</h3>' }, // relative targeting header at grandparent
+                // "header@^.^": { template: '<h3>baz setting the header</h3>' }, // relative targeting header at grandparent
+                // "header@": { template: '<h3>baz setting the header</h3>' }, // absolute targeting header at "" (root)
+            },
+        });
+
+
+        // Enable the transition/state visualizer
+        window['ui-router-visualizer'].visualizer(uirouter);
+
+        /**
+         * @polymerBehavior
+         */
+        UIRouterBehavior = {
+            properties: {
+                uiRouter: {
+                    type: Object,
+                    value: function(){
+                        return uirouter;
+                    }
+                },
+            },
+        };
+
+        console.log('UIRouterBehavior', UIRouterBehavior);
+
+    })();
+
+
+</script>
