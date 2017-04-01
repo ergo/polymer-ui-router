@@ -3,7 +3,7 @@
   "description": "Polymer element for UI Router Core",
   "main": "polymer-ui-router.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0",
+    "polymer": "Polymer/polymer#^1.7.0",
     "app-route": "PolymerElements/app-route#^0.9.3",
     "iron-location": "PolymerElements/iron-location#^0.8.9",
     "paper-input": "polymerElements/paper-input#^1.1.22"
