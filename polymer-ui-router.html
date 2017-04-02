@@ -41,6 +41,18 @@ Polymer element for UI Router Core
                             return [];
                         },
                         notify: true
+                    },
+                    autoStart: {
+                        type: Boolean,
+                        value: true
+                    },
+                    visualizer: {
+                        type: Boolean,
+                        value: false
+                    },
+                    debugTracing: {
+                        type: Boolean,
+                        value: false
                     }
                 },
 
@@ -48,8 +60,57 @@ Polymer element for UI Router Core
                     this.push('states', state);
                 },
 
+                registerState: function(state){
+                    this.uiRouter.stateRegistry.register(state);
+                },
+
                 attached: function () {
+                    // Provide a html5 pushstate location implementation that uses `location` and `history
+                    // uirouter.plugin(routerCore.pushStateLocationPlugin);
+                    // Provide a location implementation that uses the hash to manage the url
+                    this.uiRouter.plugin(routerCore.hashLocationPlugin);
+                    // Provide a in-memory location implementation (for headless/serverside)
+                    // uirouter.plugin(routerCore.memoryLocationPlugin); // for headless
+
+                    // Provide a $q-like and $injector-like API for internal use
+                    this.uiRouter.plugin(routerCore.servicesPlugin);
+
+                    if(this.debugTracing){
+                        // Trace whenever a transition starts, succeeds, or errors
+                        // Trace whenever a ui-view is created or destroyed
+                        // Trace whenever a view config for a state is activated
+                        this.uiRouter.trace.enable("TRANSITION", "UIVIEW", "VIEWCONFIG");
+                    }
+
                     var registry = this.uiRouter.stateRegistry;
+
+                    this.registerState({
+                        name: 'bar',
+                        url: '/bar',
+                        views: {
+                            $default: { template: '<h1>bar</h1> <polymer-ui-view></polymer-ui-view>' },
+                            footer: { template: '<h3>bar setting the footer</h3>' },
+                        }
+                    });
+
+                    this.registerState({
+                        name: 'bar.baz',
+                        url: '/baz',
+                        views: {
+                            $default: { template: '<h1>baz</h1>' },
+                            // four equivalent ways of targeting the header ui-view at the root
+                            "!header": { template: '<h3>baz setting the header</h3>' }, // absolute name targeting from root
+                            // "^.^.header": { template: '<h3>baz setting the header</h3>' }, // relative targeting header at grandparent
+                            // "header@^.^": { template: '<h3>baz setting the header</h3>' }, // relative targeting header at grandparent
+                            // "header@": { template: '<h3>baz setting the header</h3>' }, // absolute targeting header at "" (root)
+                        },
+                    });
+
+                    if(this.visualizer){
+                        // Enable the transition/state visualizer
+                        window['ui-router-visualizer'].visualizer(this.uiRouter);
+                    }
+
                     registry.get().forEach(this._showState.bind(this));
                     registry.onStatesChanged(function(event, states) {
                         if (event === 'registered') {
@@ -68,10 +129,13 @@ Polymer element for UI Router Core
                             url: route.url,
                             views: { $default: { template: route.template } },
                         };
-                        registry.register(state);
+                        this.registerState(state);
                     }
 
-                    this.start();
+                    if (this.autoStart){
+                        this.start();
+                    }
+
                 },
 
                 start: function () {

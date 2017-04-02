@@ -23,16 +23,6 @@ limitations under the License.
         // encapsulate global router instance
 
         var uirouter = new routerCore.UIRouter();
-        // Provide a html5 pushstate location implementation that uses `location` and `history
-        // uirouter.plugin(routerCore.pushStateLocationPlugin);
-        // Provide a location implementation that uses the hash to manage the url
-        uirouter.plugin(routerCore.hashLocationPlugin);
-        // Provide a in-memory location implementation (for headless/serverside)
-        // uirouter.plugin(routerCore.memoryLocationPlugin); // for headless
-
-        // Provide a $q-like and $injector-like API for internal use
-        uirouter.plugin(routerCore.servicesPlugin);
-
         uirouter.viewService.uiviewcount = 0;
         uirouter.viewService.viewconfigcount = 0;
 
@@ -77,44 +67,6 @@ limitations under the License.
         }
         uirouter.stateRegistry.decorator('views', polymerViewsBuilder);
 
-        // Trace whenever a transition starts, succeeds, or errors
-        // Trace whenever a ui-view is created or destroyed
-        // Trace whenever a view config for a state is activated
-        uirouter.trace.enable("TRANSITION", "UIVIEW", "VIEWCONFIG");
-
-        // Add some states
-        uirouter.stateRegistry.register({
-            name: 'foo',
-            url: '/foo',
-            template: '<h1>foo</h1>',
-        });
-
-        uirouter.stateRegistry.register({
-            name: 'bar',
-            url: '/bar',
-            views: {
-                $default: { template: '<h1>bar</h1> <polymer-ui-view></polymer-ui-view>' },
-                footer: { template: '<h3>bar setting the footer</h3>' },
-            }
-        });
-
-        uirouter.stateRegistry.register({
-            name: 'bar.baz',
-            url: '/baz',
-            views: {
-                $default: { template: '<h1>baz</h1>' },
-                // four equivalent ways of targeting the header ui-view at the root
-                "!header": { template: '<h3>baz setting the header</h3>' }, // absolute name targeting from root
-                // "^.^.header": { template: '<h3>baz setting the header</h3>' }, // relative targeting header at grandparent
-                // "header@^.^": { template: '<h3>baz setting the header</h3>' }, // relative targeting header at grandparent
-                // "header@": { template: '<h3>baz setting the header</h3>' }, // absolute targeting header at "" (root)
-            },
-        });
-
-
-        // Enable the transition/state visualizer
-        window['ui-router-visualizer'].visualizer(uirouter);
-
         /**
          * @polymerBehavior
          */
@@ -128,9 +80,6 @@ limitations under the License.
                 },
             },
         };
-
-        console.log('UIRouterBehavior', UIRouterBehavior);
-
     })();
 
 
