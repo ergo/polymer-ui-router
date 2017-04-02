@@ -22,19 +22,19 @@
             return el;
         },
 
-        attached: function() {
+        _setActiveUIView: function(){
             var name = this.name || '$default';
 
             var rootContext = this.uiRouter.stateRegistry.root();
             var parentUIView = this.findParentUIView(this);
             var parentContext = parentUIView &&
-                    parentUIView.viewConfig &&
-                    parentUIView.viewConfig.viewDecl &&
-                    parentUIView.viewConfig.viewDecl.$context;
+                parentUIView.viewConfig &&
+                parentUIView.viewConfig.viewDecl &&
+                parentUIView.viewConfig.viewDecl.$context;
 
             var parentFqn = parentUIView &&
-                    parentUIView.activeUIView &&
-                    parentUIView.activeUIView.fqn;
+                parentUIView.activeUIView &&
+                parentUIView.activeUIView.fqn;
 
             this.activeUIView = {
                 $type: 'polymer',
@@ -58,7 +58,10 @@
                 // with the configuration details.
                 configUpdated: this.configUpdated.bind(this),
             }
+        },
 
+        attached: function() {
+            this._setActiveUIView();
             // should call this callback when the polymer-ui-view element is destroyed
             this.deregister = this.uiRouter.viewService.registerUIView(this.activeUIView);
         },

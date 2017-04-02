@@ -43,15 +43,19 @@ Polymer element for UI Router Core
                         notify: true
                     }
                 },
+
+                _showState: function (state) {
+                    this.push('states', state);
+                },
+
                 attached: function () {
                     var registry = this.uiRouter.stateRegistry;
-
-                    var _self = this;
-                    function showState(state) { _self.push('states', state); }
-                    registry.get().forEach(showState);
+                    registry.get().forEach(this._showState.bind(this));
                     registry.onStatesChanged(function(event, states) {
-                        if (event === 'registered') states.forEach(showState);
-                    });
+                        if (event === 'registered') {
+                            states.forEach(this._showState.bind(this))
+                        };
+                    }.bind(this));
 
                     var children = this.getEffectiveChildren('entries');
                     this._routes = children;
