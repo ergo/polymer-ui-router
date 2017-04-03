@@ -12,7 +12,7 @@ Polymer element for UI Router Core
     <template>
         <style>
             :host {
-                display: block;
+                display: none;
             }
         </style>
     </template>
@@ -84,28 +84,6 @@ Polymer element for UI Router Core
 
                     var registry = this.uiRouter.stateRegistry;
 
-                    this.registerState({
-                        name: 'bar',
-                        url: '/bar',
-                        views: {
-                            $default: { template: '<h1>bar</h1> <polymer-ui-view></polymer-ui-view>' },
-                            footer: { template: '<h3>bar setting the footer</h3>' },
-                        }
-                    });
-
-                    this.registerState({
-                        name: 'bar.baz',
-                        url: '/baz',
-                        views: {
-                            $default: { template: '<h1>baz</h1>' },
-                            // four equivalent ways of targeting the header ui-view at the root
-                            "!header": { template: '<h3>baz setting the header</h3>' }, // absolute name targeting from root
-                            // "^.^.header": { template: '<h3>baz setting the header</h3>' }, // relative targeting header at grandparent
-                            // "header@^.^": { template: '<h3>baz setting the header</h3>' }, // relative targeting header at grandparent
-                            // "header@": { template: '<h3>baz setting the header</h3>' }, // absolute targeting header at "" (root)
-                        },
-                    });
-
                     if(this.visualizer){
                         // Enable the transition/state visualizer
                         window['ui-router-visualizer'].visualizer(this.uiRouter);
@@ -127,7 +105,7 @@ Polymer element for UI Router Core
                         var state = {
                             name: route.name,
                             url: route.url,
-                            views: { $default: { template: route.template } },
+                            views: route.views,
                         };
                         this.registerState(state);
                     }

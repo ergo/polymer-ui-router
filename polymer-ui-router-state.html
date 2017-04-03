@@ -20,16 +20,29 @@
                 name: String,
                 url: String,
                 template: String,
-            },
-            
-            attached: function () {
-                // load light dom child of state and make it component()HTML node?
-                // not even sure if this makes sense for router?
-                // In angular 1.5 I just passed component name here
-                var children = this.getEffectiveChildren();
-                if (children.length > 0) {
-                    this.component = children[0];
+                views: {
+                    type: Object,
+                    value: function () {
+                        return {}
+                    }
                 }
+            },
+            _toCamelCase: function (input) {
+                output = input[0].toUpperCase() + input.slice(1);
+                return output;
+            },
+            ready: function () {
+                var views = { $default: { template: '' }};
+                if (this.template && this.template.length > 0) {
+                    views['$default'] = { template: this.template };
+                }
+                for (var x = 0; x < this.attributes.length; x++) {
+                    var item = this.attributes[x];
+                    if (item.name.indexOf('view-') === 0 && item.name.split('-').length === 2) {
+                        views[item.value] = {template:this.attributes[item.name + '-template'].value};
+                    }
+                }
+                this.views = views;
             }
         });
     </script>

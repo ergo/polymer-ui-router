@@ -21,6 +21,10 @@
             <polymer-ui-router-state name="index_route" url="/index"></polymer-ui-router-state>
             <polymer-ui-router-state name="qux_route" url="/qux" template="<qux-cmp></qux-cmp>"></polymer-ui-router-state>
             <polymer-ui-router-state name="foo" url="/foo" template="<h1>foo</h1>"></polymer-ui-router-state>
+            <polymer-ui-router-state name="bar" url="/bar" template="<h1>bar</h1> <polymer-ui-view></polymer-ui-view>"
+                                     view-1="footer" view-1-template="<h3>bar setting the footer</h3>"></polymer-ui-router-state>
+            <polymer-ui-router-state name="bar.baz" url="/baz" template="<h1>baz</h1>"
+                                     view-1="!header" view-1-template="<h3>baz setting the header</h3>"></polymer-ui-router-state>
         </polymer-ui-router>
 
 
