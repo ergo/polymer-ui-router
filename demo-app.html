@@ -4,6 +4,7 @@
 <link rel="import" href="polymer-ui-router.html">
 <link rel="import" href="polymer-ui-router-state.html">
 <link rel="import" href="polymer-ui-view.html">
+<link rel="import" href="polymer-ui-router-sref.html">
 <link rel="import" href="qux-cmp.html">
 
 <dom-module id="demo-app">
@@ -19,12 +20,18 @@
 
         <polymer-ui-router id="ui-router" router="{{router}}" states="{{states}}" visualizer debug-tracing>
             <polymer-ui-router-state name="index_route" url="/index"></polymer-ui-router-state>
-            <polymer-ui-router-state name="qux_route" url="/qux" template="<qux-cmp></qux-cmp>"></polymer-ui-router-state>
+            <polymer-ui-router-state name="qux_route" url="/qux"
+                                     template="<qux-cmp></qux-cmp>"></polymer-ui-router-state>
             <polymer-ui-router-state name="foo" url="/foo" template="<h1>foo</h1>"></polymer-ui-router-state>
+            <polymer-ui-router-state name="arg" url="/arg/:argumentId" template="<h1>with arguments</h1>"></polymer-ui-router-state>
+            <polymer-ui-router-state name="resolve" url="/resolve" resolve="[[resolveInfo]]"
+                                     template="<h1>resolved</h1>"></polymer-ui-router-state>
             <polymer-ui-router-state name="bar" url="/bar" template="<h1>bar</h1> <polymer-ui-view></polymer-ui-view>"
-                                     view-1="footer" view-1-template="<h3>bar setting the footer</h3>"></polymer-ui-router-state>
+                                     view-1="footer"
+                                     view-1-template="<h3>bar setting the footer</h3>"></polymer-ui-router-state>
             <polymer-ui-router-state name="bar.baz" url="/baz" template="<h1>baz</h1>"
-                                     view-1="!header" view-1-template="<h3>baz setting the header</h3>"></polymer-ui-router-state>
+                                     view-1="!header"
+                                     view-1-template="<h3>baz setting the header</h3>"></polymer-ui-router-state>
         </polymer-ui-router>
 
 
@@ -54,9 +61,18 @@
             <paper-input label="template string for UIView" value="{{dummyTemplate}}" always-float-label></paper-input>
         </p>
 
-        <polymer-ui-view  name="header"></polymer-ui-view>
+        Links:
+        <ul>
+            <li><ui-router-sref state="foo">Foo</ui-router-sref></li>
+            <li><ui-router-sref state="resolve">Resolve</ui-router-sref></li>
+            <li><ui-router-sref state="arg" param-argument-id="99">With arguments</ui-router-sref></li>
+            <li><ui-router-sref state="bar.baz">Bar.baz</ui-router-sref></li>
+        </ul>
+
+
+        <polymer-ui-view name="header"></polymer-ui-view>
         <polymer-ui-view template="[[dummyTemplate]]"></polymer-ui-view>
-        <polymer-ui-view  name="footer"></polymer-ui-view>
+        <polymer-ui-view name="footer"></polymer-ui-view>
 
         <br><br><br><br><br><br><br><br>
 
@@ -66,12 +82,27 @@
     <script>
         Polymer({
             is: 'demo-app',
-            properties:{
+            properties: {
                 dummyTemplate: {
                     type: String,
                     value: '<strong>this</strong> is a dummy template restamped by ui-view'
+                },
+                resolveInfo: {
+                    type: Object,
+                    value: function(){
+                        return [{
+                            token: 'person',
+                            deps: ['$transition$'],
+                            resolveFn: function (trans) {
+                                return new Promise(function(resolve, reject) {
+                                    setTimeout(resolve, 1000, 'one');
+                                });
+                            }
+                        }]
+                    }
                 }
-            }
+            },
+
         });
     </script>
 </dom-module>

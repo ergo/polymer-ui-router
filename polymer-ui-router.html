@@ -53,6 +53,18 @@ Polymer element for UI Router Core
                     debugTracing: {
                         type: Boolean,
                         value: false
+                    },
+                    locationPlugin: {
+                        type: Object,
+                        value: function(){
+                            return routerCore.hashLocationPlugin;
+                        }
+                    },
+                    servicesPlugin: {
+                        type: Object,
+                        value: function(){
+                            return routerCore.servicesPlugin;
+                        }
                     }
                 },
 
@@ -68,12 +80,12 @@ Polymer element for UI Router Core
                     // Provide a html5 pushstate location implementation that uses `location` and `history
                     // uirouter.plugin(routerCore.pushStateLocationPlugin);
                     // Provide a location implementation that uses the hash to manage the url
-                    this.uiRouter.plugin(routerCore.hashLocationPlugin);
+                    this.uiRouter.plugin(this.locationPlugin);
                     // Provide a in-memory location implementation (for headless/serverside)
                     // uirouter.plugin(routerCore.memoryLocationPlugin); // for headless
 
                     // Provide a $q-like and $injector-like API for internal use
-                    this.uiRouter.plugin(routerCore.servicesPlugin);
+                    this.uiRouter.plugin(this.servicesPlugin);
 
                     if(this.debugTracing){
                         // Trace whenever a transition starts, succeeds, or errors
@@ -106,6 +118,7 @@ Polymer element for UI Router Core
                             name: route.name,
                             url: route.url,
                             views: route.views,
+                            resolve: route.resolve,
                         };
                         this.registerState(state);
                     }
