@@ -6,6 +6,13 @@
 
     <title>polymer-ui-router</title>
 
+    <script>
+      /* this script must run before Polymer is imported */
+      window.Polymer = {
+          dom: 'shadow',
+          lazyRegister: true
+      };
+    </script>
     <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="//unpkg.com/ui-router-visualizer"></script>
     <link rel="import" href="demo-app.html">

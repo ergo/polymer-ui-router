@@ -33,21 +33,24 @@ limitations under the License.
                 path: pathnodes,
                 viewDecl: viewDeclaration,
                 loaded: true,
-                load: function() { return Promise.resolve() }
+                load: function () {
+                    return Promise.resolve()
+                }
             };
 
             return [config];
         }
+
         // Register the factory. It will be used when the view type is `polymer`.
         uirouter.viewService._pluginapi._viewConfigFactory('polymer', viewConfigFactory);
 
         /** This is a [[StateBuilder.builder]] function for `views`. */
         // https://ui-router.github.io/ng1/docs/latest/classes/ng1.stateprovider.html#decorator
         function polymerViewsBuilder(state) {
-            var views= {}, viewsObject = state.views || { "$default": { template: state.template } };
+            var views = {}, viewsObject = state.views || {"$default": {template: state.template}};
 
             let names = Object.keys(viewsObject);
-            names.forEach(function(name) {
+            names.forEach(function (name) {
                 config = viewsObject[name];
                 name = name || "$default"; // Account for views: { "": { template... } }
                 if (Object.keys(config).length == 0) return;
@@ -65,6 +68,7 @@ limitations under the License.
 
             return views;
         }
+
         uirouter.stateRegistry.decorator('views', polymerViewsBuilder);
 
         /**
@@ -74,7 +78,7 @@ limitations under the License.
             properties: {
                 uiRouter: {
                     type: Object,
-                    value: function(){
+                    value: function () {
                         return uirouter;
                     }
                 },

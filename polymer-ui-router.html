@@ -18,8 +18,7 @@ Polymer element for UI Router Core
     </template>
 
     <script>
-        (function(){
-
+        (function () {
 
             Polymer({
 
@@ -56,13 +55,18 @@ Polymer element for UI Router Core
                     },
                     locationPlugin: {
                         type: Object,
-                        value: function(){
+                        value: function () {
+                            // Provide a html5 pushstate location implementation that uses `location` and `history
+                            // uirouter.plugin(routerCore.pushStateLocationPlugin);
+                            // Provide a location implementation that uses the hash to manage the url
+                            // Provide a in-memory location implementation (for headless/serverside)
+                            // uirouter.plugin(routerCore.memoryLocationPlugin); // for headless
                             return routerCore.hashLocationPlugin;
                         }
                     },
                     servicesPlugin: {
                         type: Object,
-                        value: function(){
+                        value: function () {
                             return routerCore.servicesPlugin;
                         }
                     }
@@ -72,22 +76,17 @@ Polymer element for UI Router Core
                     this.push('states', state);
                 },
 
-                registerState: function(state){
+                registerState: function (state) {
                     this.uiRouter.stateRegistry.register(state);
                 },
 
                 attached: function () {
-                    // Provide a html5 pushstate location implementation that uses `location` and `history
-                    // uirouter.plugin(routerCore.pushStateLocationPlugin);
-                    // Provide a location implementation that uses the hash to manage the url
                     this.uiRouter.plugin(this.locationPlugin);
-                    // Provide a in-memory location implementation (for headless/serverside)
-                    // uirouter.plugin(routerCore.memoryLocationPlugin); // for headless
 
                     // Provide a $q-like and $injector-like API for internal use
                     this.uiRouter.plugin(this.servicesPlugin);
 
-                    if(this.debugTracing){
+                    if (this.debugTracing) {
                         // Trace whenever a transition starts, succeeds, or errors
                         // Trace whenever a ui-view is created or destroyed
                         // Trace whenever a view config for a state is activated
@@ -96,13 +95,13 @@ Polymer element for UI Router Core
 
                     var registry = this.uiRouter.stateRegistry;
 
-                    if(this.visualizer){
+                    if (this.visualizer) {
                         // Enable the transition/state visualizer
                         window['ui-router-visualizer'].visualizer(this.uiRouter);
                     }
 
                     registry.get().forEach(this._showState.bind(this));
-                    registry.onStatesChanged(function(event, states) {
+                    registry.onStatesChanged(function (event, states) {
                         if (event === 'registered') {
                             states.forEach(this._showState.bind(this))
                         };
@@ -123,13 +122,36 @@ Polymer element for UI Router Core
                         this.registerState(state);
                     }
 
-                    if (this.autoStart){
+                    if (this.autoStart) {
                         this.start();
                     }
 
                 },
 
+                factoryF: function (currEv) {
+                    return function (transition) {
+                        this.fire('ui-router-' + currEv[1], {transition: transition});
+                    }.bind(this);
+                },
+
                 start: function () {
+                    // expose all events by default
+                    var events = [
+                        ['onBefore', 'before'],
+                        ['onEnter', 'enter'],
+                        ['onError', 'error'],
+                        ['onExit', 'exit'],
+                        ['onFinish', 'finish'],
+                        ['onRetain', 'retain'],
+                        ['onStart', 'start'],
+                        ['onSuccess', 'success']
+                    ];
+
+                    for (var i = 0; i < events.length; i++) {
+                        var currEv = events[i];
+                        this.uiRouter.transitionService[currEv[0]]({}, this.factoryF(currEv));
+                    }
+
                     this.uiRouter.urlService.listen();
                     this.uiRouter.urlService.sync();
                 }

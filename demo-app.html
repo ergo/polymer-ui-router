@@ -15,10 +15,8 @@
             }
         </style>
 
-
-        <iron-location path="{{path}}" query="{{query}}" hash="{{hash}}"></iron-location>
-
-        <polymer-ui-router id="ui-router" router="{{router}}" states="{{states}}" visualizer debug-tracing>
+        <polymer-ui-router id="ui-router" router="{{router}}" states="{{states}}" visualizer debug-tracing
+        on-ui-router-success="handleSuccess">
             <polymer-ui-router-state name="index_route" url="/index"></polymer-ui-router-state>
             <polymer-ui-router-state name="qux_route" url="/qux"
                                      template="<qux-cmp></qux-cmp>"></polymer-ui-router-state>
@@ -34,21 +32,6 @@
                                      view-1-template="<h3>baz setting the header</h3>"></polymer-ui-router-state>
         </polymer-ui-router>
 
-
-        <p>path: {{path}}</p>
-        <p>query: {{query}}</p>
-        <p>hash: {{hash}}</p>
-
-        <div class="inputs">
-            <h3>URL</h3>
-            <paper-input label="path" value="{{path}}" always-float-label>
-            </paper-input>
-            <paper-input label="hash" value="{{hash}}" always-float-label>
-            </paper-input>
-            <paper-input label="query" value="{{query}}" always-float-label>
-            </paper-input>
-        </div>
-
         <p>States</p>
         <ul>
             <template is="dom-repeat" items="[[states]]">
@@ -61,11 +44,16 @@
             <paper-input label="template string for UIView" value="{{dummyTemplate}}" always-float-label></paper-input>
         </p>
 
+        <p>current state: [[currentState]]</p>
+        <p>params: [[paramsJson]]</p>
+
         Links:
         <ul>
+            <li><ui-router-sref state="qux_route">Qux component</ui-router-sref></li>
             <li><ui-router-sref state="foo">Foo</ui-router-sref></li>
             <li><ui-router-sref state="resolve">Resolve</ui-router-sref></li>
-            <li><ui-router-sref state="arg" param-argument-id="99">With arguments</ui-router-sref></li>
+            <li><ui-router-sref state="arg" param-argument-id="99">With arguments directly</ui-router-sref></li>
+            <li><ui-router-sref state="arg" route-params='{"argumentId":123, "test":8}'>With arguments as single object</ui-router-sref></li>
             <li><ui-router-sref state="bar.baz">Bar.baz</ui-router-sref></li>
         </ul>
 
@@ -103,6 +91,10 @@
                 }
             },
 
+            handleSuccess: function(event){
+                this.currentState = event.detail.transition.to().name;
+                this.paramsJson = JSON.stringify(event.detail.transition.params());
+            }
         });
     </script>
 </dom-module>
