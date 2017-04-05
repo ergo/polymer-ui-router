@@ -15,6 +15,7 @@ Polymer element for UI Router Core
                 display: none;
             }
         </style>
+        <slot></slot>
     </template>
 
     <script>
@@ -78,6 +79,23 @@ Polymer element for UI Router Core
                     this.uiRouter.stateRegistry.register(state);
                 },
 
+                _registerStates: function(){
+                    var children = this.getEffectiveChildren();
+                    this._routes = children;
+
+                    // load all route children
+                    for (var x = 0; x < this._routes.length; x++) {
+                        var route = this._routes[x];
+                        var state = {
+                            name: route.name,
+                            url: route.url,
+                            views: route.views,
+                            resolve: route.resolve,
+                        };
+                        this.registerState(state);
+                    }
+                },
+
                 attached: function () {
                     this.uiRouter.plugin(this.locationPlugin);
 
@@ -105,20 +123,7 @@ Polymer element for UI Router Core
                         };
                     }.bind(this));
 
-                    var children = this.getEffectiveChildren('entries');
-                    this._routes = children;
-
-                    // load all route children
-                    for (var x = 0; x < this._routes.length; x++) {
-                        var route = this._routes[x];
-                        var state = {
-                            name: route.name,
-                            url: route.url,
-                            views: route.views,
-                            resolve: route.resolve,
-                        };
-                        this.registerState(state);
-                    }
+                    this._registerStates();
 
                     if (this.autoStart) {
                         this.start();
