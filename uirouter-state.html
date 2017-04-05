@@ -1,7 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="uirouter-state-view.html">
 
-
-<dom-module id="polymer-ui-router-state">
+<dom-module id="uirouter-state">
     <template>
         <style>
             :host {
@@ -14,12 +14,12 @@
     <script>
         Polymer({
 
-            is: 'polymer-ui-router-state',
+            is: 'uirouter-state',
 
             properties: {
                 name: String,
                 url: String,
-                template: String,
+                component: String,
                 resolve: Object,
                 views: {
                     type: Object,
@@ -33,16 +33,18 @@
                 return output;
             },
             ready: function () {
-                var views = { $default: { template: '' }};
-                if (this.template && this.template.length > 0) {
-                    views['$default'] = { template: this.template };
+                var views = {$default: {component: ''}};
+                if (this.component && this.component.length > 0) {
+                    views['$default'] = {component: this.component};
                 }
-                for (var x = 0; x < this.attributes.length; x++) {
-                    var item = this.attributes[x];
-                    if (item.name.indexOf('view-') === 0 && item.name.split('-').length === 2) {
-                        views[item.value] = {template:this.attributes[item.name + '-template'].value};
-                    }
+                var children = this.getEffectiveChildren();
+                // load all route children
+                for (var x = 0; x < this.children.length; x++) {
+                    var view = this.children[x];
+                    console.log(view, view.name, view.component);
+//                    views[view.name] = {component: view.component};
                 }
+                console.log(this.name, views);
                 this.views = views;
             }
         });

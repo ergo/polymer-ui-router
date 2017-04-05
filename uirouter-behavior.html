@@ -47,12 +47,12 @@ limitations under the License.
         /** This is a [[StateBuilder.builder]] function for `views`. */
         // https://ui-router.github.io/ng1/docs/latest/classes/ng1.stateprovider.html#decorator
         function polymerViewsBuilder(state) {
-            var views = {}, viewsObject = state.views || {"$default": {template: state.template}};
+            var views = {}, viewsObject = state.views || {"$default": {component: state.component}};
 
             let names = Object.keys(viewsObject);
             names.forEach(function (name) {
                 config = viewsObject[name];
-                name = name || "$default"; // Account for views: { "": { template... } }
+                name = name || "$default"; // Account for views: { "": { component... } }
                 if (Object.keys(config).length == 0) return;
 
                 config.$type = "polymer";
@@ -65,7 +65,7 @@ limitations under the License.
 
                 views[name] = config;
             });
-
+            console.log(views);
             return views;
         }
 

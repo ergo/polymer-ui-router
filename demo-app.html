@@ -1,11 +1,19 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/iron-location/iron-location.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
-<link rel="import" href="polymer-ui-router.html">
-<link rel="import" href="polymer-ui-router-state.html">
-<link rel="import" href="polymer-ui-view.html">
-<link rel="import" href="polymer-ui-router-sref.html">
-<link rel="import" href="qux-cmp.html">
+<link rel="import" href="polymer-uirouter.html">
+<link rel="import" href="uirouter-state.html">
+<link rel="import" href="uirouter-state-view.html">
+<link rel="import" href="uirouter-uiview.html">
+<link rel="import" href="uirouter-sref.html">
+<link rel="import" href="views/qux-cmp.html">
+<link rel="import" href="views/foo-comp.html">
+<link rel="import" href="views/bar-comp.html">
+<link rel="import" href="views/baz-comp.html">
+<link rel="import" href="views/footer-comp.html">
+<link rel="import" href="views/header-comp.html">
+<link rel="import" href="views/arguments-comp.html">
+<link rel="import" href="views/resolve-comp.html">
 
 <dom-module id="demo-app">
     <template>
@@ -15,22 +23,22 @@
             }
         </style>
 
-        <polymer-ui-router id="ui-router" router="{{router}}" states="{{states}}" visualizer debug-tracing
-        on-ui-router-success="handleSuccess">
-            <polymer-ui-router-state name="index_route" url="/index"></polymer-ui-router-state>
-            <polymer-ui-router-state name="qux_route" url="/qux"
-                                     template="<qux-cmp></qux-cmp>"></polymer-ui-router-state>
-            <polymer-ui-router-state name="foo" url="/foo" template="<h1>foo</h1>"></polymer-ui-router-state>
-            <polymer-ui-router-state name="arg" url="/arg/:argumentId" template="<h1>with arguments</h1>"></polymer-ui-router-state>
-            <polymer-ui-router-state name="resolve" url="/resolve" resolve="[[resolveInfo]]"
-                                     template="<h1>resolved</h1>"></polymer-ui-router-state>
-            <polymer-ui-router-state name="bar" url="/bar" template="<h1>bar</h1> <polymer-ui-view></polymer-ui-view>"
-                                     view-1="footer"
-                                     view-1-template="<h3>bar setting the footer</h3>"></polymer-ui-router-state>
-            <polymer-ui-router-state name="bar.baz" url="/baz" template="<h1>baz</h1>"
-                                     view-1="!header"
-                                     view-1-template="<h3>baz setting the header</h3>"></polymer-ui-router-state>
-        </polymer-ui-router>
+        <polymer-uirouter id="ui-router" router="{{router}}" states="{{states}}" visualizer debug-tracing
+        on-uirouter-success="handleSuccess">
+            <uirouter-state name="index_route" url="/index"></uirouter-state>
+            <uirouter-state name="qux_route" url="/qux"
+                                     component="qux-cmp"></uirouter-state>
+            <uirouter-state name="foo" url="/foo" component="foo-comp"></uirouter-state>
+            <uirouter-state name="arg" url="/arg/:argumentId" component="arguments-comp"></uirouter-state>
+            <uirouter-state name="resolve" url="/resolve" resolve="[[resolveInfo]]"
+                            component="resolve-comp"></uirouter-state>
+            <uirouter-state name="bar" url="/bar" component="bar-comp">
+                <uirouter-state-view name="footer" component="footer-comp"></uirouter-state-view>
+            </uirouter-state>
+            <uirouter-state name="bar.baz" url="/baz" component="baz-comp">
+                <uirouter-state-view name="!header" component="header-comp"></uirouter-state-view>
+            </uirouter-state>
+        </polymer-uirouter>
 
         <p>States</p>
         <ul>
@@ -39,28 +47,24 @@
             </template>
         </ul>
 
-
-        <p>
-            <paper-input label="template string for UIView" value="{{dummyTemplate}}" always-float-label></paper-input>
-        </p>
-
         <p>current state: [[currentState]]</p>
         <p>params: [[paramsJson]]</p>
 
         Links:
         <ul>
-            <li><ui-router-sref state="qux_route">Qux component</ui-router-sref></li>
-            <li><ui-router-sref state="foo">Foo</ui-router-sref></li>
-            <li><ui-router-sref state="resolve">Resolve</ui-router-sref></li>
-            <li><ui-router-sref state="arg" param-argument-id="99">With arguments directly</ui-router-sref></li>
-            <li><ui-router-sref state="arg" route-params='{"argumentId":123, "test":8}'>With arguments as single object</ui-router-sref></li>
-            <li><ui-router-sref state="bar.baz">Bar.baz</ui-router-sref></li>
+            <li><uirouter-sref state="qux_route">Qux component</uirouter-sref></li>
+            <li><uirouter-sref state="foo">Foo</uirouter-sref></li>
+            <li><uirouter-sref state="resolve">Resolve</uirouter-sref></li>
+            <li><uirouter-sref state="arg" param-argument-id="99">With arguments directly</uirouter-sref></li>
+            <li><uirouter-sref state="arg" route-params='{"argumentId":123, "test":8}'>With arguments as single object</uirouter-sref></li>
+            <li><uirouter-sref state="bar.baz">Bar.baz</uirouter-sref></li>
         </ul>
 
-
-        <polymer-ui-view name="header"></polymer-ui-view>
-        <polymer-ui-view template="[[dummyTemplate]]"></polymer-ui-view>
-        <polymer-ui-view name="footer"></polymer-ui-view>
+        <uirouter-uiview name="header"></uirouter-uiview>
+        <div style="border: 1px solid #eeeeee; padding: 10px">
+        <uirouter-uiview></uirouter-uiview>
+        </div>
+        <uirouter-uiview name="footer"></uirouter-uiview>
 
         <br><br><br><br><br><br><br><br>
 

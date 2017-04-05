@@ -1,5 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="polymer-ui-router-behavior.html">
+<link rel="import" href="uirouter-behavior.html">
 
 <!--
 `polymer-ui-router`
@@ -8,7 +8,7 @@ Polymer element for UI Router Core
 @demo demo/index.html
 -->
 
-<dom-module id="polymer-ui-router">
+<dom-module id="polymer-uirouter">
     <template>
         <style>
             :host {
@@ -19,10 +19,8 @@ Polymer element for UI Router Core
 
     <script>
         (function () {
-
             Polymer({
-
-                is: 'polymer-ui-router',
+                is: 'polymer-uirouter',
                 behaviors: [
                     UIRouterBehavior
                 ],
@@ -130,7 +128,7 @@ Polymer element for UI Router Core
 
                 factoryF: function (currEv) {
                     return function (transition) {
-                        this.fire('ui-router-' + currEv[1], {transition: transition});
+                        this.fire('uirouter-' + currEv[1], {transition: transition});
                     }.bind(this);
                 },
 

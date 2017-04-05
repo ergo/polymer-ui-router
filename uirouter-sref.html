@@ -1,12 +1,12 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="polymer-ui-router-behavior.html">
+<link rel="import" href="uirouter-behavior.html">
 
 <!--
-`polymer-ui-router-sref`
+`uirouter-sref`
 Polymer element for UI Router Core
 -->
 
-<dom-module id="ui-router-sref">
+<dom-module id="uirouter-sref">
     <template>
         <a href="[[generatedURL]]" target="[[linkTarget]]" rel="[[linkRel]]">
             <slot></slot>
@@ -19,7 +19,7 @@ Polymer element for UI Router Core
 
             Polymer({
 
-                is: 'ui-router-sref',
+                is: 'uirouter-sref',
                 behaviors: [
                     UIRouterBehavior
                 ],

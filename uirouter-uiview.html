@@ -1,5 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="polymer-ui-router-behavior.html">
+<link rel="import" href="uirouter-behavior.html">
 
 <template>
     <slot></slot>
@@ -8,12 +8,12 @@
 <script>
 
     Polymer({
-        is: 'polymer-ui-view',
+        is: 'uirouter-uiview',
         behaviors: [
             UIRouterBehavior
         ],
         properties: {
-            template: String,
+            component: String,
             name: String
         },
 
@@ -78,9 +78,9 @@
             // Now we need to use the `newConfig` data to
             // update which component is inside this ui-view
             var root = this;
-            var elem = document.createElement('div');
-            elem.innerHTML = (newConfig && newConfig.viewDecl.template) || this.template || "";
-            elem.className = 'ui-view-component';
+            var componentType = (newConfig && newConfig.viewDecl.component) || this.component || "";
+            console.log(newConfig, componentType);
+            var elem = document.createElement(componentType);
             var child = Polymer.dom(root).firstElementChild;
             if (child !== null) {
                 Polymer.dom(root).removeChild(child)
