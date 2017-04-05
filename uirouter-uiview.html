@@ -82,12 +82,14 @@
             // update which component is inside this ui-view
             var root = this;
             var componentType = (newConfig && newConfig.viewDecl.component) || this.component || "";
-            var elem = document.createElement(componentType);
             var child = Polymer.dom(root).firstElementChild;
             if (child !== null) {
                 Polymer.dom(root).removeChild(child)
             }
-            Polymer.dom(root).appendChild(elem);
+            if (componentType.length > 0){
+                var elem = document.createElement(componentType);
+                Polymer.dom(root).appendChild(elem);
+            }
             Polymer.dom.flush();
         },
 

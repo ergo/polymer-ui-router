@@ -26,12 +26,6 @@ Polymer element for UI Router Core
                     UIRouterBehavior
                 ],
                 properties: {
-                    _routes: {
-                        type: Array,
-                        value: function () {
-                            return [];
-                        }
-                    },
                     //exposing states just for demo purposes
                     states: {
                         type: Array,
@@ -71,31 +65,23 @@ Polymer element for UI Router Core
                     }
                 },
 
-                _showState: function (state) {
-                    this.push('states', state);
-                },
+//                _showState: function (state) {
+//                    this.push('states', state);
+//                },
 
                 registerState: function (state) {
-                    this.uiRouter.stateRegistry.register(state);
-                },
-
-                _registerStates: function(){
-                    var children = this.getEffectiveChildren();
-                    this._routes = children;
-
-                    // load all route children
-                    for (var x = 0; x < this._routes.length; x++) {
-                        var route = this._routes[x];
-                        var state = {
-                            name: route.name,
-                            url: route.url,
-                            views: route.views,
-                            resolve: route.resolve,
-                        };
-                        this.registerState(state);
+                    var views = Object.assign({$default: {component: ''}}, state.views);
+                    if (state.component && state.component.length > 0) {
+                        views['$default'] = {component: state.component};
                     }
+                    var stateConf = {
+                        name: state.name,
+                        url: state.url,
+                        resolve: state.resolve,
+                        views: views
+                    };
+                    this.uiRouter.stateRegistry.register(stateConf);
                 },
-
                 attached: function () {
                     this.uiRouter.plugin(this.locationPlugin);
 
@@ -115,15 +101,17 @@ Polymer element for UI Router Core
                         // Enable the transition/state visualizer
                         window['ui-router-visualizer'].visualizer(this.uiRouter);
                     }
+                    // do we need that?
+//                    registry.get().forEach(this._showState.bind(this));
+//                    registry.onStatesChanged(function (event, states) {
+//                        if (event === 'registered') {
+//                            states.forEach(this._showState.bind(this))
+//                        };
+//                    }.bind(this));
 
-                    registry.get().forEach(this._showState.bind(this));
-                    registry.onStatesChanged(function (event, states) {
-                        if (event === 'registered') {
-                            states.forEach(this._showState.bind(this))
-                        };
-                    }.bind(this));
-
-                    this._registerStates();
+                    for (var i=0; i< this.states.length; i++){
+                        this.registerState(this.states[i]);
+                    }
 
                     if (this.autoStart) {
                         this.start();
@@ -138,6 +126,7 @@ Polymer element for UI Router Core
                 },
 
                 start: function () {
+                    console.log('start');
                     // expose all events by default
                     var events = [
                         ['onBefore', 'before'],
