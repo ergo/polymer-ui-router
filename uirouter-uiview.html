@@ -17,8 +17,12 @@
             name: String
         },
 
+        _getParentEl: function(el){
+            return el.parentElement;
+        },
+
         findParentUIView: function(el) {
-            while ((el = el.parentElement) && el.tagName !== 'POLYMER-UI-VIEW');
+            while ((el = this._getParentEl(el)) && el.tagName !== 'UIROUTER-UIVIEW');
             return el;
         },
 
@@ -35,7 +39,6 @@
             var parentFqn = parentUIView &&
                 parentUIView.activeUIView &&
                 parentUIView.activeUIView.fqn;
-
             this.activeUIView = {
                 $type: 'polymer',
                 id: this.uiRouter.viewService.uiviewcount++,
@@ -79,7 +82,6 @@
             // update which component is inside this ui-view
             var root = this;
             var componentType = (newConfig && newConfig.viewDecl.component) || this.component || "";
-            console.log(newConfig, componentType);
             var elem = document.createElement(componentType);
             var child = Polymer.dom(root).firstElementChild;
             if (child !== null) {
