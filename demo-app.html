@@ -25,6 +25,7 @@
 
         <polymer-uirouter
                 id="ui-router" router="{{router}}"
+                location-plugin="[[locationPlugin]]"
                 states="[[routerStates]]" visualizer debug-tracing
                 on-uirouter-success="handleSuccess">
         </polymer-uirouter>
@@ -77,6 +78,13 @@
         Polymer({
             is: 'demo-app',
             properties: {
+
+                locationPlugin: {
+                    type:Object,
+                    value: function(){
+                        return routerCore.pushStateLocationPlugin;
+                    }
+                },
 
                 routerStates: {
                     type: Object,
