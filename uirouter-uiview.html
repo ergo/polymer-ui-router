@@ -18,18 +18,7 @@
         },
 
         _getParentEl: function(el){
-            return el.parentElement;
-        },
-
-        _getClosest: function(selector, parent) {
-            var matches = (this.document || this.ownerDocument).querySelectorAll(selector),
-                i,
-                el = parent;
-            do {
-                i = matches.length;
-                while (--i >= 0 && matches.item(i) !== el) {};
-            } while ((i < 0) && (el = el.parentElement));
-            return el;
+            return el.parentNode || el.host;
         },
 
         findParentUIView: function(el) {
@@ -41,7 +30,7 @@
             var name = this.name || '$default';
 
             var rootContext = this.uiRouter.stateRegistry.root();
-            var parentUIView = this._getClosest('uirouter-uiview', this.parentElement || this);
+            var parentUIView = this.findParentUIView(this);
             var parentContext = parentUIView &&
                 parentUIView.viewConfig &&
                 parentUIView.viewConfig.viewDecl &&
