@@ -17,8 +17,8 @@
   "license": "MIT",
   "dependencies": {
     "bower": "^1.8.0",
-    "polymer-cli": "next",
-    "ui-router-core": "=4.0.0"
+    "polymer-cli": "^v0.18.1",
+    "ui-router-core": "^4.0.0"
   },
   "devDependencies": {
     "@types/angular": "^1.5.14",

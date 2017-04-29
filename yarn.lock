@@ -262,7 +262,7 @@
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-0.0.2.tgz#0da4934902fbf68a97a0f53204a35ad2224917bc"
 
-"@types/node@4.0.30", "@types/node@^4.0.30":
+"@types/node@4.0.30":
   version "4.0.30"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-4.0.30.tgz#553f490ed3030311620f88003e7abfc0edcb301e"
 
@@ -270,7 +270,7 @@
   version "6.0.62"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.62.tgz#85222c077b54f25b57417bb708b9f877bda37f89"
 
-"@types/node@^4.2.3":
+"@types/node@^4.0.30", "@types/node@^4.2.3":
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-4.2.4.tgz#4024bbd6e5000e9fef6db3333042112a2d82247c"
 
@@ -500,12 +500,6 @@
 "@types/vinyl@*", "@types/vinyl@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/vinyl/-/vinyl-2.0.0.tgz#fd213bf7f4136dde21fe1895500b12c186f8c268"
-  dependencies:
-    "@types/node" "*"
-
-"@types/vinyl@^1.1.29":
-  version "1.2.30"
-  resolved "https://registry.yarnpkg.com/@types/vinyl/-/vinyl-1.2.30.tgz#9115c0c45c40c575738906be9fb4df6f5b9e5013"
   dependencies:
     "@types/node" "*"
 
@@ -1542,18 +1536,18 @@ babel-traverse@^6.23.0:
     invariant "^2.2.0"
     lodash "^4.2.0"
 
-babel-types@^6.19.0, babel-types@^6.22.0:
-  version "6.22.0"
-  resolved "https://registry.yarnpkg.com/babel-types/-/babel-types-6.22.0.tgz#2a447e8d0ea25d2512409e4175479fd78cc8b1db"
+babel-types@^6.19.0, babel-types@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel-types/-/babel-types-6.23.0.tgz#bb17179d7538bad38cd0c9e115d340f77e7e9acf"
   dependencies:
     babel-runtime "^6.22.0"
     esutils "^2.0.2"
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
 
-babel-types@^6.23.0:
-  version "6.23.0"
-  resolved "https://registry.yarnpkg.com/babel-types/-/babel-types-6.23.0.tgz#bb17179d7538bad38cd0c9e115d340f77e7e9acf"
+babel-types@^6.22.0:
+  version "6.22.0"
+  resolved "https://registry.yarnpkg.com/babel-types/-/babel-types-6.22.0.tgz#2a447e8d0ea25d2512409e4175479fd78cc8b1db"
   dependencies:
     babel-runtime "^6.22.0"
     esutils "^2.0.2"
@@ -5436,13 +5430,13 @@ polymer-analyzer@2.0.0-alpha.34:
     strip-indent "^2.0.0"
     typescript "^2.2.0"
 
-polymer-build@0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/polymer-build/-/polymer-build-0.9.1.tgz#e3971aec554d42edd187e7284fc10d63c669e44e"
+polymer-build@1.1.0, polymer-build@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/polymer-build/-/polymer-build-1.1.0.tgz#909050868db9bc913a068ab14b96995c5201e0b5"
   dependencies:
     "@types/node" "^4.2.3"
     "@types/parse5" "^2.2.32"
-    "@types/vinyl" "^1.1.29"
+    "@types/vinyl" "^2.0.0"
     "@types/vinyl-fs" "0.0.28"
     dom5 "^2.0.1"
     multipipe "^1.0.2"
@@ -5472,9 +5466,9 @@ polymer-bundler@2.0.0-pre.11:
     polymer-analyzer "2.0.0-alpha.34"
     source-map "^0.5.6"
 
-polymer-cli@next:
-  version "0.18.0-pre.15"
-  resolved "https://registry.yarnpkg.com/polymer-cli/-/polymer-cli-0.18.0-pre.15.tgz#15a780d3adb0c943bace774076fa1776c0c80b50"
+polymer-cli@^v0.18.1:
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/polymer-cli/-/polymer-cli-0.18.1.tgz#c0cb9fea89cce3a55922420befc1f61e565e6936"
   dependencies:
     "@types/babel-core" "^6.7.14"
     "@types/chalk" "^0.4.31"
@@ -5517,12 +5511,11 @@ polymer-cli@next:
     parse5 "^2.2.3"
     plylog "^0.4.0"
     polymer-analyzer "2.0.0-alpha.34"
-    polymer-build "0.9.1"
+    polymer-build "1.1.0"
     polymer-linter "1.0.1"
-    polymer-project-config "^2.0.0"
-    polyserve "^0.16.0"
+    polymer-project-config "^2.1.0"
+    polyserve "^0.18.0"
     request "^2.72.0"
-    resolve "^1.1.7"
     semver "^5.3.0"
     tar-fs "^1.12.0"
     temp "^0.8.3"
@@ -5548,9 +5541,9 @@ polymer-linter@1.0.1:
     polymer-analyzer "2.0.0-alpha.34"
     strip-indent "^2.0.0"
 
-polymer-project-config@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/polymer-project-config/-/polymer-project-config-2.0.1.tgz#95f262fa6246c09d92e49914232543722255fc17"
+polymer-project-config@^2.0.0, polymer-project-config@^2.1.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/polymer-project-config/-/polymer-project-config-2.1.1.tgz#cfda2fb2d1d443bc845cf7e6d9a6b78e2769e0ec"
   dependencies:
     "@types/node" "^6.0.41"
     jsonschema "^1.1.1"
@@ -5611,9 +5604,9 @@ polyserve@0.16.0-prerelease.9:
     spdy "^3.3.3"
     ua-parser-js "^0.7.12"
 
-polyserve@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/polyserve/-/polyserve-0.16.0.tgz#2c0012724195514aedbb1f1aab9ebe2c6f9f96f3"
+polyserve@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/polyserve/-/polyserve-0.18.0.tgz#6eaf6c1e2ad0eae2d1a30b123a5aabba7cc0225c"
   dependencies:
     "@types/babel-core" "^6.7.14"
     "@types/content-type" "^1.0.33"
@@ -5660,6 +5653,7 @@ polyserve@^0.16.0:
     opn "^3.0.2"
     parse5 "^2.2.3"
     pem "^1.8.3"
+    polymer-build "^1.1.0"
     resolve "^1.0.0"
     send "^0.14.1"
     spdy "^3.3.3"
@@ -5862,11 +5856,10 @@ readable-stream@1.1.x, readable-stream@~1.1.9:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.4, readable-stream@^2.1.0, readable-stream@^2.1.5:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.2.tgz#a9e6fec3c7dda85f8bb1b3ba7028604556fc825e"
+readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@~2.0.0:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
   dependencies:
-    buffer-shims "^1.0.0"
     core-util-is "~1.0.0"
     inherits "~2.0.1"
     isarray "~1.0.0"
@@ -5874,10 +5867,11 @@ readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.
     string_decoder "~0.10.x"
     util-deprecate "~1.0.1"
 
-readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.5, readable-stream@~2.0.0:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
+"readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.1.0, readable-stream@^2.1.5:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.2.tgz#a9e6fec3c7dda85f8bb1b3ba7028604556fc825e"
   dependencies:
+    buffer-shims "^1.0.0"
     core-util-is "~1.0.0"
     inherits "~2.0.1"
     isarray "~1.0.0"
@@ -6964,7 +6958,7 @@ through2-filter@^2.0.0:
     through2 "~2.0.0"
     xtend "~4.0.0"
 
-through2@2.0.1, through2@^2.0.0:
+through2@2.0.1, through2@^2.0.0, through2@^2.0.1, through2@~2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.1.tgz#384e75314d49f32de12eebb8136b8eb6b5d59da9"
   dependencies:
@@ -6992,7 +6986,7 @@ through2@^0.6.0:
     readable-stream ">=1.0.33-1 <1.1.0-0"
     xtend ">=4.0.0 <4.1.0-0"
 
-through2@^2.0.1, through2@^2.0.2, through2@~2.0.0:
+through2@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
   dependencies:
@@ -7193,7 +7187,7 @@ uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
 
-ui-router-core@=4.0.0:
+ui-router-core@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/ui-router-core/-/ui-router-core-4.0.0.tgz#83777791a452d3b585e75fc772d79c2e115b3b50"
 
