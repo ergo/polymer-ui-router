@@ -1,0 +1,23 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../uirouter-uiview.html">
+<link rel="import" href="../../uirouter-sref.html">
+<dom-module id="baz-comp">
+    <template>
+        <style>
+        </style>
+
+        <h1>Baz component</h1>
+
+        <uirouter-sref state="state_a">State A</uirouter-sref> |
+        <uirouter-sref state="state_b">State B</uirouter-sref>
+
+        <uirouter-uiview></uirouter-uiview>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'baz-comp',
+        });
+    </script>
+</dom-module>

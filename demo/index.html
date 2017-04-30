@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>polymer-ui-router demo</title>
+    <script src="//unpkg.com/ui-router-visualizer"></script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../polymer/polymer.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-demo-helpers/url-bar.html">
+
+
+    <link rel="import" href="../../../polymer-uirouter.html">
+    <link rel="import" href="../../../uirouter-uiview.html">
+    <link rel="import" href="../../../uirouter-sref.html">
+    <link rel="import" href="../../../uirouter-sref-active.html">
+    <link rel="import" href="../../../demo/views/qux-cmp.html">
+    <link rel="import" href="../../../demo/views/foo-comp.html">
+    <link rel="import" href="../../../demo/views/bar-comp.html">
+    <link rel="import" href="../../../demo/views/baz-comp.html">
+    <link rel="import" href="../../../demo/views/baz-a-comp.html">
+    <link rel="import" href="../../../demo/views/baz-b-comp.html">
+    <link rel="import" href="../../../demo/views/footer-comp.html">
+    <link rel="import" href="../../../demo/views/header-comp.html">
+    <link rel="import" href="../../../demo/views/arguments-comp.html">
+    <link rel="import" href="../../../demo/views/resolve-comp.html">
+
+
+</head>
+<body>
+<div class="vertical-section-container centered">
+    <h3>Basic polymer-ui-router demo</h3>
+    <demo-snippet>
+        <template is="dom-bind" id="demo-app">
+            <style>
+                :host {
+                    display: block;
+                }
+
+                .active {
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    border-bottom: 1px solid red;
+                }
+
+                .route-active {
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    border-bottom: 1px solid blue;
+                }
+
+            </style>
+
+            <polymer-uirouter
+                id="ui-router" router="{{router}}"
+                location-plugin="[[locationPlugin]]"
+                states="[[routerStates]]" visualizer debug-tracing
+                on-uirouter-success="handleSuccess">
+            </polymer-uirouter>
+
+            <url-bar></url-bar>
+
+            <p>Current state: [[currentState]]</p>
+            <p>Params: [[paramsJson]]</p>
+
+            Links:
+            <uirouter-sref-active>
+                <ul>
+                    <li>
+                        <uirouter-sref state="qux_route">Qux component</uirouter-sref>
+                    </li>
+                    <li>
+                        <uirouter-sref-active>
+                            <uirouter-sref state="foo">Foo</uirouter-sref>
+                        </uirouter-sref-active>
+                    </li>
+                    <li>
+                        <uirouter-sref-active>
+                            <uirouter-sref state="resolve">Resolve</uirouter-sref>
+                        </uirouter-sref-active>
+                    </li>
+                    <li>
+                        <uirouter-sref-active>
+                            <uirouter-sref state="arg" param-argument-id="99">With arguments directly</uirouter-sref>
+                        </uirouter-sref-active>
+                    </li>
+                    <li>
+                        <uirouter-sref-active>
+                            <uirouter-sref state="arg" route-params='{"argumentId":123, "test":8}'>With arguments as
+                                single
+                                object
+                            </uirouter-sref>
+                        </uirouter-sref-active>
+                    </li>
+                    <li>
+                        <uirouter-sref-active>
+                            <uirouter-sref state="bar.baz">Bar.baz route with subroutes</uirouter-sref>
+                        </uirouter-sref-active>
+                    </li>
+                </ul>
+            </uirouter-sref-active>
+
+            <uirouter-uiview name="header"></uirouter-uiview>
+            <div style="border: 1px solid #eeeeee; padding: 10px">
+                <uirouter-uiview></uirouter-uiview>
+            </div>
+            <uirouter-uiview name="footer"></uirouter-uiview>
+        </template>
+
+        <script>
+            function initRouterDemo() {
+                var demoApp = document.getElementById('demo-app');
+                console.log('demoApp', demoApp.tagName);
+                demoApp.locationPlugin = routerCore.hashLocationPlugin;
+                demoApp.routerStates = [
+                    {name: "index_route", url: "/index"},
+                    {name: "qux_route", url: "/qux", component: "qux-cmp"},
+                    {name: "foo", url: "/foo", component: "foo-comp"},
+                    {name: "arg", url: "/arg/:argumentId", component: "arguments-comp"},
+                    {
+                        name: "resolve", url: "/resolve", component: "resolve-comp",
+                        resolve: [{
+                            token: 'person',
+                            deps: ['$transition$'],
+                            resolveFn: function (trans) {
+                                return new Promise(function (resolve, reject) {
+                                    setTimeout(resolve, 2000, 'one');
+                                });
+                            }
+                        }]
+                    },
+                    {
+                        name: "bar", url: "/bar", component: "bar-comp",
+                        views: {
+                            'footer': {component: 'footer-comp'}
+                        }
+                    },
+                    {
+                        name: "bar.baz", url: "/baz", component: "baz-comp",
+                        views: {
+                            '!header': {component: 'header-comp'}
+                        }
+                    },
+                    {
+                        name: "state_a", parent: 'bar.baz', url: "/a", component: "baz-a-comp"
+                    },
+                    {
+                        name: "state_b", parent: 'bar.baz', url: "/b", component: "baz-b-comp"
+                    },
+                ];
+                demoApp.handleSuccess = function (event) {
+                    demoApp.currentState = event.detail.transition.to().name;
+                    demoApp.paramsJson = JSON.stringify(event.detail.transition.params());
+                };
+            }
+            HTMLImports.whenReady(function () {
+                console.log('whenReady');
+                initRouterDemo();
+
+            });
+            window.addEventListener('WebComponentsReady', function() {
+                console.log('WebComponentsReady');
+
+            });
+        </script>
+    </demo-snippet>
+</div>
+</body>
+</html>
