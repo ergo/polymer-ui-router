@@ -16,7 +16,6 @@ Element that generates `<a>` tag with contents.
     <script>
         (function () {
 
-
             Polymer({
 
                 is: 'uirouter-sref',
@@ -24,22 +23,38 @@ Element that generates `<a>` tag with contents.
                     UIRouterBehavior
                 ],
                 properties: {
+                    /** The name of the state to link to */
                     state: String,
-                    lossy: {
-                        type: Boolean,
-                        value: true
-                    },
-                    absolute: {
-                        type: Boolean,
-                        value: false
-                    },
+                    /** Sets whether or not the transition's parameter values should be inherited from the current parameter values. */
                     inherit: {
                         type: Boolean,
                         value: true
                     },
+                    /** your own Transition Options inside this property and use them, e.g., from a Transition Hook  */
+                    custom: {
+                        type: Object,
+                        value: null
+                    },
+                    /** Changes how the Transition interacts with the browser's location bar */
+                    location: {
+                        type: Object,
+                        value: true
+                    },
+                    /** force states which are currently active to reload */
+                    reload: {
+                        type: Object,
+                        value: false
+                    },
+                    /** When transitioning to relative path (e.g '^'),
+                     * this option defines which state to be relative from.  */
+                    relative: {
+                        type: String,
+                        value: '$state.current'
+                    },
                     linkRel: String,
                     linkTarget: String,
-                    routeParams: {
+                    /** The parameter values to use (as key/values) */
+                    params: {
                         type: Object,
                         value: null
                     },
@@ -63,17 +78,17 @@ Element that generates `<a>` tag with contents.
                     return output;
                 },
                 getParams: function () {
-                    var routeParams = this.routeParams || {};
+                    var params = this.params || {};
                     for (var x = 0; x < this.attributes.length; x++) {
                         var item = this.attributes[x];
                         if (item.name.indexOf('param-') === 0) {
                             var name = item.name.slice(6);
                             var segments = name.split('-');
                             name = segments[0] + segments.slice(1).map(this._toCamelCase).join('');
-                            routeParams[name] = item.value;
+                            params[name] = item.value;
                         }
                     }
-                    return routeParams;
+                    return params;
                 },
                 attributeChanged: function (name, type) {
                     this.computeLink();
@@ -92,27 +107,27 @@ Element that generates `<a>` tag with contents.
                     }
                 },
 
-                _computeLink: function () {
-                    var params = this.getParams();
-                    var options = {
+                _assembleOptions: function () {
+                    return {
                         inherit: this.inherit,
-                        absolute: this.absolute,
-                        lossy: this.lossy
+                        custom: this.custom,
+                        location: this.location,
+                        relative: this.relative,
+                        reload: this.reload
                     };
-                    this.generatedURL = this.uiRouter.stateService.href(this.state, params, options);
                 },
 
-                handleClick: function(event){
+                _computeLink: function () {
+                    var params = this.getParams();
+                    this.generatedURL = this.uiRouter.stateService.href(this.state, params, this._assembleOptions());
+                },
+
+                handleClick: function (event) {
                     var srcEvent = event.detail.sourceEvent;
                     if (!srcEvent.defaultPrevented && !(srcEvent.shiftKey || srcEvent.metaKey || srcEvent.ctrlKey)) {
                         event.preventDefault();
                         var params = this.getParams();
-                        var options = {
-                            inherit: this.inherit,
-                            absolute: this.absolute,
-                            lossy: this.lossy
-                        };
-                        this.uiRouter.stateService.go(this.state, params, options);
+                        this.uiRouter.stateService.go(this.state, params, this._assembleOptions());
                     }
                 }
 

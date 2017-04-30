@@ -10,6 +10,13 @@
     <script>
         Polymer({
             is: 'foo-comp',
+
+            attached: function () {
+                console.log('foo component is attached')
+            },
+            detached: function () {
+                console.log('foo component is detached')
+            },
         });
     </script>
 </dom-module>

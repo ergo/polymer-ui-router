@@ -16,7 +16,9 @@ A UI-Router viewport component, which is filled in by a view components based on
             UIRouterBehavior
         ],
         properties: {
+            /** default component type to use */
             component: String,
+            /** Name of ui-view partial */
             name: String
         },
 
@@ -24,7 +26,7 @@ A UI-Router viewport component, which is filled in by a view components based on
             return el.parentNode || el.host;
         },
 
-        findParentUIView: function(el) {
+        _findParentUIView: function(el) {
             while ((el = this._getParentEl(el)) && el.tagName !== 'UIROUTER-UIVIEW');
             return el;
         },
@@ -33,7 +35,7 @@ A UI-Router viewport component, which is filled in by a view components based on
             var name = this.name || '$default';
 
             var rootContext = this.uiRouter.stateRegistry.root();
-            var parentUIView = this.findParentUIView(this);
+            var parentUIView = this._findParentUIView(this);
             var parentContext = parentUIView &&
                 parentUIView.viewConfig &&
                 parentUIView.viewConfig.viewDecl &&
@@ -62,7 +64,7 @@ A UI-Router viewport component, which is filled in by a view components based on
                 // When a ui-view should be filled by a component
                 // because a state is activated, this will be called
                 // with the configuration details.
-                configUpdated: this.configUpdated.bind(this),
+                configUpdated: this._configUpdated.bind(this),
             }
         },
 
@@ -76,7 +78,7 @@ A UI-Router viewport component, which is filled in by a view components based on
             this.deregister();
         },
 
-        configUpdated: function(newConfig) {
+        _configUpdated: function(newConfig) {
             if (this.viewConfig === newConfig) return;
             this.viewConfig = newConfig;
 

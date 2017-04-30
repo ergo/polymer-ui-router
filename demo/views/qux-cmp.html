@@ -10,6 +10,12 @@
     <script>
         Polymer({
             is: 'qux-cmp',
+            attached: function () {
+                console.log('qux component is attached')
+            },
+            detached: function () {
+                console.log('qux component is detached')
+            },
         });
     </script>
 </dom-module>
