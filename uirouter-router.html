@@ -8,7 +8,7 @@ Polymer element for UI Router Core
 @demo demo/index.html
 -->
 
-<dom-module id="polymer-uirouter">
+<dom-module id="uirouter-router">
     <template>
         <style>
             :host {
@@ -21,12 +21,12 @@ Polymer element for UI Router Core
     <script>
         (function () {
             Polymer({
-                is: 'polymer-uirouter',
+                is: 'uirouter-router',
                 behaviors: [
                     UIRouterBehavior
                 ],
                 properties: {
-                    //exposing states just for demo purposes
+                    /** Array of state definitions to create when router gets initialized */
                     states: {
                         type: Array,
                         value: function () {
@@ -34,18 +34,22 @@ Polymer element for UI Router Core
                         },
                         notify: true
                     },
+                    /** Start router when element is attached */
                     autoStart: {
                         type: Boolean,
                         value: true
                     },
+                    /** Enable router register itself with visualizer */
                     visualizer: {
                         type: Boolean,
                         value: false
                     },
+                    /** Enable debug messages */
                     debugTracing: {
                         type: Boolean,
                         value: false
                     },
+                    /** Location plugin used by router */
                     locationPlugin: {
                         type: Object,
                         value: function () {
@@ -57,6 +61,7 @@ Polymer element for UI Router Core
                             return routerCore.hashLocationPlugin;
                         }
                     },
+                    /** Services plugin used by router */
                     servicesPlugin: {
                         type: Object,
                         value: function () {
@@ -65,22 +70,18 @@ Polymer element for UI Router Core
                     }
                 },
 
+                // TODO: do we need that?
 //                _showState: function (state) {
 //                    this.push('states', state);
 //                },
 
+                /** Registers a new state in the router */
                 registerState: function (state) {
                     var views = Object.assign({$default: {component: ''}}, state.views);
                     if (state.component && state.component.length > 0) {
                         views['$default'] = {component: state.component};
                     }
-                    var stateConf = {
-                        name: state.name,
-                        url: state.url,
-                        parent: state.parent,
-                        resolve: state.resolve,
-                        views: views
-                    };
+                    var stateConf = Object.assign({views: views}, state);
                     this.uiRouter.stateRegistry.register(stateConf);
                 },
                 attached: function () {
@@ -102,7 +103,7 @@ Polymer element for UI Router Core
                         // Enable the transition/state visualizer
                         window['ui-router-visualizer'].visualizer(this.uiRouter);
                     }
-                    // do we need that?
+                    // TODO: do we need that?
 //                    registry.get().forEach(this._showState.bind(this));
 //                    registry.onStatesChanged(function (event, states) {
 //                        if (event === 'registered') {
@@ -120,12 +121,13 @@ Polymer element for UI Router Core
 
                 },
 
-                factoryF: function (currEv) {
+                _factoryF: function (currEv) {
                     return function (transition) {
                         this.fire('uirouter-' + currEv[1], {transition: transition});
                     }.bind(this);
                 },
 
+                /** Starts router object */
                 start: function () {
                     // expose all events by default
                     var events = [
@@ -141,7 +143,7 @@ Polymer element for UI Router Core
 
                     for (var i = 0; i < events.length; i++) {
                         var currEv = events[i];
-                        this.uiRouter.transitionService[currEv[0]]({}, this.factoryF(currEv));
+                        this.uiRouter.transitionService[currEv[0]]({}, this._factoryF(currEv));
                     }
 
                     this.uiRouter.urlService.listen();

@@ -14,14 +14,13 @@
     <link rel="import" href="../../iron-demo-helpers/url-bar.html">
 
 
-    <link rel="import" href="../../../polymer-uirouter.html">
+    <link rel="import" href="../../../uirouter-router.html">
     <link rel="import" href="../../../uirouter-uiview.html">
     <link rel="import" href="../../../uirouter-sref.html">
     <link rel="import" href="../../../uirouter-sref-active.html">
     <link rel="import" href="../../../demo/views/qux-cmp.html">
     <link rel="import" href="../../../demo/views/foo-comp.html">
     <link rel="import" href="../../../demo/views/bar-comp.html">
-    <link rel="import" href="../../../demo/views/baz-comp.html">
     <link rel="import" href="../../../demo/views/baz-a-comp.html">
     <link rel="import" href="../../../demo/views/baz-b-comp.html">
     <link rel="import" href="../../../demo/views/footer-comp.html">
@@ -55,12 +54,12 @@
 
             </style>
 
-            <polymer-uirouter
+            <uirouter-router
                 id="ui-router" router="{{router}}"
                 location-plugin="[[locationPlugin]]"
                 states="[[routerStates]]" visualizer debug-tracing
                 on-uirouter-success="handleSuccess">
-            </polymer-uirouter>
+            </uirouter-router>
 
             <url-bar></url-bar>
 
@@ -98,7 +97,7 @@
                     </li>
                     <li>
                         <uirouter-sref-active>
-                            <uirouter-sref state="bar.baz">Bar.baz route with subroutes</uirouter-sref>
+                            <uirouter-sref state="bar.baz">Bar.baz route with subroutes (baz element is lazy-loaded)</uirouter-sref>
                         </uirouter-sref-active>
                     </li>
                 </ul>
@@ -114,7 +113,6 @@
         <script>
             function initRouterDemo() {
                 var demoApp = document.getElementById('demo-app');
-                console.log('demoApp', demoApp.tagName);
                 demoApp.locationPlugin = routerCore.hashLocationPlugin;
                 demoApp.routerStates = [
                     {name: "index_route", url: "/index"},
@@ -143,6 +141,10 @@
                         name: "bar.baz", url: "/baz", component: "baz-comp",
                         views: {
                             '!header': {component: 'header-comp'}
+                        },
+                        lazyLoad: function(){
+                            // test loading dynamicly elements
+                            Polymer.Base.importHref('../../../demo/views/baz-comp.html');
                         }
                     },
                     {
