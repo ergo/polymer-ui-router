@@ -1,0 +1,62 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="uirouter-behavior.html">
+
+<!--
+`uirouter-sref`
+Polymer element for UI Router Core
+-->
+
+<dom-module id="uirouter-sref-active">
+    <template>
+        <slot></slot>
+    </template>
+
+    <script>
+        (function () {
+            Polymer({
+
+                is: 'uirouter-sref-active',
+                behaviors: [
+                    UIRouterBehavior
+                ],
+                properties: {
+                    active: {
+                        type: String,
+                        value: 'route-active'
+                    },
+                    activeEq: {
+                        type: String,
+                        value: null
+                    },
+                },
+                _getParentEl: function (el) {
+                    return el.parentNode || el.host;
+                },
+
+                findParentUIView: function (el) {
+                    while ((el = this._getParentEl(el)) && el.tagName !== 'UIROUTER-UIVIEW');
+                    return el;
+                },
+                attached: function () {
+                    this._transListener = this.uiRouter.transitionService.onSuccess({}, this._checkTransition.bind(this));
+                    this._rootContext = this.uiRouter.stateRegistry.root();
+                    this._parentUIView = this.findParentUIView(this);
+                    this._parentContext = this._parentUIView &&
+                        this._parentUIView.viewConfig &&
+                        this._parentUIView.viewConfig.viewDecl &&
+                        this._parentUIView.viewConfig.viewDecl.$context;
+                    this._checkTransition();
+                },
+                detached: function () {
+                    this._transListener();
+                },
+                _checkTransition: function () {
+                    var srefNodes = this.queryAllEffectiveChildren('uirouter-sref');
+                    for (var i = 0; i < srefNodes.length; i++) {
+                        console.log(srefNodes[0], srefNodes[0].getParams());
+                    }
+                }
+            });
+        })()
+    </script>
+</dom-module>

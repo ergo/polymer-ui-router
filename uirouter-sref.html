@@ -62,7 +62,7 @@ Polymer element for UI Router Core
                     output = input[0].toUpperCase() + input.slice(1);
                     return output;
                 },
-                _getParams: function () {
+                getParams: function () {
                     var routeParams = this.routeParams || {};
                     for (var x = 0; x < this.attributes.length; x++) {
                         var item = this.attributes[x];
@@ -93,7 +93,7 @@ Polymer element for UI Router Core
                 },
 
                 _computeLink: function () {
-                    var params = this._getParams();
+                    var params = this.getParams();
                     var options = {
                         inherit: this.inherit,
                         absolute: this.absolute,
@@ -106,7 +106,7 @@ Polymer element for UI Router Core
                     var srcEvent = event.detail.sourceEvent;
                     if (!srcEvent.defaultPrevented && !(srcEvent.shiftKey || srcEvent.metaKey || srcEvent.ctrlKey)) {
                         event.preventDefault();
-                        var params = this._getParams();
+                        var params = this.getParams();
                         var options = {
                             inherit: this.inherit,
                             absolute: this.absolute,
