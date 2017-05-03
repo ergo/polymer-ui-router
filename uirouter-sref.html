@@ -8,6 +8,15 @@ Element that generates `<a>` tag with contents.
 
 <dom-module id="uirouter-sref">
     <template>
+        <style>
+            a:link, a:visited{
+                @apply(--uirouter-sref-link-mixin);
+            }
+            a:hover{
+                @apply(--uirouter-sref-hover-mixin);
+            }
+        </style>
+
         <a href="[[generatedURL]]" target="[[linkTarget]]" rel="[[linkRel]]" on-tap="handleClick">
             <slot></slot>
         </a>
