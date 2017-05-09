@@ -16,15 +16,15 @@ limitations under the License.
 -->
 
 <link rel="import" href="../polymer/polymer.html">
-<script src="vendor/ui-router-polymer.js"></script>
+<script src="vendor/ui-router-core.js"></script>
 <script>
 
 
     var UIRouterBehavior;
     (function () {
         // encapsulate global router instance
-
-        var uirouter = new routerCore.UIRouter();
+        var routerCore = window['@uirouter/core'];
+        var uirouter = new window['@uirouter/core'].UIRouter();
         uirouter.viewService.uiviewcount = 0;
         uirouter.viewService.viewconfigcount = 0;
 

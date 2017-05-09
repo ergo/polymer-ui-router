@@ -20,6 +20,8 @@ Polymer element for UI Router Core
 
     <script>
         (function () {
+            var routerCore = window['@uirouter/core'];
+
             Polymer({
                 is: 'uirouter-router',
                 behaviors: [
@@ -32,12 +34,11 @@ Polymer element for UI Router Core
                         value: function () {
                             return [];
                         },
-                        notify: true
                     },
                     /** Start router when element is attached */
                     autoStart: {
                         type: Boolean,
-                        value: true
+                        value: false
                     },
                     /** Enable router register itself with visualizer */
                     visualizer: {
@@ -70,18 +71,13 @@ Polymer element for UI Router Core
                     }
                 },
 
-                // TODO: do we need that?
-//                _showState: function (state) {
-//                    this.push('states', state);
-//                },
-
                 /** Registers a new state in the router */
                 registerState: function (state) {
                     var views = Object.assign({$default: {component: ''}}, state.views);
                     if (state.component && state.component.length > 0) {
                         views['$default'] = {component: state.component};
                     }
-                    var stateConf = Object.assign({views: views}, state);
+                    var stateConf = Object.assign({}, state, {views: views});
                     this.uiRouter.stateRegistry.register(stateConf);
                 },
                 attached: function () {

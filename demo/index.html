@@ -18,9 +18,10 @@
     <link rel="import" href="../../../uirouter-uiview.html">
     <link rel="import" href="../../../uirouter-sref.html">
     <link rel="import" href="../../../uirouter-sref-active.html">
-    <link rel="import" href="../../../demo/views/qux-cmp.html">
+    <link rel="import" href="../../../demo/views/index-comp.html">
     <link rel="import" href="../../../demo/views/foo-comp.html">
     <link rel="import" href="../../../demo/views/bar-comp.html">
+    <link rel="import" href="../../../demo/views/baz-comp.html">
     <link rel="import" href="../../../demo/views/baz-a-comp.html">
     <link rel="import" href="../../../demo/views/baz-b-comp.html">
     <link rel="import" href="../../../demo/views/footer-comp.html">
@@ -70,11 +71,11 @@
             <uirouter-sref-active>
                 <ul>
                     <li>
-                        <uirouter-sref state="qux_route">Qux component</uirouter-sref>
+                        <uirouter-sref state="index_route">Index component</uirouter-sref>
                     </li>
                     <li>
                         <uirouter-sref-active>
-                            <uirouter-sref state="foo" reload>Foo</uirouter-sref>
+                            <uirouter-sref state="foo" reload>Foo (this restomps every click)</uirouter-sref>
                         </uirouter-sref-active>
                     </li>
                     <li>
@@ -102,6 +103,9 @@
                     </li>
                 </ul>
             </uirouter-sref-active>
+            <template is="dom-if" if="[[loading]]">
+                LOADING...
+            </template>
 
             <uirouter-uiview name="header"></uirouter-uiview>
             <div style="border: 1px solid #eeeeee; padding: 10px">
@@ -113,10 +117,10 @@
         <script>
             function initRouterDemo() {
                 var demoApp = document.getElementById('demo-app');
+                var routerCore = window['@uirouter/core'];
                 demoApp.locationPlugin = routerCore.hashLocationPlugin;
                 demoApp.routerStates = [
-                    {name: "index_route", url: "/index"},
-                    {name: "qux_route", url: "/qux", component: "qux-cmp"},
+                    {name: "index_route", url: "/index", component: "index-comp"},
                     {name: "foo", url: "/foo", component: "foo-comp"},
                     {name: "arg", url: "/arg/:argumentId", component: "arguments-comp"},
                     {
@@ -126,7 +130,10 @@
                             deps: ['$transition$'],
                             resolveFn: function (trans) {
                                 return new Promise(function (resolve, reject) {
-                                    setTimeout(resolve, 2000, 'one');
+                                    demoApp.loading = true;
+                                    setTimeout(resolve, 1000, 'one');
+                                }).then(function(){
+                                    demoApp.loading = false;
                                 });
                             }
                         }]
@@ -144,6 +151,7 @@
                         },
                         lazyLoad: function(){
                             // test loading dynamicly elements
+                            console.log('Lazy loading');
                             Polymer.Base.importHref('../../../demo/views/baz-comp.html');
                         }
                     },
@@ -158,6 +166,9 @@
                     demoApp.currentState = event.detail.transition.to().name;
                     demoApp.paramsJson = JSON.stringify(event.detail.transition.params());
                 };
+                // set the default not found route
+//                var routerElem = document.querySelectorAll('uirouter-router')[0];
+
             }
             HTMLImports.whenReady(function () {
                 console.log('whenReady');
