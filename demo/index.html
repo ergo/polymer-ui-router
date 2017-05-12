@@ -58,7 +58,8 @@
             <uirouter-router
                 id="ui-router" router="{{router}}"
                 location-plugin="[[locationPlugin]]"
-                states="[[routerStates]]" visualizer debug-tracing
+                states="[[routerStates]]" visualizer debug-tracing auto-start
+                init-callback="[[initCallback]]"
                 on-uirouter-success="handleSuccess">
             </uirouter-router>
 
@@ -103,13 +104,17 @@
                     </li>
                 </ul>
             </uirouter-sref-active>
-            <template is="dom-if" if="[[loading]]">
-                LOADING...
-            </template>
 
             <uirouter-uiview name="header"></uirouter-uiview>
             <div style="border: 1px solid #eeeeee; padding: 10px">
-                <uirouter-uiview></uirouter-uiview>
+
+                <template is="dom-if" if="[[loading]]">
+                    LOADING...
+                </template>
+                <template is="dom-if" if="[[!loading]]">
+                    <uirouter-uiview></uirouter-uiview>
+                </template>
+
             </div>
             <uirouter-uiview name="footer"></uirouter-uiview>
         </template>
@@ -117,6 +122,7 @@
         <script>
             function initRouterDemo() {
                 var demoApp = document.getElementById('demo-app');
+                demoApp.loading = false;
                 var routerCore = window['@uirouter/core'];
                 demoApp.locationPlugin = routerCore.hashLocationPlugin;
                 demoApp.routerStates = [
@@ -166,19 +172,21 @@
                     demoApp.currentState = event.detail.transition.to().name;
                     demoApp.paramsJson = JSON.stringify(event.detail.transition.params());
                 };
-                // set the default not found route
-//                var routerElem = document.querySelectorAll('uirouter-router')[0];
-
+                // set the default not found route in onStart callback
+                demoApp.initCallback = function(uiRouter){
+                    console.log('Executing additional operations on router object');
+                    uiRouter.urlService.rules.otherwise('/index');
+                }
             }
+
+            // normally your application shell should have all routerStates defined and pass them to router element
+            // as early as possible
             HTMLImports.whenReady(function () {
-                console.log('whenReady');
                 initRouterDemo();
-
             });
-            window.addEventListener('WebComponentsReady', function() {
-                console.log('WebComponentsReady');
-
-            });
+//            window.addEventListener('WebComponentsReady', function() {
+//                console.log('WebComponentsReady');
+//            });
         </script>
     </demo-snippet>
 </div>

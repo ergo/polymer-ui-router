@@ -45,6 +45,11 @@ Polymer element for UI Router Core
                         type: Boolean,
                         value: false
                     },
+                    /** a function executed when router gets started, accepts uiRouter as argument */
+                    initCallback: {
+                        type: Object,
+                        value: null
+                    },
                     /** Enable debug messages */
                     debugTracing: {
                         type: Boolean,
@@ -99,32 +104,11 @@ Polymer element for UI Router Core
                         // Enable the transition/state visualizer
                         window['ui-router-visualizer'].visualizer(this.uiRouter);
                     }
-                    // TODO: do we need that?
-//                    registry.get().forEach(this._showState.bind(this));
-//                    registry.onStatesChanged(function (event, states) {
-//                        if (event === 'registered') {
-//                            states.forEach(this._showState.bind(this))
-//                        };
-//                    }.bind(this));
 
                     for (var i=0; i< this.states.length; i++){
                         this.registerState(this.states[i]);
                     }
 
-                    if (this.autoStart) {
-                        this.start();
-                    }
-
-                },
-
-                _factoryF: function (currEv) {
-                    return function (transition) {
-                        this.fire('uirouter-' + currEv[1], {transition: transition});
-                    }.bind(this);
-                },
-
-                /** Starts router object */
-                start: function () {
                     // expose all events by default
                     var events = [
                         ['onBefore', 'before'],
@@ -142,6 +126,23 @@ Polymer element for UI Router Core
                         this.uiRouter.transitionService[currEv[0]]({}, this._factoryF(currEv));
                     }
 
+                    if (this.autoStart) {
+                        this.start();
+                    }
+
+                },
+
+                _factoryF: function (currEv) {
+                    return function (transition) {
+                        this.fire('uirouter-' + currEv[1], {transition: transition});
+                    }.bind(this);
+                },
+
+                /** Starts router object */
+                start: function () {
+                    if(this.initCallback !== null){
+                        this.initCallback(this.uiRouter);
+                    }
                     this.uiRouter.urlService.listen();
                     this.uiRouter.urlService.sync();
                 }
