@@ -41,29 +41,38 @@ Polymer element for UI Router Core
                     this.unlisten(this, 'uirouter-sref-attached', 'srefAttached');
                     this.unlisten(this, 'uirouter-sref-detached', 'srefDetached');
                 },
-                _checkTransition: function (transition) {
-                    var targetState = transition.targetState();
-                    var ident = targetState.name();
-                    var params = targetState.params();
-                    var hash = JSON.stringify(params);
-                    console.log('_checkTransition', ident, params);
+                _checkTransition: function () {
                     var isActive = false;
-                    if (this._registered.indexOf(hash) !== -1) {
-                        isActive = true;
+                    for (var i = 0; i < this._registered.length; i++) {
+                        var included = this.uiRouter.stateService.includes(
+                            this._registered[i].name, this._registered[i].params
+                        );
+                        if (included) {
+                            isActive = true;
+                            break
+                        }
                     }
-                    console.log('is active', isActive, hash);
                     var splitClasses = this.active.split(' ');
                     for (var i = 0; i < splitClasses.length; i++) {
                         this.toggleClass(splitClasses[i], isActive);
                     }
                 },
                 srefAttached: function (event) {
-                    this._registered.push([event.detail.state, JSON.stringify(event.detail.params)]);
+                    this._registered.push({
+                        name: event.detail.state,
+                        params: event.detail.params,
+                        hash: event.detail.state + JSON.stringify(event.detail.params)
+                    });
+                    this._checkTransition();
                 },
                 srefDetached: function (event) {
-                    var ix = this._registered.indexOf(
-                        JSON.stringify([event.detail.state, event.detail.params]));
-                    this._registered.splice(ix, 1);
+                    var hash = event.detail.state + JSON.stringify(event.detail.params);
+                    for (var i = 0; i < this._registered.length; i++) {
+                        if (this._registered[i].hash === hash) {
+                            this._registered.splice(i, 1);
+                            break;
+                        }
+                    }
                 },
             });
         })()

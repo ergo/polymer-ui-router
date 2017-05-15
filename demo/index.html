@@ -41,6 +41,10 @@
                     display: block;
                 }
 
+                .global-class .colored {
+                    color: red;
+                }
+
                 .active {
                     font-weight: bold;
                     text-transform: uppercase;
@@ -69,10 +73,13 @@
             <p>Params: [[paramsJson]]</p>
 
             Links:
-            <uirouter-sref-active>
+            <uirouter-sref-active active="global-class other-class">
+                <div class="colored">This is red when any child route is active</div>
                 <ul>
                     <li>
-                        <uirouter-sref state="index_route">Index component</uirouter-sref>
+                        <uirouter-sref-active>
+                            <uirouter-sref state="index_route">Index component</uirouter-sref>
+                        </uirouter-sref-active>
                     </li>
                     <li>
                         <uirouter-sref-active>
@@ -99,7 +106,8 @@
                     </li>
                     <li>
                         <uirouter-sref-active>
-                            <uirouter-sref state="bar.baz">Bar.baz route with subroutes (baz element is lazy-loaded)</uirouter-sref>
+                            <uirouter-sref state="bar.baz">Bar.baz route with subroutes (baz element is lazy-loaded)
+                            </uirouter-sref>
                         </uirouter-sref-active>
                     </li>
                 </ul>
@@ -138,7 +146,7 @@
                                 return new Promise(function (resolve, reject) {
                                     demoApp.loading = true;
                                     setTimeout(resolve, 1000, 'one');
-                                }).then(function(){
+                                }).then(function () {
                                     demoApp.loading = false;
                                 });
                             }
@@ -155,7 +163,7 @@
                         views: {
                             '!header': {component: 'header-comp'}
                         },
-                        lazyLoad: function(){
+                        lazyLoad: function () {
                             // test loading dynamicly elements
                             console.log('Lazy loading');
                             Polymer.Base.importHref('../../../demo/views/baz-comp.html');
@@ -173,7 +181,7 @@
                     demoApp.paramsJson = JSON.stringify(event.detail.transition.params());
                 };
                 // set the default not found route in onStart callback
-                demoApp.initCallback = function(uiRouter){
+                demoApp.initCallback = function (uiRouter) {
                     console.log('Executing additional operations on router object');
                     uiRouter.urlService.rules.otherwise('/index');
                 }
@@ -184,9 +192,9 @@
             HTMLImports.whenReady(function () {
                 initRouterDemo();
             });
-//            window.addEventListener('WebComponentsReady', function() {
-//                console.log('WebComponentsReady');
-//            });
+            //            window.addEventListener('WebComponentsReady', function() {
+            //                console.log('WebComponentsReady');
+            //            });
         </script>
     </demo-snippet>
 </div>

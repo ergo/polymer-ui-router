@@ -1,6 +1,7 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../uirouter-uiview.html">
 <link rel="import" href="../../uirouter-sref.html">
+<link rel="import" href="../../uirouter-sref-active.html">
 <dom-module id="baz-comp">
     <template>
         <style>
@@ -8,8 +9,13 @@
 
         <h1>Baz component</h1>
 
-        <uirouter-sref state="state_a">State A</uirouter-sref> |
-        <uirouter-sref state="state_b">State B</uirouter-sref>
+        <uirouter-sref-active>
+            <uirouter-sref state="state_a">State A</uirouter-sref>
+        </uirouter-sref-active>
+        |
+        <uirouter-sref-active>
+            <uirouter-sref state="state_b">State B</uirouter-sref>
+        </uirouter-sref-active>
 
         <uirouter-uiview></uirouter-uiview>
 
