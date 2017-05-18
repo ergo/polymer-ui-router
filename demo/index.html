@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
     <title>polymer-ui-router demo</title>
+    <script>
+        window.Polymer = {
+            dom: 'shadow',
+            lazyRegister: true
+        };
+    </script>
     <script src="//unpkg.com/ui-router-visualizer"></script>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
@@ -32,6 +38,7 @@
 
 </head>
 <body>
+<!--->
 <div class="vertical-section-container centered">
     <h3>Basic polymer-ui-router demo</h3>
     <demo-snippet>
@@ -48,13 +55,13 @@
                 .active {
                     font-weight: bold;
                     text-transform: uppercase;
-                    border-bottom: 1px solid red;
+                    border-bottom: 2px solid red;
                 }
 
                 .route-active {
                     font-weight: bold;
                     text-transform: uppercase;
-                    border-bottom: 1px solid blue;
+                    border-bottom: 2px solid blue;
                 }
 
             </style>
@@ -72,9 +79,9 @@
             <p>Current state: [[currentState]]</p>
             <p>Params: [[paramsJson]]</p>
 
-            Links:
             <uirouter-sref-active active="global-class other-class">
                 <div class="colored">This is red when any child route is active</div>
+                <p>Links:</p>
                 <ul>
                     <li>
                         <uirouter-sref-active>
