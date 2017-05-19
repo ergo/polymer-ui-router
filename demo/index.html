@@ -139,6 +139,8 @@
                 demoApp.loading = false;
                 demoApp.dynamicRouteName = 'foo';
                 demoApp.dynamicName = 'Foo (this will update via binding in 3s)';
+
+                //showcase that bindings and sref-active elements update on child changes
                 setTimeout(function(){
                     demoApp.dynamicRouteName = 'index_route';
                     demoApp.dynamicName = 'Index';
