@@ -6,23 +6,6 @@
 Element that generates `<a>` tag with contents.
 -->
 
-
-<template>
-    <style>
-        a:link, a:visited {
-            @apply(--uirouter-sref-link-mixin);
-        }
-
-        a:hover {
-            @apply(--uirouter-sref-hover-mixin);
-        }
-    </style>
-
-    <a href="[[generatedURL]]" target="[[linkTarget]]" rel="[[linkRel]]" on-tap="handleClick">
-        <slot></slot>
-    </a>
-</template>
-
 <script>
     (function () {
 
@@ -34,7 +17,10 @@ Element that generates `<a>` tag with contents.
             ],
             properties: {
                 /** The name of the state to link to */
-                state: String,
+                state: {
+                    type:String,
+                    observer: '_updateState'
+                },
                 /** Sets whether or not the transition's parameter values should be inherited from the current parameter values. */
                 inherit: {
                     type: Boolean,
@@ -66,7 +52,8 @@ Element that generates `<a>` tag with contents.
                 /** The parameter values to use (as key/values) */
                 params: {
                     type: Object,
-                    value: null
+                    value: null,
+                    observer: '_updateParams'
                 },
                 /** compiled params */
                 _params: {
@@ -88,6 +75,7 @@ Element that generates `<a>` tag with contents.
                     value: 0
                 }
             },
+
             _toCamelCase: function (input) {
                 output = input[0].toUpperCase() + input.slice(1);
                 return output;
@@ -106,7 +94,22 @@ Element that generates `<a>` tag with contents.
                 this._params = params;
                 return params;
             },
-            attributeChanged: function (name, type) {
+
+            // notify sref-active elements that their children properties
+            _updateParams: function(newValue, oldValue){
+                if(!this.state){
+                    return
+                }
+                this.fire('uirouter-sref-detached', {state: this.state, params: oldValue});
+                this.fire('uirouter-sref-attached', {state: this.state, params: newValue});
+                this.computeLink();
+            },
+            _updateState: function(newValue, oldValue){
+                if(!this.state){
+                    return
+                }
+                this.fire('uirouter-sref-detached', {state: oldValue, params: this._params});
+                this.fire('uirouter-sref-attached', {state: this.state, params: this._params});
                 this.computeLink();
             },
 
@@ -147,13 +150,22 @@ Element that generates `<a>` tag with contents.
             },
 
             _updateMarkup: function(){
-                var slottedNodes = this.innerHTML;
-                this.innerHTML = '';
+                var slottedNodes = Polymer.dom(this).getEffectiveChildNodes();
+                // when updating the element the node might already wrap with A tag, so get the children
+                if (slottedNodes.length === 1 && slottedNodes[0].className == 'uirouter-link'){
+                    slottedNodes = slottedNodes[0].childNodes;
+                }
+                while (this.hasChildNodes()) {
+                    this.removeChild(this.lastChild);
+                }
                 var link = document.createElement('a');
+                link.className = 'uirouter-link';
                 link.href = this.generatedURL;
                 link.target = this.linkTarget;
                 link.rel = this.linkRel;
-                link.innerHTML = slottedNodes;
+                for(var i=0; i< slottedNodes.length; i++){
+                    link.appendChild(slottedNodes[i]);
+                }
                 this.appendChild(link);
             },
 

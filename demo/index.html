@@ -85,7 +85,7 @@
                 <ul>
                     <li>
                         <uirouter-sref-active>
-                            <uirouter-sref state="index_route"><span>Index</span> component</uirouter-sref>
+                            <uirouter-sref state="[[dynamicRouteName]]"><span>[[dynamicName]]</span> component</uirouter-sref>
                         </uirouter-sref-active>
                     </li>
                     <li>
@@ -106,8 +106,7 @@
                     <li>
                         <uirouter-sref-active>
                             <uirouter-sref state="arg" params='{"argumentId":123, "test":8}'>With arguments as
-                                single
-                                object
+                                single object
                             </uirouter-sref>
                         </uirouter-sref-active>
                     </li>
@@ -138,6 +137,12 @@
             function initRouterDemo() {
                 var demoApp = document.getElementById('demo-app');
                 demoApp.loading = false;
+                demoApp.dynamicRouteName = 'foo';
+                demoApp.dynamicName = 'Foo (this will update via binding in 3s)';
+                setTimeout(function(){
+                    demoApp.dynamicRouteName = 'index_route';
+                    demoApp.dynamicName = 'Index';
+                }, 3000);
                 var routerCore = window['@uirouter/core'];
                 demoApp.locationPlugin = routerCore.hashLocationPlugin;
                 demoApp.routerStates = [

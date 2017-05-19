@@ -5,6 +5,21 @@
 <dom-module id="baz-comp">
     <template>
         <style>
+            :host {
+                display: block;
+            }
+            .active {
+                font-weight: bold;
+                text-transform: uppercase;
+                border-bottom: 2px solid red;
+            }
+
+            .route-active {
+                font-weight: bold;
+                text-transform: uppercase;
+                border-bottom: 2px solid blue;
+            }
+
         </style>
 
         <h1>Baz component</h1>
