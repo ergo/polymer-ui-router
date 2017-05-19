@@ -97,7 +97,7 @@ Element that generates `<a>` tag with contents.
 
             // notify sref-active elements that their children properties
             _updateParams: function(newValue, oldValue){
-                if(!this.state){
+                if(!this.state || typeof newValue ==='undefined' || typeof oldValue ==='undefined' ){
                     return
                 }
                 this.fire('uirouter-sref-detached', {state: this.state, params: oldValue});
@@ -105,9 +105,10 @@ Element that generates `<a>` tag with contents.
                 this.computeLink();
             },
             _updateState: function(newValue, oldValue){
-                if(!this.state){
+                if(!this.state || typeof newValue ==='undefined' || typeof oldValue ==='undefined' ){
                     return
                 }
+
                 this.fire('uirouter-sref-detached', {state: oldValue, params: this._params});
                 this.fire('uirouter-sref-attached', {state: this.state, params: this._params});
                 this.computeLink();
