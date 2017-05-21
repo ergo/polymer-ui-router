@@ -17,7 +17,7 @@
         "url",
         "routes",
         "ui-router",
-        "ui-router-core",
+        "ui-router-core"
     ],
     "main": "polymer-ui-router.html",
     "dependencies": {
