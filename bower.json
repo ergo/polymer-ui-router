@@ -2,12 +2,15 @@
     "name": "polymer-ui-router",
     "version": "0.1",
     "license": "Apache-2.0",
-    "description": "Polymer element for UI Router Core",
+    "description": "Polymer element for UI-Router Core",
     "main": [
         "uirouter-router.html",
         "uirouter-sref.html",
         "uirouter-sref-active.html",
         "uirouter-uiview.html"
+    ],
+    "authors": [
+        "Marcin Lulek"
     ],
     "keywords": [
         "web-components",
@@ -19,7 +22,6 @@
         "ui-router",
         "ui-router-core"
     ],
-    "main": "polymer-ui-router.html",
     "dependencies": {
         "polymer": "Polymer/polymer#^1.7.0"
     },
