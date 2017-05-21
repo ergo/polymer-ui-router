@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>polymer-ui-router demo</title>
+    <script>
+        window.Polymer = {
+            dom: 'shadow',
+            lazyRegister: true
+        };
+    </script>
+    <script src="//unpkg.com/ui-router-visualizer"></script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../polymer/polymer.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-demo-helpers/url-bar.html">
+    <link rel="import" href="../../../uirouter-router.html">
+    <link rel="import" href="../../../uirouter-sref.html">
+</head>
+<body>
+<!--->
+<div class="vertical-section-container centered">
+    <h3>Basic uirouter-sref demo</h3>
+    <demo-snippet>
+        <template is="dom-bind" id="demo-app">
+
+            <uirouter-router
+                id="ui-router"
+                states="[[routerStates]]" visualizer debug-tracing auto-start>
+            </uirouter-router>
+
+            <url-bar></url-bar>
+
+            <ul>
+                <li><uirouter-sref state="foo" reload>Foo (this restomps every click)</uirouter-sref></li>
+                <li><uirouter-sref state="arg" param-argument-id="99" param-somename="abc">With arguments directly</uirouter-sref></li>
+                <li><uirouter-sref state="arg" params='{"argumentId":123, "somename":8}'>With arguments as
+                    <em>single object</em>
+                </uirouter-sref></li>
+            </ul>
+
+
+
+
+        </template>
+
+        <script>
+            function initRouterDemo() {
+                var demoApp = document.getElementById('demo-app');
+                demoApp.routerStates = [
+                    {name: "foo", url: "/foo", component: "foo-comp"},
+                    {name: "arg", url: "/arg/:argumentId?:somename", component: "arguments-comp"}
+                ];
+            }
+            HTMLImports.whenReady(function () {
+                initRouterDemo();
+            });
+        </script>
+    </demo-snippet>
+</div>
+</body>
+</html>

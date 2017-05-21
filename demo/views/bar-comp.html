@@ -7,12 +7,18 @@
                 background-color: #dddddd;
             }
 
+            uirouter-uiview {
+                padding: 15px;
+                border: 2px dashed blue;
+                display: block;
+            }
+
         </style>
 
         <h1>Bar component</h1>
 
         <div style="padding: 10px">
-            Another <em>ui-router-view</em> element lives here
+            <p>Another <em>ui-router-view</em> element lives here that will stomp descendant views of `bar`</p>
             <uirouter-uiview class="inner-ui-view"></uirouter-uiview>
         </div>
     </template>

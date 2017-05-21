@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>polymer-ui-router demo</title>
+    <script>
+        window.Polymer = {
+            dom: 'shadow',
+            lazyRegister: true
+        };
+    </script>
+    <script src="//unpkg.com/ui-router-visualizer"></script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../polymer/polymer.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-demo-helpers/url-bar.html">
+
+
+    <link rel="import" href="../../../uirouter-router.html">
+    <link rel="import" href="../../../uirouter-uiview.html">
+    <link rel="import" href="../../../uirouter-sref.html">
+    <link rel="import" href="../../../uirouter-sref-active.html">
+    <link rel="import" href="../../../demo/views/index-comp.html">
+    <link rel="import" href="../../../demo/views/foo-comp.html">
+    <link rel="import" href="../../../demo/views/bar-comp.html">
+    <link rel="import" href="../../../demo/views/baz-comp.html">
+    <link rel="import" href="../../../demo/views/baz-a-comp.html">
+    <link rel="import" href="../../../demo/views/baz-b-comp.html">
+    <link rel="import" href="../../../demo/views/footer-comp.html">
+    <link rel="import" href="../../../demo/views/header-comp.html">
+    <link rel="import" href="../../../demo/views/arguments-comp.html">
+    <link rel="import" href="../../../demo/views/resolve-comp.html">
+
+
+</head>
+<body>
+<!--->
+<div class="vertical-section-container centered">
+    <h3>Basic uirouter-view demo</h3>
+    <demo-snippet>
+        <template is="dom-bind" id="demo-app">
+            <uirouter-router
+                id="ui-router"
+                states="[[routerStates]]" visualizer debug-tracing auto-start>
+            </uirouter-router>
+
+            <url-bar></url-bar>
+
+            <p>Links:</p>
+            <ul>
+                <li>
+                    <uirouter-sref state="index_route"><span>Index</span> component
+                    </uirouter-sref>
+                </li>
+                <li>
+                    <uirouter-sref state="foo">Foo</uirouter-sref>
+                </li>
+                <li>
+                    <uirouter-sref state="bar.baz">Bar.baz route with subroutes
+                    </uirouter-sref>
+                </li>
+            </ul>
+
+            <uirouter-uiview name="header"></uirouter-uiview>
+            <div style="border: 1px solid #eeeeee; padding: 10px">
+                <uirouter-uiview></uirouter-uiview>
+            </div>
+            <uirouter-uiview name="footer"></uirouter-uiview>
+        </template>
+
+        <script>
+            function initRouterDemo() {
+                var demoApp = document.getElementById('demo-app');
+                demoApp.routerStates = [
+                    {name: "index_route", url: "/index", component: "index-comp"},
+                    {name: "foo", url: "/foo", component: "foo-comp"},
+                    {
+                        name: "bar", url: "/bar", component: "bar-comp",
+                        views: {
+                            'footer': {component: 'footer-comp'}
+                        }
+                    },
+                    {
+                        name: "bar.baz", url: "/baz", component: "baz-comp",
+                        views: {
+                            '!header': {component: 'header-comp'}
+                        }
+                    },
+                    {
+                        name: "state_a", parent: 'bar.baz', url: "/a", component: "baz-a-comp"
+                    },
+                    {
+                        name: "state_b", parent: 'bar.baz', url: "/b", component: "baz-b-comp"
+                    }
+                ];
+            }
+
+            // normally your application shell should have all routerStates defined and pass them to router element
+            // as early as possible
+            HTMLImports.whenReady(function () {
+                initRouterDemo();
+            });
+        </script>
+    </demo-snippet>
+</div>
+</body>
+</html>
