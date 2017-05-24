@@ -1,0 +1,119 @@
+<!--
+Copyright 2016 Marcin Lulek and contributors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+
+<link rel="import" href="uirouter-behavior.html">
+
+<!--
+`uirouter-uiview`
+
+A UI-Router viewport component, which is filled in by a view components based on active state.
+
+@demo demo/demo-uiview.html uirouter-uiview element demo
+
+-->
+<script>
+
+    Polymer({
+        is: 'uirouter-uiview',
+        behaviors: [
+            UIRouterBehavior
+        ],
+        properties: {
+            /** default component type to use */
+            component: String,
+            /** Name of ui-view partial */
+            name: String
+        },
+
+        _getParentEl: function(el){
+            return el.parentNode || el.host;
+        },
+
+        _findParentUIView: function(el) {
+            while ((el = this._getParentEl(el)) && el.tagName !== 'UIROUTER-UIVIEW');
+            return el;
+        },
+
+        _setActiveUIView: function(){
+            var name = this.name || '$default';
+
+            var rootContext = this.uiRouter.stateRegistry.root();
+            var parentUIView = this._findParentUIView(this);
+            var parentContext = parentUIView &&
+                parentUIView.viewConfig &&
+                parentUIView.viewConfig.viewDecl &&
+                parentUIView.viewConfig.viewDecl.$context;
+
+            var parentFqn = parentUIView &&
+                parentUIView.activeUIView &&
+                parentUIView.activeUIView.fqn;
+            this.activeUIView = {
+                $type: 'polymer',
+                id: this.uiRouter.viewService.uiviewcount++,
+                name: name,
+
+                // This should walk up the elements and find parent
+                // ui-view. It should figure out what its own fqn is
+                // by appending its name to the parent ui-view's fqn.
+                fqn: parentFqn ? parentFqn + "." + name : name,
+
+                // What state the ui-view was created by
+                // When a state fills some ui-view with a component
+                // and that component itself has a ui-view, then
+                // creationContext for the nested ui-view should
+                // be set to that state.
+                creationContext: parentContext || rootContext,
+
+                // When a ui-view should be filled by a component
+                // because a state is activated, this will be called
+                // with the configuration details.
+                configUpdated: this._configUpdated.bind(this),
+            }
+        },
+
+        attached: function() {
+            this._setActiveUIView();
+            // should call this callback when the polymer-ui-view element is destroyed
+            this.deregister = this.uiRouter.viewService.registerUIView(this.activeUIView);
+        },
+
+        detached: function() {
+            this.deregister();
+        },
+
+        _configUpdated: function(newConfig) {
+            if (this.viewConfig === newConfig) return;
+            this.viewConfig = newConfig;
+
+            // a state is targeting this uiview
+            // Now we need to use the `newConfig` data to
+            // update which component is inside this ui-view
+            var root = this;
+            var componentType = (newConfig && newConfig.viewDecl.component) || this.component || "";
+            var child = Polymer.dom(root).firstElementChild;
+            if (child !== null) {
+                Polymer.dom(root).removeChild(child)
+            }
+            if (componentType.length > 0){
+                var elem = document.createElement(componentType);
+                Polymer.dom(root).appendChild(elem);
+            }
+            Polymer.dom.flush();
+        },
+
+    });
+</script>
