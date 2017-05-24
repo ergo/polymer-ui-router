@@ -1,4 +1,4 @@
-<link rel="import" href="uirouter-behavior.html">
+<link rel="import" href="uirouter-core.html">
 
 <!--
 `uirouter-sref-active`
@@ -10,14 +10,15 @@ Element that sets CSS class on itself when any route used by `uirouter-sref` ele
 -->
 
 <script>
-    (function () {
-        Polymer({
+    class UIRouterSrefActive extends Polymer.Element {
+        static get is() { return 'uirouter-sref-active'; }
 
-            is: 'uirouter-sref-active',
-            behaviors: [
-                UIRouterBehavior
-            ],
-            properties: {
+        static get properties() {
+            return {
+                uiRouter: {
+                    type: Object,
+                    value: UIRouterCore
+                },
                 active: {
                     type: String,
                     value: 'route-active'
@@ -28,51 +29,58 @@ Element that sets CSS class on itself when any route used by `uirouter-sref` ele
                         return []
                     }
                 }
-            },
-            attached: function () {
-                this._transListener = this.uiRouter.transitionService.onSuccess({}, this._checkTransition.bind(this));
-                this.listen(this, 'uirouter-sref-attached', 'srefAttached');
-                this.listen(this, 'uirouter-sref-detached', 'srefDetached');
-            },
-            detached: function () {
-                this._transListener();
-                this.unlisten(this, 'uirouter-sref-attached', 'srefAttached');
-                this.unlisten(this, 'uirouter-sref-detached', 'srefDetached');
-            },
-            _checkTransition: function () {
-                var isActive = false;
-                for (var i = 0; i < this._registered.length; i++) {
-                    var included = this.uiRouter.stateService.includes(
-                        this._registered[i].name, this._registered[i].params
-                    );
-                    if (included) {
-                        isActive = true;
-                        break
-                    }
-                }
-                var splitClasses = this.active.split(' ');
-                for (var i = 0; i < splitClasses.length; i++) {
-                    this.toggleClass(splitClasses[i], isActive);
-                }
-            },
-            srefAttached: function (event) {
-                this._registered.push({
-                    name: event.detail.state,
-                    params: event.detail.params,
-                    hash: event.detail.state + JSON.stringify(event.detail.params)
-                });
-                this._checkTransition();
-            },
-            srefDetached: function (event) {
-                var hash = event.detail.state + JSON.stringify(event.detail.params);
-                for (var i = 0; i < this._registered.length; i++) {
-                    if (this._registered[i].hash === hash) {
-                        this._registered.splice(i, 1);
-                        break;
-                    }
-                }
-                this._checkTransition();
             }
-        });
-    })()
+        }
+
+        connectedCallback() {
+            this._transListener = this.uiRouter.transitionService.onSuccess({}, this._checkTransition.bind(this));
+            this._boundSrefAttached = this.srefAttached.bind(this);
+            this._boundSrefDetached = this.srefDetached.bind(this);
+            this.addEventListener('uirouter-sref-attached', this._boundSrefAttached);
+            this.addEventListener('uirouter-sref-detached', this._boundSrefDetached);
+        }
+
+        disconnectedCallback() {
+            this._transListener();
+            this.removeEventListener('uirouter-sref-attached', this._boundSrefAttached);
+            this.removeEventListener('uirouter-sref-detached', this._boundSrefDetached);
+        }
+
+        _checkTransition() {
+            var isActive = false;
+            for (var i = 0; i < this._registered.length; i++) {
+                var included = this.uiRouter.stateService.includes(
+                    this._registered[i].name, this._registered[i].params
+                );
+                if (included) {
+                    isActive = true;
+                    break
+                }
+            }
+            var splitClasses = this.active.split(' ');
+            for (var i = 0; i < splitClasses.length; i++) {
+                this.toggleClass(splitClasses[i], isActive);
+            }
+        }
+
+        srefAttached() {
+            this._registered.push({
+                name: event.detail.state,
+                params: event.detail.params,
+                hash: event.detail.state + JSON.stringify(event.detail.params)
+            });
+            this._checkTransition();
+        }
+
+        srefDetached() {
+            var hash = event.detail.state + JSON.stringify(event.detail.params);
+            for (var i = 0; i < this._registered.length; i++) {
+                if (this._registered[i].hash === hash) {
+                    this._registered.splice(i, 1);
+                    break;
+                }
+            }
+            this._checkTransition();
+        }
+    }
 </script>

@@ -21,5 +21,9 @@
   },
   "devDependencies": {
       "polymer-cli": ""
+  },
+  "scripts": {
+    "serve": "polymer serve",
+    "test": "polymer test"
   }
 }

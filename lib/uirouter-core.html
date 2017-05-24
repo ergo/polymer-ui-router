@@ -19,7 +19,7 @@ limitations under the License.
 <script>
 
 
-    var UIRouterBehavior;
+    var UIRouterCore;
     (function () {
         // encapsulate global router instance
         var routerCore = window['@uirouter/core'];
@@ -72,19 +72,9 @@ limitations under the License.
         uirouter.stateRegistry.decorator('views', polymerViewsBuilder);
 
         /**
-         * @polymerBehavior
-         */
-        UIRouterBehavior = {
-            properties: {
-                /** Shared UI router global instance */
-                uiRouter: {
-                    type: Object,
-                    value: function () {
-                        return uirouter;
-                    }
-                },
-            },
-        };
+        * @global UIRouterCore
+        **/
+        UIRouterCore = uirouter;
     })();
 
 
