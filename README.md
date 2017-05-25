@@ -23,7 +23,6 @@ Some features of UI Router:
 * Transition and lifecycle API's
 
 
-
 ## Install the Polymer-CLI
 
 First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. 
@@ -33,3 +32,8 @@ Install bower and npm dependencies.
 Then run `polymer serve` to serve your application locally.
 
 Run `yarn bundle` to to build ui-router core for dev.
+
+## Known Issues
+- Import order matters for custom element upgrades. [See this issue](https://github.com/webcomponents/custom-elements/issues/15). 
+  - ```<uirouter-sref-active>``` must be upgraded before any child ```<uirouter-sref>``` elements,
+  - so make sure to import ```lib/uirouter-sref-active.html``` before importing ```lib/uirouter-sref.html```.

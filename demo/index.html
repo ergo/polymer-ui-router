@@ -1,215 +1,118 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>Polymer-ui-router complex demo</title>
-    <script>
-        window.Polymer = {
-            dom: 'shadow',
-            lazyRegister: true
-        };
-    </script>
-    <script src="//unpkg.com/ui-router-visualizer"></script>
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <title>polymer-ui-router demo</title>
 
-    <link rel="import" href="../../polymer/polymer-element.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../iron-demo-helpers/url-bar.html">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../polymer-ui-router.html">
 
-    <link rel="import" href="../uirouter-router.html">
-    <link rel="import" href="../uirouter-uiview.html">
-    <link rel="import" href="../uirouter-sref.html">
-    <link rel="import" href="../uirouter-sref-active.html">
-    <link rel="import" href="../demo/views/index-comp.html">
-    <link rel="import" href="../demo/views/foo-comp.html">
-    <link rel="import" href="../demo/views/bar-comp.html">
-    <link rel="import" href="../demo/views/baz-a-comp.html">
-    <link rel="import" href="../demo/views/baz-b-comp.html">
-    <link rel="import" href="../demo/views/footer-comp.html">
-    <link rel="import" href="../demo/views/header-comp.html">
-    <link rel="import" href="../demo/views/arguments-comp.html">
-    <link rel="import" href="../demo/views/resolve-comp.html">
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
 
-
+    </style>
+  </custom-style>
 </head>
+
 <body>
-<!--->
-<div class="vertical-section-container centered">
+  <dom-module id="blue-element">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+    </style>
+    <h3>blue-element</h3>
+    <div style="color: blue">
+      <slot></slot>
+    </div>
+  </template>
+  <script>
+    class BlueElement extends Polymer.Element {
+       static get is() { return 'blue-element'; }
+       static get properties() {
+         return {};
+       }
+    }
+     window.customElements.define(BlueElement.is, BlueElement);
+  </script>
+</dom-module>
+
+  <div class="vertical-section-container centered">
     <h3>Basic polymer-ui-router demo</h3>
-    <demo-snippet>
-        <template is="dom-bind" id="demo-app">
-            <style>
-                :host {
-                    display: block;
-                }
-
-                .global-class .colored {
-                    color: red;
-                }
-
-                .active {
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    border-bottom: 2px solid red;
-                }
-
-                .route-active {
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    border-bottom: 2px solid blue;
-                }
-
-            </style>
-
-            <uirouter-router
-                id="ui-router"
-                location-plugin="[[locationPlugin]]"
-                states="[[routerStates]]" visualizer debug-tracing auto-start
-                init-callback="[[initCallback]]"
-                on-uirouter-success="handleSuccess">
-            </uirouter-router>
-
-            <url-bar></url-bar>
-
-            <p>Current state: [[currentState]]</p>
-            <p>Params: [[paramsJson]]</p>
-
-            <uirouter-sref-active active="global-class other-class">
-                <div class="colored">This is red when any child route is active</div>
-                <p>Links:</p>
-                <ul>
-                    <li>
-                        <uirouter-sref-active>
-                            <uirouter-sref state="[[dynamicRouteName]]"><span>[[dynamicName]]</span> component</uirouter-sref>
-                        </uirouter-sref-active>
-                    </li>
-                    <li>
-                        <uirouter-sref-active>
-                            <uirouter-sref state="foo" reload>Foo (this restomps every click)</uirouter-sref>
-                        </uirouter-sref-active>
-                    </li>
-                    <li>
-                        <uirouter-sref-active>
-                            <uirouter-sref state="resolve">Resolve</uirouter-sref>
-                        </uirouter-sref-active>
-                    </li>
-                    <li>
-                        <uirouter-sref-active>
-                            <uirouter-sref state="arg" param-argument-id="99">With arguments directly</uirouter-sref>
-                        </uirouter-sref-active>
-                    </li>
-                    <li>
-                        <uirouter-sref-active>
-                            <uirouter-sref state="arg" params='{"argumentId":123, "test":8}'>With arguments as
-                                single object
-                            </uirouter-sref>
-                        </uirouter-sref-active>
-                    </li>
-                    <li>
-                        <uirouter-sref-active>
-                            <uirouter-sref state="bar.baz">Bar.baz route with subroutes (baz element is lazy-loaded)
-                            </uirouter-sref>
-                        </uirouter-sref-active>
-                    </li>
-                </ul>
-            </uirouter-sref-active>
-
-            <uirouter-uiview name="header"></uirouter-uiview>
-            <div style="border: 1px solid #eeeeee; padding: 10px">
-
-                <template is="dom-if" if="[[loading]]">
-                    LOADING...
-                </template>
-                <template is="dom-if" if="[[!loading]]">
-                    <uirouter-uiview></uirouter-uiview>
-                </template>
-
-            </div>
-            <uirouter-uiview name="footer"></uirouter-uiview>
-        </template>
-
-        <script>
-            function initRouterDemo() {
-                var demoApp = document.getElementById('demo-app');
-                demoApp.loading = false;
-                demoApp.dynamicRouteName = 'foo';
-                demoApp.dynamicName = 'Foo (this will update via binding in 3s)';
-
-                //showcase that bindings and sref-active elements update on child changes
-                setTimeout(function(){
-                    demoApp.dynamicRouteName = 'index_route';
-                    demoApp.dynamicName = 'Index';
-                }, 3000);
-                var routerCore = window['@uirouter/core'];
-                demoApp.locationPlugin = routerCore.hashLocationPlugin;
-                demoApp.routerStates = [
-                    {name: "index_route", url: "/index", component: "index-comp"},
-                    {name: "foo", url: "/foo", component: "foo-comp"},
-                    {name: "arg", url: "/arg/:argumentId", component: "arguments-comp"},
-                    {
-                        name: "resolve", url: "/resolve", component: "resolve-comp",
-                        resolve: [{
-                            token: 'person',
-                            deps: ['$transition$'],
-                            resolveFn: function (trans) {
-                                return new Promise(function (resolve, reject) {
-                                    demoApp.loading = true;
-                                    setTimeout(resolve, 1000, 'one');
-                                }).then(function () {
-                                    demoApp.loading = false;
-                                });
-                            }
-                        }]
-                    },
-                    {
-                        name: "bar", url: "/bar", component: "bar-comp",
-                        views: {
-                            'footer': {component: 'footer-comp'}
-                        }
-                    },
-                    {
-                        name: "bar.baz", url: "/baz", component: "baz-comp",
-                        views: {
-                            '!header': {component: 'header-comp'}
-                        },
-                        lazyLoad: function () {
-                            // test loading dynamicly elements
-                            console.log('Lazy loading');
-                            Polymer.Base.importHref('../demo/views/baz-comp.html');
-                        }
-                    },
-                    {
-                        name: "state_a", parent: 'bar.baz', url: "/a", component: "baz-a-comp"
-                    },
-                    {
-                        name: "state_b", parent: 'bar.baz', url: "/b", component: "baz-b-comp"
-                    },
-                ];
-                demoApp.handleSuccess = function (event) {
-                    demoApp.currentState = event.detail.transition.to().name;
-                    demoApp.paramsJson = JSON.stringify(event.detail.transition.params());
-                };
-                // set the default not found route in onStart callback
-                demoApp.initCallback = function (uiRouter) {
-                    console.log('Executing additional operations on router object');
-                    uiRouter.urlService.rules.otherwise('/index');
-                }
+    <demo-snippet id="demo">
+      <template id="template">
+        <uirouter-router id="router"></uirouter-router>
+        <uirouter-uiview></uirouter-uiview>
+        <ul>
+          <uirouter-sref-active>
+            <li>
+              <uirouter-sref state="index_route">
+                <blue-element>blue text</blue-element>
+                Index
+              </uirouter-sref>
+            </li>
+          </uirouter-sref-active>
+          <uirouter-sref-active>
+            <li>
+              <uirouter-sref state="foo">Foo</uirouter-sref>
+            </li>
+          </uirouter-sref-active>
+          <uirouter-sref-active>
+            <li>
+              <uirouter-sref state="bar">Bar</uirouter-sref>
+            </li>
+          </uirouter-sref-active>
+          <uirouter-sref-active>
+            <li>
+              <uirouter-sref state="bar.baz">Bar.Baz</uirouter-sref>
+            </li>
+          </uirouter-sref-active>
+          <uirouter-sref-active>
+            <li>
+              <uirouter-sref state="state_a">state_a</uirouter-sref>
+            </li>
+          </uirouter-sref-active>
+          <uirouter-sref-active>
+            <li>
+              <uirouter-sref state="state_b">state_b</uirouter-sref>
+            </li>
+          </uirouter-sref-active>
+        </ul>
+      </template>
+      <script>
+        const routerStates = [
+          { name: "index_route", url: "/index", component: "index-comp" },
+          { name: "foo", url: "/foo", component: "foo-comp" },
+          {
+            name: "bar", url: "/bar", component: "bar-comp",
+            views: {
+              'footer': { component: 'footer-comp' }
             }
-
-            // normally your application shell should have all routerStates defined and pass them to router element
-            // as early as possible
-            HTMLImports.whenReady(function () {
-                initRouterDemo();
-            });
-            //            window.addEventListener('WebComponentsReady', function() {
-            //                console.log('WebComponentsReady');
-            //            });
-        </script>
+          },
+          {
+            name: "bar.baz", url: "/baz", component: "baz-comp",
+            views: {
+              '!header': { component: 'header-comp' }
+            }
+          },
+          {
+            name: "state_a", parent: 'bar.baz', url: "/a", component: "baz-a-comp"
+          },
+          {
+            name: "state_b", parent: 'bar.baz', url: "/b", component: "baz-b-comp"
+          }
+        ];
+        router.states = routerStates;
+      </script>
     </demo-snippet>
-</div>
+  </div>
 </body>
+
 </html>

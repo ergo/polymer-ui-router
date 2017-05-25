@@ -1,29 +1,5 @@
 {
-  "name": "polymer-ui-router",
-  "description": "State-based routing for Polymer 1.x",
-  "version": "0.1.0",
-  "homepage": "",
-  "contributors": ["Christopher Thielen"],
-  "maintainers": ["Marcin Lulek"],
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:ergo/polymer-ui-router"
-    },
-  "bugs": {},
-  "engines": {
-    "node": ">=4.0.0"
-  },
-  "private": true,
-  "license": "http://www.apache.org/licenses/LICENSE-2.0",
   "dependencies": {
-    "bower": "",
-    "@uirouter/core": "^5.0.3"
-  },
-  "devDependencies": {
-      "polymer-cli": ""
-  },
-  "scripts": {
-    "serve": "polymer serve",
-    "test": "polymer test"
+    "angular-ui-router": "^1.0.3"
   }
 }

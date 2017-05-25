@@ -14,14 +14,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-
-<script src="../vendor/ui-router-core.js"></script>
 <script>
+    // Mock Angular bits so that we don't have to copy/paste and mangle the original codebase
+    const noop = () => { };
+    const directive = () => ({ directive });
+    const filter = () => ({ filter });
+    if (!window.angular) {
+        window.angular = {
+            module: () => ({ provider: noop, factory: noop, service: noop, run: noop, directive, filter })
+        };
+    }
 
-
-    var UIRouterCore;
+</script>
+<script src="../../angular-ui-router/release/angular-ui-router.js"></script>
+<script>
     (function () {
         // encapsulate global router instance
+        window['@uirouter/core'] = window['@uirouter/angularjs'];
         var routerCore = window['@uirouter/core'];
         var uirouter = new window['@uirouter/core'].UIRouter();
         uirouter.viewService.uiviewcount = 0;
@@ -48,7 +57,7 @@ limitations under the License.
         /** This is a [[StateBuilder.builder]] function for `views`. */
         // https://ui-router.github.io/ng1/docs/latest/classes/ng1.stateprovider.html#decorator
         function polymerViewsBuilder(state) {
-            var views = {}, viewsObject = state.views || {"$default": {component: state.component}};
+            var views = {}, viewsObject = state.views || { "$default": { component: state.component } };
 
             let names = Object.keys(viewsObject);
             names.forEach(function (name) {
@@ -71,11 +80,30 @@ limitations under the License.
 
         uirouter.stateRegistry.decorator('views', polymerViewsBuilder);
 
-        /**
-        * @global UIRouterCore
-        **/
-        UIRouterCore = uirouter;
-    })();
+        routerCore.ResolveContext.prototype.injector = () => {
+            return {
+                getNative(token) {
+                    const dep = window[token];
+                    if (!dep) {
+                        console.info(`Add ${token} to the window object for dependency injection.`);
+                    }
+                    return dep;
+                }
+            }
+        }
 
+        /**
+         * @mixin
+         */
+        window.UIRouterMixin = (superclass) => {
+            return class UIRouterMixin extends superclass {
+                constructor() {
+                    super();
+                    this.uiRouter = uirouter;
+                }
+            }
+        };
+        window.UIRouterMixin.routerCore = routerCore;
+    })();
 
 </script>

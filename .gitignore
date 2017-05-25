@@ -54,3 +54,4 @@ jspm_packages
 venv
 bower_components
 .idea
+.vscode
