@@ -80,9 +80,6 @@ notation.
                     value: 0
                 }
             },
-            attributeChanged: function (name, type) {
-                this.computeLink();
-            },
             _toCamelCase: function (input) {
                 output = input[0].toUpperCase() + input.slice(1);
                 return output;
@@ -125,11 +122,16 @@ notation.
                 this.computeLink();
                 this.fire('uirouter-sref-attached', {state: this.state, params: this._params});
                 this.listen(this, 'click', 'handleClick');
+                this._observer = new MutationObserver(function(mutations) {
+                    this._computeLink();
+                }.bind(this));
+                this._observer.observe(this, {attributes: true});
             },
 
             detached: function () {
                 this.fire('uirouter-sref-detached', {state: this.state, params: this._params});
                 this.unlisten(this, 'click', 'handleClick');
+                this._observer.disconnect();
             },
 
             computeLink: function () {
@@ -160,7 +162,8 @@ notation.
             _updateMarkup: function(){
                 var slottedNodes = Polymer.dom(this).getEffectiveChildNodes();
                 // when updating the element the node might already wrap with A tag, so get the children
-                if (slottedNodes.length === 1 && slottedNodes[0].className == 'uirouter-link'){
+                if (slottedNodes.length === 1 && Node.ELEMENT_NODE == slottedNodes[0].nodeType &&
+                    slottedNodes[0].classList.contains("uirouter-link")){
                     slottedNodes = slottedNodes[0].childNodes;
                 }
                 while (this.hasChildNodes()) {
