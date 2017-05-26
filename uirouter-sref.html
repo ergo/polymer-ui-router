@@ -5,6 +5,8 @@
 `uirouter-sref`
 Element that generates `<a>` tag with contents.
 
+For links that might have their properties updated after a while by binding you might consider using `property-foo$=value`
+notation.
 
 @demo demo/demo-sref.html uirouter-sref element demo
 -->
@@ -78,7 +80,10 @@ Element that generates `<a>` tag with contents.
                     value: 0
                 }
             },
-
+            attributeChanged: function (name, type) {
+                console.log('attributeChanged', name, type);
+                this.computeLink();
+            },
             _toCamelCase: function (input) {
                 output = input[0].toUpperCase() + input.slice(1);
                 return output;
