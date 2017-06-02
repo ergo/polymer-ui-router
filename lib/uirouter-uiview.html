@@ -108,9 +108,21 @@ Polymer element for UI Router Core
         root.removeChild(child)
       }
       if (componentType.length > 0) {
-        var elem = document.createElement(componentType);
-        root.appendChild(elem);
+        var el = document.createElement(componentType);
+        var context = this.viewConfig.viewDecl.$context;
+        var resolvables = context.resolvables;
+        var promise = Promise.all(resolvables.map(resolvable => resolvable.resolveFn()));
+        promise.then(results => {
+          this.adoptResolveToElement(context.self.resolve, results, el);
+          root.appendChild(el);
+        });
       }
+    }
+
+    adoptResolveToElement(resolve, results, el) {
+      Object.keys(resolve).forEach((key, i) => {
+        el[key] = results[i];
+      });
     }
 
   }

@@ -203,10 +203,6 @@ Polymer element for UI Router Core
         this.uiRouter.transitionService[currEv[0]]({}, this._factoryF(currEv));
       }
 
-      this.addEventListener('uirouter-all', (e) => {
-        console.log('e', e);
-      });
-
       if (this.autoStart) {
         this.start();
       }
@@ -240,7 +236,6 @@ Polymer element for UI Router Core
       }
       this.uiRouter.urlService.listen();
       this.uiRouter.urlService.sync();
-      console.log('starting');
     }
 
   }
