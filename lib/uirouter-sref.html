@@ -129,6 +129,8 @@ Element that generates `<a>` tag with contents.
         }
       }
 
+
+
       _toCamelCase(input) {
         output = input[0].toUpperCase() + input.slice(1);
         return output;
@@ -193,31 +195,6 @@ Element that generates `<a>` tag with contents.
       _computeLink() {
         var params = this.getParams();
         this.generatedURL = this.uiRouter.stateService.href(this.state, params, this._assembleOptions());
-        // this._updateMarkup();
-      }
-
-      _updateMarkup() {
-        var slottedNodes = Array.prototype.slice.call(this.childNodes);
-        // when updating the element the node might already wrap with A tag, so get the children
-        if (slottedNodes.length === 1 && slottedNodes[0].className == 'uirouter-link') {
-          slottedNodes = slottedNodes[0].childNodes;
-        }
-        while (this.hasChildNodes()) {
-          this.removeChild(this.lastChild);
-        }
-        var link = document.createElement('a');
-        link.className = 'uirouter-link';
-        link.href = this.generatedURL;
-        if (this.linkTarget) {
-          link.target = this.linkTarget;
-        }
-        if (this.linkRel) {
-          link.rel = this.linkRel;
-        }
-        for (var i = 0; i < slottedNodes.length; i++) {
-          link.appendChild(slottedNodes[i]);
-        }
-        this.appendChild(link);
       }
 
       fire(name, detail) {
