@@ -28,7 +28,7 @@ For links with custom attributes for state params you should be using `property-
                 /** Sets whether or not the transition's parameter values should be inherited from the current parameter values. */
                 inherit: {
                     type: Boolean,
-                    value: true
+                    value: false
                 },
                 /** your own Transition Options inside this property and use them, e.g., from a Transition Hook  */
                 custom: {
@@ -36,9 +36,9 @@ For links with custom attributes for state params you should be using `property-
                     value: null
                 },
                 /** Changes how the Transition interacts with the browser's location bar */
-                location: {
+                noLocation: {
                     type: Boolean,
-                    value: true
+                    value: false
                 },
                 /** force states which are currently active to reload */
                 reload: {
@@ -146,7 +146,7 @@ For links with custom attributes for state params you should be using `property-
                 return {
                     inherit: this.inherit,
                     custom: this.custom,
-                    location: this.location,
+                    location: !this.noLocation,
                     relative: this.relative,
                     reload: this.reload
                 };
