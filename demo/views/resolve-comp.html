@@ -5,11 +5,17 @@
         </style>
 
         <h1>resolve component</h1>
+
+        <p>Resolved `Person` Data (taken from attached `uiRouterResolvedData` object)</p>
+        <p>[[resolvedData]]</p>
     </template>
 
     <script>
         Polymer({
             is: 'resolve-comp',
+            attached: function(){
+                this.resolvedData = JSON.stringify(this.uiRouterResolvedData.person);
+            }
         });
     </script>
 </dom-module>

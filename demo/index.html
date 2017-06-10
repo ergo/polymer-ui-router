@@ -84,7 +84,8 @@
                 <ul>
                     <li>
                         <uirouter-sref-active>
-                            <uirouter-sref state="[[dynamicRouteName]]"><span>[[dynamicName]]</span> component</uirouter-sref>
+                            <uirouter-sref state="[[dynamicRouteName]]"><span>[[dynamicName]]</span> component
+                            </uirouter-sref>
                         </uirouter-sref-active>
                     </li>
                     <li>
@@ -94,7 +95,7 @@
                     </li>
                     <li>
                         <uirouter-sref-active>
-                            <uirouter-sref state="resolve">Resolve</uirouter-sref>
+                            <uirouter-sref state="resolve" param-test="test">Resolve</uirouter-sref>
                         </uirouter-sref-active>
                     </li>
                     <li>
@@ -140,7 +141,7 @@
                 demoApp.dynamicName = 'Foo (this will update via binding in 3s)';
 
                 //showcase that bindings and sref-active elements update on child changes
-                setTimeout(function(){
+                setTimeout(function () {
                     demoApp.dynamicRouteName = 'index_route';
                     demoApp.dynamicName = 'Index';
                 }, 3000);
@@ -149,9 +150,9 @@
                 demoApp.routerStates = [
                     {name: "index_route", url: "/index", component: "index-comp"},
                     {name: "foo", url: "/foo", component: "foo-comp"},
-                    {name: "arg", url: "/arg/:argumentId", component: "arguments-comp"},
+                    {name: "arg", url: "/arg/:argumentId?:test", component: "arguments-comp"},
                     {
-                        name: "resolve", url: "/resolve", component: "resolve-comp",
+                        name: "resolve", url: "/resolve?:test", component: "resolve-comp",
                         resolve: [{
                             token: 'person',
                             deps: ['$transition$'],
@@ -161,6 +162,7 @@
                                     setTimeout(resolve, 1000, 'one');
                                 }).then(function () {
                                     demoApp.loading = false;
+                                    return {id: 1, username: 'some user'};
                                 });
                             }
                         }]

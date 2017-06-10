@@ -2,14 +2,26 @@
 <dom-module id="arguments-comp">
     <template>
         <style>
+            blockquote{
+                border: 1px solid #eeeeee;
+                padding: 10px;
+                background-color: #f5f5f5;
+            }
         </style>
 
         <h1>arguments component</h1>
+
+        <p>Current route arguments (taken from attached `uiRouterTransition` object)</p>
+        <blockquote>[[currentParams]]</blockquote>
     </template>
 
     <script>
         Polymer({
             is: 'arguments-comp',
+
+            attached: function(){
+                this.currentParams = JSON.stringify(this.uiRouterTransition.params());
+            }
         });
     </script>
 </dom-module>

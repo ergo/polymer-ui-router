@@ -22,6 +22,8 @@ limitations under the License.
 `uirouter-uiview`
 
 A UI-Router viewport component, which is filled in by a view components based on active state.
+Components stomped with this element will have `uiRouterTransition`, `uiRouterResolvedData`
+properties set on them for easy access to router object.
 
 @demo demo/demo-uiview.html uirouter-uiview element demo
 
@@ -37,19 +39,24 @@ A UI-Router viewport component, which is filled in by a view components based on
             /** default component type to use */
             component: String,
             /** Name of ui-view partial */
-            name: String
+            name: String,
+            /** Do not attach router info onto element: `uiRouter...` */
+            doNotAttachRouterInfo: {
+                type: Boolean,
+                value: false
+            }
         },
 
-        _getParentEl: function(el){
+        _getParentEl: function (el) {
             return el.parentNode || el.host;
         },
 
-        _findParentUIView: function(el) {
+        _findParentUIView: function (el) {
             while ((el = this._getParentEl(el)) && el.tagName !== 'UIROUTER-UIVIEW');
             return el;
         },
 
-        _setActiveUIView: function(){
+        _setActiveUIView: function () {
             var name = this.name || '$default';
 
             var rootContext = this.uiRouter.stateRegistry.root();
@@ -82,21 +89,21 @@ A UI-Router viewport component, which is filled in by a view components based on
                 // When a ui-view should be filled by a component
                 // because a state is activated, this will be called
                 // with the configuration details.
-                configUpdated: this._configUpdated.bind(this),
+                configUpdated: this._configUpdated.bind(this)
             }
         },
 
-        attached: function() {
+        attached: function () {
             this._setActiveUIView();
             // should call this callback when the polymer-ui-view element is destroyed
             this.deregister = this.uiRouter.viewService.registerUIView(this.activeUIView);
         },
 
-        detached: function() {
+        detached: function () {
             this.deregister();
         },
 
-        _configUpdated: function(newConfig) {
+        _configUpdated: function (newConfig) {
             if (this.viewConfig === newConfig) return;
             this.viewConfig = newConfig;
 
@@ -109,8 +116,21 @@ A UI-Router viewport component, which is filled in by a view components based on
             if (child !== null) {
                 Polymer.dom(root).removeChild(child)
             }
-            if (componentType.length > 0){
+            if (componentType.length > 0) {
                 var elem = document.createElement(componentType);
+                if (!this.doNotAttachRouterInfo) {
+                    var transition = this.uiRouter.stateService.transition;
+                    var tokens = this.uiRouter.stateService.transition.getResolveTokens().filter(
+                        function (token) {
+                            return typeof token === 'string';
+                        });
+                    var resolvedData = {};
+                    tokens.forEach(function (token) {
+                        resolvedData[token] = transition.injector().get(token);
+                    });
+                    elem.uiRouterTransition = transition;
+                    elem.uiRouterResolvedData = resolvedData;
+                }
                 Polymer.dom(root).appendChild(elem);
             }
             Polymer.dom.flush();
