@@ -25,6 +25,8 @@ A UI-Router viewport component, which is filled in by a view components based on
 Components stomped with this element will have `uiRouterTransition`, `uiRouterResolvedData`, `uiRouterParams`
 properties set on them for easy access to router object.
 
+`uiRouterResolvedData` keys will also be resolved onto components as separate properties.
+
 @demo demo/demo-uiview.html uirouter-uiview element demo
 
 -->
@@ -135,6 +137,12 @@ properties set on them for easy access to router object.
                     }
                     elem.uiRouterTransition = transition;
                     elem.uiRouterResolvedData = resolvedData;
+                    console.log(Object.keys(resolvedData));
+                    Object.keys(resolvedData).filter(function(key){
+                        return [ "$transition$", "$stateParams", "$state$" ].indexOf(key) === -1
+                    }).forEach(function(key){
+                        elem[key] = resolvedData[key];
+                    });
                     elem.uiRouterParams = transition.params();
                 }
                 Polymer.dom(root).appendChild(elem);

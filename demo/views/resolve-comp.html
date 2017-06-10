@@ -6,7 +6,7 @@
 
         <h1>resolve component</h1>
 
-        <p>Resolved `Person` Data (taken from attached `uiRouterResolvedData` object)</p>
+        <p>Resolved `Person` Data</p>
         <p>[[resolvedData]]</p>
     </template>
 
@@ -14,7 +14,9 @@
         Polymer({
             is: 'resolve-comp',
             attached: function(){
-                this.resolvedData = JSON.stringify(this.uiRouterResolvedData.person);
+                // this.person is being set by `ui-view` from the resolve
+                // you can also access this via `uiRouterResolvedData` containing all the resolve keys
+                this.resolvedData = JSON.stringify(this.person);
             }
         });
     </script>
