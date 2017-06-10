@@ -17,7 +17,7 @@
   "license": "http://www.apache.org/licenses/LICENSE-2.0",
   "dependencies": {
     "bower": "",
-    "@uirouter/core": "^5.0.3"
+    "@uirouter/core": "^5.0.4"
   },
   "devDependencies": {
       "polymer-cli": ""
