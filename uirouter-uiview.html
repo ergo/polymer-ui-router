@@ -137,7 +137,6 @@ properties set on them for easy access to router object.
                     }
                     elem.uiRouterTransition = transition;
                     elem.uiRouterResolvedData = resolvedData;
-                    console.log(Object.keys(resolvedData));
                     Object.keys(resolvedData).filter(function(key){
                         return [ "$transition$", "$stateParams", "$state$" ].indexOf(key) === -1
                     }).forEach(function(key){
