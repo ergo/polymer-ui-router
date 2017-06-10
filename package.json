@@ -1,7 +1,7 @@
 {
   "name": "polymer-ui-router",
   "description": "State-based routing for Polymer 1.x",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "",
   "contributors": ["Christopher Thielen"],
   "maintainers": ["Marcin Lulek"],
