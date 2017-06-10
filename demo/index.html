@@ -181,7 +181,15 @@
                         lazyLoad: function () {
                             // test loading dynamicly elements
                             console.log('Lazy loading');
-                            Polymer.Base.importHref('../demo/views/baz-comp.html');
+                            return new Promise(function (resolve, reject) {
+                                Polymer.Base.importHref('../demo/views/baz-comp.html',
+                                    function (e) {
+                                        resolve('ok');
+                                    }, function () {
+                                        reject('error')
+                                    });
+
+                            });
                         }
                     },
                     {
@@ -189,7 +197,7 @@
                     },
                     {
                         name: "state_b", parent: 'bar.baz', url: "/b", component: "baz-b-comp"
-                    },
+                    }
                 ];
                 demoApp.handleSuccess = function (event) {
                     demoApp.currentState = event.detail.transition.to().name;

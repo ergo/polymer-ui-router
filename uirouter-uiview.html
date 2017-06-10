@@ -22,14 +22,13 @@ limitations under the License.
 `uirouter-uiview`
 
 A UI-Router viewport component, which is filled in by a view components based on active state.
-Components stomped with this element will have `uiRouterTransition`, `uiRouterResolvedData`
+Components stomped with this element will have `uiRouterTransition`, `uiRouterResolvedData`, `uiRouterParams`
 properties set on them for easy access to router object.
 
 @demo demo/demo-uiview.html uirouter-uiview element demo
 
 -->
 <script>
-
     Polymer({
         is: 'uirouter-uiview',
         behaviors: [
@@ -119,22 +118,29 @@ properties set on them for easy access to router object.
             if (componentType.length > 0) {
                 var elem = document.createElement(componentType);
                 if (!this.doNotAttachRouterInfo) {
-                    var transition = this.uiRouter.stateService.transition;
-                    var tokens = this.uiRouter.stateService.transition.getResolveTokens().filter(
-                        function (token) {
-                            return typeof token === 'string';
-                        });
+                    var Transition = window['@uirouter/core']['Transition'];
+                    var ResolveContext = window['@uirouter/core']['ResolveContext'];
+                    var resolveContext = new ResolveContext(newConfig.path);
+                    var transition = resolveContext.getResolvable(Transition).data;
+                    var tokens = [];
                     var resolvedData = {};
-                    tokens.forEach(function (token) {
-                        resolvedData[token] = transition.injector().get(token);
-                    });
+                    if (transition) {
+                        tokens = transition.getResolveTokens().filter(
+                            function (token) {
+                                return typeof token === 'string';
+                            });
+                        tokens.forEach(function (token) {
+                            resolvedData[token] = transition.injector().get(token);
+                        });
+                    }
                     elem.uiRouterTransition = transition;
                     elem.uiRouterResolvedData = resolvedData;
+                    elem.uiRouterParams = transition.params();
                 }
                 Polymer.dom(root).appendChild(elem);
             }
             Polymer.dom.flush();
-        },
+        }
 
     });
 </script>
