@@ -1,6 +1,6 @@
 /**
  * UI-Router Core: Framework agnostic, State-based routing for JavaScript Single Page Apps
- * @version v5.0.3
+ * @version v5.0.4
  * @link https://ui-router.github.io
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -1240,17 +1240,17 @@ var Rejection = (function () {
  * @module trace
  */ /** for typedoc */
 /** @hidden */
-function uiViewString(viewData) {
-    if (!viewData)
+function uiViewString(uiview) {
+    if (!uiview)
         return 'ui-view (defunct)';
-    return "[ui-view#" + viewData.id + " tag " +
-        ("in template from '" + (viewData.creationContext && viewData.creationContext.name || '(root)') + "' state]: ") +
-        ("fqn: '" + viewData.fqn + "', ") +
-        ("name: '" + viewData.name + "@" + viewData.creationContext + "')");
+    var state = uiview.creationContext ? uiview.creationContext.name || '(root)' : '(none)';
+    return "[ui-view#" + uiview.id + " " + uiview.$type + ":" + uiview.fqn + " (" + uiview.name + "@" + state + ")]";
 }
 /** @hidden */
 var viewConfigString = function (viewConfig) {
-    return "[ViewConfig#" + viewConfig.$id + " from '" + (viewConfig.viewDecl.$context.name || '(root)') + "' state]: target ui-view: '" + viewConfig.viewDecl.$uiViewName + "@" + viewConfig.viewDecl.$uiViewContextAnchor + "'";
+    var view = viewConfig.viewDecl;
+    var state = view.$context.name || '(root)';
+    return "[View#" + viewConfig.$id + " from '" + state + "' state]: target ui-view: '" + view.$uiViewName + "@" + view.$uiViewContextAnchor + "'";
 };
 /** @hidden */
 function normalizedCat(input) {
@@ -1301,16 +1301,6 @@ var Trace = (function () {
         }
         categories.map(normalizedCat).forEach(function (category) { return _this._enabled[category] = enabled; });
     };
-    /**
-     * Enables a trace [[Category]]
-     *
-     * ```js
-     * trace.enable("TRANSITION");
-     * ```
-     *
-     * @param categories categories to enable. If `categories` is omitted, all categories are enabled.
-     *        Also takes strings (category name) or ordinal (category position)
-     */
     Trace.prototype.enable = function () {
         var categories = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -1318,16 +1308,6 @@ var Trace = (function () {
         }
         this._set(true, categories);
     };
-    /**
-     * Disables a trace [[Category]]
-     *
-     * ```js
-     * trace.disable("VIEWCONFIG");
-     * ```
-     *
-     * @param categories categories to disable. If `categories` is omitted, all categories are disabled.
-     *        Also takes strings (category name) or ordinal (category position)
-     */
     Trace.prototype.disable = function () {
         var categories = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -1414,6 +1394,18 @@ var Trace = (function () {
         if (!this.enabled(exports.Category.UIVIEW))
             return;
         this.traceUIViewEvent("Fill", viewData, " with: " + maxLength(200, html));
+    };
+    /** @internalapi called by ui-router code */
+    Trace.prototype.traceViewSync = function (pairs) {
+        if (!this.enabled(exports.Category.VIEWCONFIG))
+            return;
+        var mapping = pairs.map(function (_a) {
+            var uiViewData = _a[0], config = _a[1];
+            var uiView = uiViewData.$type + ":" + uiViewData.fqn;
+            var view = config && config.viewDecl.$context.name + ": " + config.viewDecl.$name + " (" + config.viewDecl.$type + ")";
+            return { 'ui-view fqn': uiView, 'state: view name': view };
+        }).sort(function (a, b) { return a['ui-view fqn'].localeCompare(b['ui-view fqn']); });
+        console.table(mapping);
     };
     /** @internalapi called by ui-router code */
     Trace.prototype.traceViewServiceEvent = function (event, viewConfig) {
@@ -3505,8 +3497,11 @@ var Transition = (function () {
         var state = this.$to();
         if (state.self.abstract)
             return "Cannot transition to abstract state '" + state.name + "'";
-        if (!Param.validates(state.parameters(), this.params()))
-            return "Param values not valid for state '" + state.name + "'";
+        var paramDefs = state.parameters(), values$$1 = this.params();
+        var invalidParams = paramDefs.filter(function (param) { return !param.validates(values$$1[param.id]); });
+        if (invalidParams.length) {
+            return "Param values not valid for state '" + state.name + "'. Invalid params: [ " + invalidParams.map(function (param) { return param.id; }).join(', ') + " ]";
+        }
         if (this.success === false)
             return this._error;
     };
@@ -4090,15 +4085,20 @@ var StateBuilder = (function () {
         return state;
     };
     StateBuilder.prototype.parentName = function (state) {
+        // name = 'foo.bar.baz.**'
         var name = state.name || "";
+        // segments = ['foo', 'bar', 'baz', '.**']
         var segments = name.split('.');
-        if (segments.length > 1) {
+        // segments = ['foo', 'bar', 'baz']
+        var lastSegment = segments.pop();
+        // segments = ['foo', 'bar'] (ignore .** segment for future states)
+        if (lastSegment === '**')
+            segments.pop();
+        if (segments.length) {
             if (state.parent) {
                 throw new Error("States that specify the 'parent:' property should not have a '.' in their name (" + name + ")");
             }
-            var lastSegment = segments.pop();
-            if (lastSegment === '**')
-                segments.pop();
+            // 'foo.bar'
             return segments.join(".");
         }
         if (!state.parent)
@@ -5587,7 +5587,9 @@ var ViewService = (function () {
                 uiView.configUpdated(viewConfig);
         };
         // Sort views by FQN and state depth. Process uiviews nearest the root first.
-        this._uiViews.sort(depthCompare(uiViewDepth, 1)).map(matchingConfigPair).forEach(configureUIView);
+        var pairs$$1 = this._uiViews.sort(depthCompare(uiViewDepth, 1)).map(matchingConfigPair);
+        trace.traceViewSync(pairs$$1);
+        pairs$$1.forEach(configureUIView);
     };
     
     /**
@@ -5608,8 +5610,8 @@ var ViewService = (function () {
     ViewService.prototype.registerUIView = function (uiView) {
         trace.traceViewServiceUIViewEvent("-> Registering", uiView);
         var uiViews = this._uiViews;
-        var fqnMatches = function (uiv) { return uiv.fqn === uiView.fqn; };
-        if (uiViews.filter(fqnMatches).length)
+        var fqnAndTypeMatches = function (uiv) { return uiv.fqn === uiView.fqn && uiv.$type === uiView.$type; };
+        if (uiViews.filter(fqnAndTypeMatches).length)
             trace.traceViewServiceUIViewEvent("!!!! duplicate uiView named:", uiView);
         uiViews.push(uiView);
         this.sync();
