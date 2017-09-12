@@ -43,11 +43,15 @@
 <div class="vertical-section-container centered">
     <h3>Basic uirouter-uiview demo</h3>
     <demo-snippet>
-        <template is="dom-bind" id="demo-app">
+        <dom-bind id="demo-app">
+
+            <!-- this dom-if template is only needed in demo since demo-snippet does some weird things -->
+            <template is="dom-if" if="[[routerStates]]">
             <uirouter-router
                 id="ui-router"
                 states="[[routerStates]]" visualizer debug-tracing auto-start>
             </uirouter-router>
+            </template>
 
             <url-bar></url-bar>
 
@@ -99,12 +103,7 @@
                     }
                 ];
             }
-
-            // normally your application shell should have all routerStates defined and pass them to router element
-            // as early as possible
-            HTMLImports.whenReady(function () {
-                initRouterDemo();
-            });
+            initRouterDemo();
         </script>
     </demo-snippet>
 </div>

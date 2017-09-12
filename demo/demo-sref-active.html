@@ -26,7 +26,7 @@
 <!--->
 
 <style>
-    .route-active{
+    .route-active {
         font-weight: bold;
         border-bottom: 5px solid red;
         color: red;
@@ -37,25 +37,32 @@
 <div class="vertical-section-container centered">
     <h3>Basic uirouter-sref-active demo</h3>
     <demo-snippet>
-        <template is="dom-bind" id="demo-app">
+        <dom-bind id="demo-app">
+            <template>
+                <!-- this dom-if template is only needed in demo since demo-snippet does some weird things -->
+                <template is="dom-if" if="[[routerStates]]">
+                    <uirouter-router
+                        id="ui-router"
+                        states="[[routerStates]]" visualizer debug-tracing auto-start>
+                    </uirouter-router>
+                </template>
 
-            <uirouter-router
-                id="ui-router"
-                states="[[routerStates]]" visualizer debug-tracing auto-start>
-            </uirouter-router>
+                <url-bar></url-bar>
 
-            <url-bar></url-bar>
-
-            <ul>
-                <uirouter-sref-active><li><uirouter-sref state="foo">Foo</uirouter-sref></li></uirouter-sref-active>
-                <uirouter-sref-active><li><uirouter-sref state="bar">Bar</uirouter-sref></li></uirouter-sref-active>
-            </ul>
-
-
-
-
-        </template>
-
+                <ul>
+                    <uirouter-sref-active>
+                        <li>
+                            <uirouter-sref state="foo">Foo</uirouter-sref>
+                        </li>
+                    </uirouter-sref-active>
+                    <uirouter-sref-active>
+                        <li>
+                            <uirouter-sref state="bar">Bar</uirouter-sref>
+                        </li>
+                    </uirouter-sref-active>
+                </ul>
+            </template>
+        </dom-bind>
         <script>
             function initRouterDemo() {
                 var demoApp = document.getElementById('demo-app');
@@ -64,9 +71,7 @@
                     {name: "bar", url: "/bar", component: "bar-comp"},
                 ];
             }
-            HTMLImports.whenReady(function () {
-                initRouterDemo();
-            });
+            initRouterDemo();
         </script>
     </demo-snippet>
 </div>

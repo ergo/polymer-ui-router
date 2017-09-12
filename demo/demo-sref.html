@@ -26,35 +26,42 @@
 <div class="vertical-section-container centered">
     <h3>Basic uirouter-sref demo</h3>
     <demo-snippet>
-        <template is="dom-bind" id="demo-app">
+        <dom-bind id="demo-app">
+            <template>
+                <!-- this dom-if template is only needed in demo since demo-snippet does some weird things -->
+                <template is="dom-if" if="[[routerStates]]">
+                    <uirouter-router
+                        id="ui-router"
+                        states="[[routerStates]]" visualizer debug-tracing auto-start>
+                    </uirouter-router>
+                </template>
 
-            <uirouter-router
-                id="ui-router"
-                states="[[routerStates]]" visualizer debug-tracing auto-start>
-            </uirouter-router>
+                <url-bar></url-bar>
 
-            <url-bar></url-bar>
+                <ul>
+                    <li>
+                        <uirouter-sref state="foo" reload>Foo (this restomps every click)</uirouter-sref>
+                    </li>
+                    <li>
+                        <uirouter-sref state="arg" param-argument-id="99" param-somename="abc"
+                                       generated-u-r-l="{{generatedUrl}}">With arguments directly
+                        </uirouter-sref>
+                    </li>
+                    <li>
+                        <uirouter-sref state="arg" params='{"argumentId":123, "somename":8}'>With arguments as
+                            <em>single object</em>
+                        </uirouter-sref>
+                    </li>
+                    <li>
+                        <uirouter-sref state="dynamic" param-argument-id$="[[someValue]]"
+                                       generated-u-r-l="{{generatedUrl2}}">Updated by binding after 2 seconds (uses
+                            prop$ notation)
+                        </uirouter-sref>
+                    </li>
+                </ul>
 
-            <ul>
-                <li>
-                    <uirouter-sref state="foo" reload>Foo (this restomps every click)</uirouter-sref>
-                </li>
-                <li>
-                    <uirouter-sref state="arg" param-argument-id="99" param-somename="abc" generated-u-r-l="{{generatedUrl}}">With arguments directly
-                    </uirouter-sref>
-                </li>
-                <li>
-                    <uirouter-sref state="arg" params='{"argumentId":123, "somename":8}'>With arguments as
-                        <em>single object</em>
-                    </uirouter-sref>
-                </li>
-                <li>
-                    <uirouter-sref state="dynamic" param-argument-id$="[[someValue]]" generated-u-r-l="{{generatedUrl2}}">Updated by binding after 2 seconds (uses prop$ notation)
-                    </uirouter-sref>
-                </li>
-            </ul>
-
-        </template>
+            </template>
+        </dom-bind>
 
         <script>
             function initRouterDemo() {
@@ -65,14 +72,12 @@
                     {name: "dynamic", url: "/dynamic/:argumentId", component: "arguments-comp"}
                 ];
             }
-            HTMLImports.whenReady(function () {
-                initRouterDemo();
-                setTimeout(function(){
-                    var demoApp = document.getElementById('demo-app');
-                    demoApp.someValue = 'updatedParam';
-                    console.log('updated param via binding');
-                },2000);
-            });
+            initRouterDemo();
+            setTimeout(function () {
+                var demoApp = document.getElementById('demo-app');
+                demoApp.someValue = 'updatedParam';
+                console.log('updated param via binding');
+            }, 2000);
         </script>
     </demo-snippet>
 </div>
