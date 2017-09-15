@@ -45,22 +45,20 @@
                         id="ui-router"
                         states="[[routerStates]]" visualizer debug-tracing auto-start>
                     </uirouter-router>
+                    <url-bar></url-bar>
+                    <ul>
+                        <uirouter-sref-active>
+                            <li>
+                                <uirouter-sref state="foo">Foo</uirouter-sref>
+                            </li>
+                        </uirouter-sref-active>
+                        <uirouter-sref-active>
+                            <li>
+                                <uirouter-sref state="bar">Bar</uirouter-sref>
+                            </li>
+                        </uirouter-sref-active>
+                    </ul>
                 </template>
-
-                <url-bar></url-bar>
-
-                <ul>
-                    <uirouter-sref-active>
-                        <li>
-                            <uirouter-sref state="foo">Foo</uirouter-sref>
-                        </li>
-                    </uirouter-sref-active>
-                    <uirouter-sref-active>
-                        <li>
-                            <uirouter-sref state="bar">Bar</uirouter-sref>
-                        </li>
-                    </uirouter-sref-active>
-                </ul>
             </template>
         </dom-bind>
         <script>
@@ -71,6 +69,7 @@
                     {name: "bar", url: "/bar", component: "bar-comp"},
                 ];
             }
+
             initRouterDemo();
         </script>
     </demo-snippet>

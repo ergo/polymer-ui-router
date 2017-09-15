@@ -34,32 +34,32 @@
                         id="ui-router"
                         states="[[routerStates]]" visualizer debug-tracing auto-start>
                     </uirouter-router>
+
+
+                    <url-bar></url-bar>
+
+                    <ul>
+                        <li>
+                            <uirouter-sref state="foo" reload>Foo (this restomps every click)</uirouter-sref>
+                        </li>
+                        <li>
+                            <uirouter-sref state="arg" param-argument-id="99" param-somename="abc"
+                                           generated-u-r-l="{{generatedUrl}}">With arguments directly
+                            </uirouter-sref>
+                        </li>
+                        <li>
+                            <uirouter-sref state="arg" params='{"argumentId":123, "somename":8}'>With arguments as
+                                <em>single object</em>
+                            </uirouter-sref>
+                        </li>
+                        <li>
+                            <uirouter-sref state="dynamic" param-argument-id$="[[someValue]]"
+                                           generated-u-r-l="{{generatedUrl2}}">Updated by binding after 2 seconds (uses
+                                prop$ notation)
+                            </uirouter-sref>
+                        </li>
+                    </ul>
                 </template>
-
-                <url-bar></url-bar>
-
-                <ul>
-                    <li>
-                        <uirouter-sref state="foo" reload>Foo (this restomps every click)</uirouter-sref>
-                    </li>
-                    <li>
-                        <uirouter-sref state="arg" param-argument-id="99" param-somename="abc"
-                                       generated-u-r-l="{{generatedUrl}}">With arguments directly
-                        </uirouter-sref>
-                    </li>
-                    <li>
-                        <uirouter-sref state="arg" params='{"argumentId":123, "somename":8}'>With arguments as
-                            <em>single object</em>
-                        </uirouter-sref>
-                    </li>
-                    <li>
-                        <uirouter-sref state="dynamic" param-argument-id$="[[someValue]]"
-                                       generated-u-r-l="{{generatedUrl2}}">Updated by binding after 2 seconds (uses
-                            prop$ notation)
-                        </uirouter-sref>
-                    </li>
-                </ul>
-
             </template>
         </dom-bind>
 
@@ -72,6 +72,7 @@
                     {name: "dynamic", url: "/dynamic/:argumentId", component: "arguments-comp"}
                 ];
             }
+
             initRouterDemo();
             setTimeout(function () {
                 var demoApp = document.getElementById('demo-app');

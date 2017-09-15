@@ -69,74 +69,76 @@
 
                 <!-- this dom-if template is only needed in demo since demo-snippet does some weird things -->
                 <template is="dom-if" if="[[routerStates]]">
-                <uirouter-router
-                    id="ui-router"
-                    location-plugin="[[locationPlugin]]"
-                    states="[[routerStates]]" visualizer debug-tracing auto-start
-                    init-callback="[[initCallback]]"
-                    on-uirouter-success="handleSuccess">
-                </uirouter-router>
+                    <uirouter-router
+                        id="ui-router"
+                        location-plugin="[[locationPlugin]]"
+                        states="[[routerStates]]" visualizer debug-tracing auto-start
+                        init-callback="[[initCallback]]"
+                        on-uirouter-success="handleSuccess">
+                    </uirouter-router>
+
+
+                    <url-bar></url-bar>
+
+                    <p>Current state: [[currentState]]</p>
+                    <p>Params: [[paramsJson]]</p>
+
+                    <uirouter-sref-active active="global-class other-class">
+                        <div class="colored">This is red when any child route is active</div>
+                        <p>Links:</p>
+                        <ul>
+                            <li>
+                                <uirouter-sref-active>
+                                    <uirouter-sref state="[[dynamicRouteName]]"><span>[[dynamicName]]</span> component
+                                    </uirouter-sref>
+                                </uirouter-sref-active>
+                            </li>
+                            <li>
+                                <uirouter-sref-active>
+                                    <uirouter-sref state="foo" reload>Foo (this restomps every click)</uirouter-sref>
+                                </uirouter-sref-active>
+                            </li>
+                            <li>
+                                <uirouter-sref-active>
+                                    <uirouter-sref state="resolve" param-test="test">Resolve</uirouter-sref>
+                                </uirouter-sref-active>
+                            </li>
+                            <li>
+                                <uirouter-sref-active>
+                                    <uirouter-sref state="arg" param-argument-id="99">With arguments directly
+                                    </uirouter-sref>
+                                </uirouter-sref-active>
+                            </li>
+                            <li>
+                                <uirouter-sref-active>
+                                    <uirouter-sref state="arg" params='{"argumentId":123, "test":8}'>With arguments as
+                                        single object
+                                    </uirouter-sref>
+                                </uirouter-sref-active>
+                            </li>
+                            <li>
+                                <uirouter-sref-active>
+                                    <uirouter-sref state="bar.baz">Bar.baz route with subroutes (baz element is
+                                        lazy-loaded)
+                                    </uirouter-sref>
+                                </uirouter-sref-active>
+                            </li>
+                        </ul>
+                    </uirouter-sref-active>
+
+                    <uirouter-uiview name="header"></uirouter-uiview>
+                    <div style="border: 1px solid #eeeeee; padding: 10px">
+
+                        <template is="dom-if" if="[[loading]]">
+                            LOADING...
+                        </template>
+                        <template is="dom-if" if="[[!loading]]">
+                            <uirouter-uiview></uirouter-uiview>
+                        </template>
+
+                    </div>
+                    <uirouter-uiview name="footer"></uirouter-uiview>
                 </template>
-
-                <url-bar></url-bar>
-
-                <p>Current state: [[currentState]]</p>
-                <p>Params: [[paramsJson]]</p>
-
-                <uirouter-sref-active active="global-class other-class">
-                    <div class="colored">This is red when any child route is active</div>
-                    <p>Links:</p>
-                    <ul>
-                        <li>
-                            <uirouter-sref-active>
-                                <uirouter-sref state="[[dynamicRouteName]]"><span>[[dynamicName]]</span> component
-                                </uirouter-sref>
-                            </uirouter-sref-active>
-                        </li>
-                        <li>
-                            <uirouter-sref-active>
-                                <uirouter-sref state="foo" reload>Foo (this restomps every click)</uirouter-sref>
-                            </uirouter-sref-active>
-                        </li>
-                        <li>
-                            <uirouter-sref-active>
-                                <uirouter-sref state="resolve" param-test="test">Resolve</uirouter-sref>
-                            </uirouter-sref-active>
-                        </li>
-                        <li>
-                            <uirouter-sref-active>
-                                <uirouter-sref state="arg" param-argument-id="99">With arguments directly
-                                </uirouter-sref>
-                            </uirouter-sref-active>
-                        </li>
-                        <li>
-                            <uirouter-sref-active>
-                                <uirouter-sref state="arg" params='{"argumentId":123, "test":8}'>With arguments as
-                                    single object
-                                </uirouter-sref>
-                            </uirouter-sref-active>
-                        </li>
-                        <li>
-                            <uirouter-sref-active>
-                                <uirouter-sref state="bar.baz">Bar.baz route with subroutes (baz element is lazy-loaded)
-                                </uirouter-sref>
-                            </uirouter-sref-active>
-                        </li>
-                    </ul>
-                </uirouter-sref-active>
-
-                <uirouter-uiview name="header"></uirouter-uiview>
-                <div style="border: 1px solid #eeeeee; padding: 10px">
-
-                    <template is="dom-if" if="[[loading]]">
-                        LOADING...
-                    </template>
-                    <template is="dom-if" if="[[!loading]]">
-                        <uirouter-uiview></uirouter-uiview>
-                    </template>
-
-                </div>
-                <uirouter-uiview name="footer"></uirouter-uiview>
             </template>
         </dom-bind>
 
