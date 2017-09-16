@@ -23,8 +23,8 @@ limitations under the License.
     var UIRouterBehavior;
     (function () {
         // encapsulate global router instance
-        var routerCore = window['@uirouter/core'];
-        var uirouter = new window['@uirouter/core'].UIRouter();
+        var routerCore = window['@uirouter/core'] || window.UIRouterCore;
+        var uirouter = new routerCore.UIRouter();
         uirouter.viewService.uiviewcount = 0;
         uirouter.viewService.viewconfigcount = 0;
 
