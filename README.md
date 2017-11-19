@@ -23,6 +23,12 @@ Some features of UI Router:
 * Transition and lifecycle API's
 
 
+## Webpack users
+
+To use `polymer-ui-router` with webpack you need to shim the UMD namespace for everything to function correctly.
+
+    let UIRouterCore = require('../bower_components/polymer-ui-router/vendor/ui-router-core.js')
+    window['@uirouter/core'] = UIRouterCore;
 
 ## Install the Polymer-CLI
 
