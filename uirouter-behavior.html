@@ -23,7 +23,7 @@ limitations under the License.
     var UIRouterBehavior;
     (function () {
         // encapsulate global router instance
-        var routerCore = window['@uirouter/core'] || window.UIRouterCore;
+        var routerCore = window['@uirouter/core'];
         var uirouter = new routerCore.UIRouter();
         uirouter.viewService.uiviewcount = 0;
         uirouter.viewService.viewconfigcount = 0;
@@ -53,7 +53,7 @@ limitations under the License.
 
             let names = Object.keys(viewsObject);
             names.forEach(function (name) {
-                config = viewsObject[name];
+                let config = viewsObject[name];
                 name = name || "$default"; // Account for views: { "": { component... } }
                 if (Object.keys(config).length == 0) return;
 
@@ -83,9 +83,10 @@ limitations under the License.
                     value: function () {
                         return uirouter;
                     }
-                },
-            },
+                }
+            }
         };
+        window.UIRouterBehavior = UIRouterBehavior;
     })();
 
 
