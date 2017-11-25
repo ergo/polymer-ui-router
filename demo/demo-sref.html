@@ -12,6 +12,7 @@
         };
     </script>
     <script src="//unpkg.com/ui-router-visualizer"></script>
+    <script src="../vendor/ui-router-core.min.js"></script>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
     <link rel="import" href="../../polymer/polymer.html">
@@ -22,6 +23,7 @@
     <link rel="import" href="../uirouter-sref.html">
 </head>
 <body>
+
 <!--->
 <div class="vertical-section-container centered">
     <h3>Basic uirouter-sref demo</h3>
@@ -32,6 +34,7 @@
                 <template is="dom-if" if="[[routerStates]]">
                     <uirouter-router
                         id="ui-router"
+                        location-plugin="[[locationPlugin]]"
                         states="[[routerStates]]" visualizer debug-tracing auto-start>
                     </uirouter-router>
 
@@ -44,7 +47,7 @@
                         </li>
                         <li>
                             <uirouter-sref state="arg" param-argument-id="99" param-somename="abc"
-                                           generated-u-r-l="{{generatedUrl}}">With arguments directly
+                                           generated-url="{{generatedUrl}}">With arguments directly
                             </uirouter-sref>
                         </li>
                         <li>
@@ -54,7 +57,7 @@
                         </li>
                         <li>
                             <uirouter-sref state="dynamic" param-argument-id$="[[someValue]]"
-                                           generated-u-r-l="{{generatedUrl2}}">Updated by binding after 2 seconds (uses
+                                           generated-url="{{generatedUrl2}}">Updated by binding after 2 seconds (uses
                                 prop$ notation)
                             </uirouter-sref>
                         </li>
@@ -67,9 +70,10 @@
             function initRouterDemo() {
                 var demoApp = document.getElementById('demo-app');
                 demoApp.routerStates = [
-                    {name: "foo", url: "/foo", component: "foo-comp"},
-                    {name: "arg", url: "/arg/:argumentId?:somename", component: "arguments-comp"},
-                    {name: "dynamic", url: "/dynamic/:argumentId", component: "arguments-comp"}
+                    {name: "root", url: "/somerootprefix"},
+                    {name: "foo", url: "/foo", component: "foo-comp", parent:"root"},
+                    {name: "arg", url: "/arg/:argumentId?:somename", component: "arguments-comp", parent:"root"},
+                    {name: "dynamic", url: "/dynamic/:argumentId", component: "arguments-comp", parent:"root"}
                 ];
             }
 
