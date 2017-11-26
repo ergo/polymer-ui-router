@@ -56,33 +56,55 @@
                             </uirouter-sref>
                         </li>
                         <li>
-                            <uirouter-sref state="dynamic" param-argument-id$="[[someValue]]"
-                                           generated-url="{{generatedUrl2}}">Updated by binding after 2 seconds (uses
-                                prop$ notation)
+                            <uirouter-sref state="dynamic" param-argument-id="[[someValue]]"
+                                           param-somename="[[someValue2]]"
+                                           param-foo="[[someFoo]]"
+                                           generated-url="{{generatedUrl2}}">Has params updated by binding every 5
+                                seconds
                             </uirouter-sref>
                         </li>
                     </ul>
                 </template>
+
+                Parameters after transition:
+                <pre>[[stringified(currentParams)]]</pre>
+
             </template>
         </dom-bind>
 
         <script>
             function initRouterDemo() {
                 var demoApp = document.getElementById('demo-app');
+                demoApp.stringified = function (input) {
+                    return JSON.stringify(input, null, 4)
+                };
+                // listen on router success
+                window.document.addEventListener('uirouter-success', function (event) {
+                    demoApp.currentParams = event.detail.transition.params();
+                });
+
+                demoApp.someFoo = '12345';
                 demoApp.routerStates = [
-                    {name: "root", url: "/somerootprefix"},
-                    {name: "foo", url: "/foo", component: "foo-comp", parent:"root"},
-                    {name: "arg", url: "/arg/:argumentId?:somename", component: "arguments-comp", parent:"root"},
-                    {name: "dynamic", url: "/dynamic/:argumentId", component: "arguments-comp", parent:"root"}
+                    {name: "root", url: "/prefix"},
+                    {name: "foo", url: "/foo", component: "foo-comp", parent: "root"},
+                    {name: "arg", url: "/arg/:argumentId?somename", component: "arguments-comp", parent: "root"},
+                    {
+                        name: "dynamic",
+                        url: "/dynamic/:argumentId?somename&foo",
+                        component: "arguments-comp",
+                        parent: "root"
+                    }
                 ];
             }
 
             initRouterDemo();
-            setTimeout(function () {
+            setInterval(function () {
                 var demoApp = document.getElementById('demo-app');
-                demoApp.someValue = 'updatedParam';
+                demoApp.someValue = Math.random();
+                demoApp.someValue2 = Math.random();
+                demoApp.someFoo = Math.random();
                 console.log('updated param via binding');
-            }, 2000);
+            }, 5000);
         </script>
     </demo-snippet>
 </div>
