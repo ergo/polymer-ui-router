@@ -1,3 +1,8 @@
+0.1.8 (2017-11-)
+------------------
+Support property bindings in sref elements
+Bumped ui router core to 5.0.11
+
 0.1.7 (2017-11-20)
 ------------------
 Fixes for webpack
