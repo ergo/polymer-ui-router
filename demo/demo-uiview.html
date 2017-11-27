@@ -44,43 +44,53 @@
     <h3>Basic uirouter-uiview demo</h3>
     <demo-snippet>
         <dom-bind id="demo-app">
+            <template>
+                <!-- this dom-if template is only needed in demo since demo-snippet does some weird things -->
+                <template is="dom-if" if="[[routerStates]]">
+                    <uirouter-router
+                        id="ui-router"
+                        states="[[routerStates]]" auto-start>
+                    </uirouter-router>
 
-            <!-- this dom-if template is only needed in demo since demo-snippet does some weird things -->
-            <template is="dom-if" if="[[routerStates]]">
-                <uirouter-router
-                    id="ui-router"
-                    states="[[routerStates]]" visualizer debug-tracing auto-start>
-                </uirouter-router>
 
+                    <url-bar></url-bar>
 
-                <url-bar></url-bar>
+                    <p>Counter: [[counter]]</p>
+                    <p>Date: [[clock]]</p>
 
-                <p>Links:</p>
-                <ul>
-                    <li>
-                        <uirouter-sref state="index_route"><span>Index</span> component
-                        </uirouter-sref>
-                    </li>
-                    <li>
-                        <uirouter-sref state="foo">Foo</uirouter-sref>
-                    </li>
-                    <li>
-                        <uirouter-sref state="bar.baz">Bar.baz route with subroutes
-                        </uirouter-sref>
-                    </li>
-                </ul>
+                    <p>Variables `clock` and `counter` should get passed into foo and baz components that can render them.
+                    This is controlled by `passDownwards` property on uiview</p>
 
-                <uirouter-uiview name="header"></uirouter-uiview>
-                <div style="border: 1px solid #eeeeee; padding: 10px">
-                    <uirouter-uiview component="default-comp"></uirouter-uiview>
-                </div>
-                <uirouter-uiview name="footer"></uirouter-uiview>
-            </template>
+                    <p>Links:</p>
+                    <ul>
+                        <li>
+                            <uirouter-sref state="index_route"><span>Index</span> component
+                            </uirouter-sref>
+                        </li>
+                        <li>
+                            <uirouter-sref state="foo">Foo</uirouter-sref>
+                        </li>
+                        <li>
+                            <uirouter-sref state="bar.baz">Bar.baz route with subroutes
+                            </uirouter-sref>
+                        </li>
+                    </ul>
+
+                    <uirouter-uiview name="header"></uirouter-uiview>
+                    <div style="border: 1px solid #eeeeee; padding: 10px">
+                        <uirouter-uiview component="default-comp" counter="[[counter]]" clock="[[clock]]"
+                                         pass-downwards="[[passDownwards]]"></uirouter-uiview>
+                    </div>
+                    <uirouter-uiview name="footer"></uirouter-uiview>
+                </template>
             </template>
 
             <script>
                 function initRouterDemo() {
                     var demoApp = document.getElementById('demo-app');
+                    demoApp.counter = 0;
+                    demoApp.clock = new Date();
+                    demoApp.passDownwards = ['counter', 'clock'];
                     demoApp.routerStates = [
                         {name: "index_route", url: "/index", component: "index-comp"},
                         {name: "foo", url: "/foo", component: "foo-comp"},
@@ -106,6 +116,11 @@
                 }
 
                 initRouterDemo();
+                setInterval(function () {
+                    var demoApp = document.getElementById('demo-app');
+                    demoApp.counter = demoApp.counter + 1;
+                    demoApp.clock = new Date();
+                }, 1000);
             </script>
     </demo-snippet>
 </div>

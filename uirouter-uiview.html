@@ -45,6 +45,15 @@ properties set on them for easy access to router object.
             doNotAttachRouterInfo: {
                 type: Boolean,
                 value: false
+            },
+            /**
+             * Explicit names of properties to pass down to stomped elements
+             */
+            passDownwards: {
+                type: Array,
+                value: function () {
+                    return []
+                }
             }
         },
 
@@ -53,7 +62,7 @@ properties set on them for easy access to router object.
         },
 
         _findParentUIView: function (el) {
-            while ((el = this._getParentEl(el)) && el.tagName !== 'UIROUTER-UIVIEW');
+            while ((el = this._getParentEl(el)) && el.tagName !== 'UIROUTER-UIVIEW') ;
             return el;
         },
 
@@ -98,6 +107,18 @@ properties set on them for easy access to router object.
             this._setActiveUIView();
             // should call this callback when the polymer-ui-view element is destroyed
             this.deregister = this.uiRouter.viewService.registerUIView(this.activeUIView);
+            // registers observers that will pass down props to child elements
+            this.passDownwards.forEach(function (p) {
+                if (!Object.hasOwnProperty('__passdownProp-' + p)) {
+                    this['__passdownProp-' + p] = function (newVal) {
+                        var child = Polymer.dom(this).firstElementChild;
+                        if (child !== null) {
+                            child[p] = this[p];
+                        }
+                    }.bind(this);
+                    this._createPropertyObserver(p, '__passdownProp-' + p, true);
+                }
+            }.bind(this));
         },
 
         detached: function () {
@@ -137,9 +158,9 @@ properties set on them for easy access to router object.
                     }
                     elem.uiRouterTransition = transition;
                     elem.uiRouterResolvedData = resolvedData;
-                    Object.keys(resolvedData).filter(function(key){
-                        return [ "$transition$", "$stateParams", "$state$" ].indexOf(key) === -1
-                    }).forEach(function(key){
+                    Object.keys(resolvedData).filter(function (key) {
+                        return ["$transition$", "$stateParams", "$state$"].indexOf(key) === -1
+                    }).forEach(function (key) {
                         elem[key] = resolvedData[key];
                     });
                     elem.uiRouterParams = transition.params();
