@@ -68,11 +68,13 @@
                             </uirouter-sref>
                         </li>
                         <li>
-                            [[testGenUrl(someValue, someValue2, someFoo)]]
                             <uirouter-sref id="MARKED" state="dynamic"
                                            params="[[testGenUrl(someValue, someValue2, someFoo)]]"
                                            generated-url="{{generatedUrl2}}">Updated from function
                             </uirouter-sref>
+                        </li>
+                        <li>
+                            <a href="#/prefix/arg/[[someBar]]?somename=[[someFoo]]">Working with path directly will work too</a>
                         </li>
                         <li>
                             <a href="https://google.com">External link</a>
