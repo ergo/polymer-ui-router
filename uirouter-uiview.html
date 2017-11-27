@@ -108,17 +108,23 @@ properties set on them for easy access to router object.
             // should call this callback when the polymer-ui-view element is destroyed
             this.deregister = this.uiRouter.viewService.registerUIView(this.activeUIView);
             // registers observers that will pass down props to child elements
-            this.passDownwards.forEach(function (p) {
-                if (!Object.hasOwnProperty('__passdownProp-' + p)) {
-                    this['__passdownProp-' + p] = function (newVal) {
-                        var child = Polymer.dom(this).firstElementChild;
-                        if (child !== null) {
-                            child[p] = this[p];
-                        }
-                    }.bind(this);
-                    this._createPropertyObserver(p, '__passdownProp-' + p, true);
+            if (Polymer.Element) {
+                this.passDownwards.forEach(function (p) {
+                    if (!Object.hasOwnProperty('__passdownProp-' + p)) {
+                        this['__passdownProp-' + p] = function (newVal) {
+                            var child = Polymer.dom(this).firstElementChild;
+                            if (child !== null) {
+                                child[p] = this[p];
+                            }
+                        }.bind(this);
+                        this._createPropertyObserver(p, '__passdownProp-' + p, true);
+                    }
+                }.bind(this));
+            } else {
+                if (this.passDownwards.length > 0 ){
+                    console.info('this.passDownwards functionality is only supported by Polymer 2.x+');
                 }
-            }.bind(this));
+            }
         },
 
         detached: function () {
