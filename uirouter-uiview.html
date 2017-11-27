@@ -164,6 +164,9 @@ properties set on them for easy access to router object.
                         elem[key] = resolvedData[key];
                     });
                     elem.uiRouterParams = transition.params();
+                    this.passDownwards.forEach(function (p) {
+                        elem[p] = this[p];
+                    }.bind(this));
                 }
                 Polymer.dom(root).appendChild(elem);
             }
