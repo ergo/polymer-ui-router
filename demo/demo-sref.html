@@ -105,7 +105,7 @@
                         foo: someFoo
                     }
                 }
-                // listen on router success
+                // EXAMPLE: listen on router success
                 window.document.addEventListener('uirouter-success', function (event) {
                     demoApp.currentParams = event.detail.transition.params();
                 });
@@ -114,6 +114,8 @@
                 demoApp.someBaz = '12345789';
                 demoApp.someBar = 'this-is-a-test';
                 demoApp.boundParams = {argumentId: 123456, somename: 'someothervalue'};
+
+                // set the default states
                 demoApp.routerStates = [
                     {name: "root", url: "/prefix"},
                     {name: "foo", url: "/foo", component: "foo-comp", parent: "root"},
