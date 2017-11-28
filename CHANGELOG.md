@@ -1,3 +1,8 @@
+0.2.0 (2017-XX-XX)
+------------------
+Converted the code to Polymer 2.0
+
+
 0.1.8 (2017-11-28)
 ------------------
 This is the last release that will support Polymer 1.x, next version onwards will support only Polymer 2.x.

@@ -15,8 +15,8 @@ limitations under the License.
 
 -->
 
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="uirouter-behavior.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="uirouter-mixin.html">
 
 <!--
 `polymer-ui-router`
@@ -85,70 +85,71 @@ Polymer element for UI Router Core
              * @param {transition} transition object.
              */
 
-            Polymer({
-                is: 'uirouter-router',
-                behaviors: [
-                    UIRouterBehavior
-                ],
-                properties: {
-                    /** Array of state definitions to create when router gets initialized */
-                    states: {
-                        type: Array,
-                        value: function () {
-                            return [];
+            class UiRouterRouter extends UiRouterMixin(Polymer.Element) {
+                static get is() { return "uirouter-router"; }
+                static get properties() {
+                    return {
+                        /** Array of state definitions to create when router gets initialized */
+                        states: {
+                            type: Array,
+                            value: function() {
+                                return [];
+                            },
                         },
-                    },
-                    /** Start router when element is attached */
-                    autoStart: {
-                        type: Boolean,
-                        value: false
-                    },
-                    /** Enable router register itself with visualizer */
-                    visualizer: {
-                        type: Boolean,
-                        value: false
-                    },
-                    /** a function executed when router gets started, accepts uiRouter as argument */
-                    initCallback: {
-                        type: Object,
-                        value: null
-                    },
-                    /** Enable debug messages */
-                    debugTracing: {
-                        type: Boolean,
-                        value: false
-                    },
-                    /** Location plugin used by router */
-                    locationPlugin: {
-                        type: Object,
-                        value: function () {
-                            // Provide a html5 pushstate location implementation that uses `location` and `history
-                            // uirouter.plugin(routerCore.pushStateLocationPlugin);
-                            // Provide a location implementation that uses the hash to manage the url
-                            // Provide a in-memory location implementation (for headless/serverside)
-                            // uirouter.plugin(routerCore.memoryLocationPlugin); // for headless
-                            return routerCore.hashLocationPlugin;
-                        }
-                    },
-                    /** Services plugin used by router */
-                    servicesPlugin: {
-                        type: Object,
-                        value: function () {
-                            return routerCore.servicesPlugin;
+                        /** Start router when element is attached */
+                        autoStart: {
+                            type: Boolean,
+                            value: false
+                        },
+                        /** Enable router register itself with visualizer */
+                        visualizer: {
+                            type: Boolean,
+                            value: false
+                        },
+                        /** a function executed when router gets started, accepts uiRouter as argument */
+                        initCallback: {
+                            type: Object,
+                            value: null
+                        },
+                        /** Enable debug messages */
+                        debugTracing: {
+                            type: Boolean,
+                            value: false
+                        },
+                        /** Location plugin used by router */
+                        locationPlugin: {
+                            type: Object,
+                            value: function() {
+                                // Provide a html5 pushstate location implementation that uses `location` and `history
+                                // uirouter.plugin(routerCore.pushStateLocationPlugin);
+                                // Provide a location implementation that uses the hash to manage the url
+                                // Provide a in-memory location implementation (for headless/serverside)
+                                // uirouter.plugin(routerCore.memoryLocationPlugin); // for headless
+                                return routerCore.hashLocationPlugin;
+                            }
+                        },
+                        /** Services plugin used by router */
+                        servicesPlugin: {
+                            type: Object,
+                            value: function() {
+                                return routerCore.servicesPlugin;
+                            }
                         }
                     }
-                },
+                }
 
                 /** Registers a new state in the router */
-                registerState: function (state) {
+                registerState(state) {
                     var views = Object.assign({$default: {component: ''}}, state.views);
                     if (state.component && state.component.length > 0) {
                         views['$default'] = {component: state.component};
                     }
                     var stateConf = Object.assign({}, state, {views: views});
                     this.uiRouter.stateRegistry.register(stateConf);
-                },
-                attached: function () {
+                }
+
+                connectedCallback() {
+                    super.connectedCallback();
                     this.uiRouter.plugin(this.locationPlugin);
 
                     // Provide a $q-like and $injector-like API for internal use
@@ -192,17 +193,18 @@ Polymer element for UI Router Core
                     if (this.autoStart) {
                         this.start();
                     }
+                }
 
-                },
-
-                _factoryF: function (currEv) {
+                _factoryF(currEv) {
                     return function (transition) {
-                        this.fire('uirouter-' + currEv[1], {transition: transition});
+                        this.dispatchEvent(
+                            new CustomEvent('uirouter-' + currEv[1],
+                                { detail:{transition: transition}, bubbles: true, composed: true }));
                     }.bind(this);
-                },
+                }
 
                 /** Starts router object */
-                start: function () {
+                start() {
                     if(this.initCallback !== null){
                         this.initCallback(this.uiRouter);
                     }
@@ -210,7 +212,9 @@ Polymer element for UI Router Core
                     this.uiRouter.urlService.sync();
                 }
 
-            });
+            }
+            // Register the new element with the browser
+            customElements.define(UiRouterRouter.is, UiRouterRouter);
 
         })()
     </script>

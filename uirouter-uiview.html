@@ -16,7 +16,7 @@ limitations under the License.
 -->
 
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="uirouter-behavior.html">
+<link rel="import" href="uirouter-mixin.html">
 
 <!--
 `uirouter-uiview`
@@ -31,42 +31,41 @@ properties set on them for easy access to router object.
 
 -->
 <script>
-    Polymer({
-        is: 'uirouter-uiview',
-        behaviors: [
-            UIRouterBehavior
-        ],
-        properties: {
-            /** default component type to use */
-            component: String,
-            /** Name of ui-view partial */
-            name: String,
-            /** Do not attach router info onto element: `uiRouter...` */
-            doNotAttachRouterInfo: {
-                type: Boolean,
-                value: false
-            },
-            /**
-             * Explicit names of properties to pass down to stomped elements
-             */
-            passDownwards: {
-                type: Array,
-                value: function () {
-                    return []
+    class UiRouterUiView extends UiRouterMixin(Polymer.Element) {
+        static get is() { return "uirouter-uiview"; }
+        static get properties() {
+            return {
+                /** default component type to use */
+                component: String,
+                /** Name of ui-view partial */
+                name: String,
+                /** Do not attach router info onto element: `uiRouter...` */
+                doNotAttachRouterInfo: {
+                    type: Boolean,
+                    value: false
+                },
+                /**
+                 * Explicit names of properties to pass down to stomped elements
+                 */
+                passDownwards: {
+                    type: Array,
+                    value: function() {
+                        return []
+                    }
                 }
             }
-        },
+        }
 
-        _getParentEl: function (el) {
+        _getParentEl(el) {
             return el.parentNode || el.host;
-        },
+        }
 
-        _findParentUIView: function (el) {
+        _findParentUIView(el) {
             while ((el = this._getParentEl(el)) && el.tagName !== 'UIROUTER-UIVIEW') ;
             return el;
-        },
+        }
 
-        _setActiveUIView: function () {
+        _setActiveUIView() {
             var name = this.name || '$default';
 
             var rootContext = this.uiRouter.stateRegistry.root();
@@ -101,37 +100,33 @@ properties set on them for easy access to router object.
                 // with the configuration details.
                 configUpdated: this._configUpdated.bind(this)
             }
-        },
+        }
 
-        attached: function () {
+        connectedCallback() {
+            super.connectedCallback();
             this._setActiveUIView();
             // should call this callback when the polymer-ui-view element is destroyed
             this.deregister = this.uiRouter.viewService.registerUIView(this.activeUIView);
             // registers observers that will pass down props to child elements
-            if (Polymer.Element) {
-                this.passDownwards.forEach(function (p) {
-                    if (!Object.hasOwnProperty('__passdownProp-' + p)) {
-                        this['__passdownProp-' + p] = function (newVal) {
-                            var child = Polymer.dom(this).firstElementChild;
-                            if (child !== null) {
-                                child[p] = this[p];
-                            }
-                        }.bind(this);
-                        this._createPropertyObserver(p, '__passdownProp-' + p, true);
-                    }
-                }.bind(this));
-            } else {
-                if (this.passDownwards.length > 0 ){
-                    console.info('this.passDownwards functionality is only supported by Polymer 2.x+');
+            this.passDownwards.forEach(function (p) {
+                if (!Object.hasOwnProperty('__passdownProp-' + p)) {
+                    this['__passdownProp-' + p] = function (newVal) {
+                        var child = Polymer.dom(this).firstElementChild;
+                        if (child !== null) {
+                            child[p] = this[p];
+                        }
+                    }.bind(this);
+                    this._createPropertyObserver(p, '__passdownProp-' + p, true);
                 }
-            }
-        },
+            }.bind(this));
+        }
 
-        detached: function () {
+        disconnectedCallback() {
+            super.disconnectedCallback();
             this.deregister();
-        },
+        }
 
-        _configUpdated: function (newConfig) {
+        _configUpdated(newConfig) {
             if (this.viewConfig === newConfig) return;
             this.viewConfig = newConfig;
 
@@ -179,5 +174,11 @@ properties set on them for easy access to router object.
             Polymer.dom.flush();
         }
 
-    });
+        _attachDom(dom) {
+            this.appendChild(dom);
+        }
+    }
+    // Register the new element with the browser
+    customElements.define(UiRouterUiView.is, UiRouterUiView);
+
 </script>
