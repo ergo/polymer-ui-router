@@ -66,16 +66,16 @@ properties set on them for easy access to router object.
         }
 
         _setActiveUIView() {
-            var name = this.name || '$default';
+            let name = this.name || '$default';
 
-            var rootContext = this.uiRouter.stateRegistry.root();
-            var parentUIView = this._findParentUIView(this);
-            var parentContext = parentUIView &&
+            let rootContext = this.uiRouter.stateRegistry.root();
+            let parentUIView = this._findParentUIView(this);
+            let parentContext = parentUIView &&
                 parentUIView.viewConfig &&
                 parentUIView.viewConfig.viewDecl &&
                 parentUIView.viewConfig.viewDecl.$context;
 
-            var parentFqn = parentUIView &&
+            let parentFqn = parentUIView &&
                 parentUIView.activeUIView &&
                 parentUIView.activeUIView.fqn;
             this.activeUIView = {
@@ -111,7 +111,7 @@ properties set on them for easy access to router object.
             this.passDownwards.forEach(function (p) {
                 if (!Object.hasOwnProperty('__passdownProp-' + p)) {
                     this['__passdownProp-' + p] = function (newVal) {
-                        var child = Polymer.dom(this).firstElementChild;
+                        let child = Polymer.dom(this).firstElementChild;
                         if (child !== null) {
                             child[p] = this[p];
                         }
@@ -133,21 +133,21 @@ properties set on them for easy access to router object.
             // a state is targeting this uiview
             // Now we need to use the `newConfig` data to
             // update which component is inside this ui-view
-            var root = this;
-            var componentType = (newConfig && newConfig.viewDecl.component) || this.component || "";
-            var child = Polymer.dom(root).firstElementChild;
+            let root = this;
+            let componentType = (newConfig && newConfig.viewDecl.component) || this.component || "";
+            let child = Polymer.dom(root).firstElementChild;
             if (child !== null) {
                 Polymer.dom(root).removeChild(child)
             }
             if (componentType.length > 0) {
-                var elem = document.createElement(componentType);
+                let elem = document.createElement(componentType);
                 if (!this.doNotAttachRouterInfo) {
-                    var Transition = window['@uirouter/core']['Transition'];
-                    var ResolveContext = window['@uirouter/core']['ResolveContext'];
-                    var resolveContext = new ResolveContext(newConfig.path);
-                    var transition = resolveContext.getResolvable(Transition).data;
-                    var tokens = [];
-                    var resolvedData = {};
+                    let Transition = window['@uirouter/core']['Transition'];
+                    let ResolveContext = window['@uirouter/core']['ResolveContext'];
+                    let resolveContext = new ResolveContext(newConfig.path);
+                    let transition = resolveContext.getResolvable(Transition).data;
+                    let tokens = [];
+                    let resolvedData = {};
                     if (transition) {
                         tokens = transition.getResolveTokens().filter(
                             function (token) {

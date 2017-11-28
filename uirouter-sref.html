@@ -94,19 +94,19 @@ For links with custom attributes for state params you should be using `property-
             }
 
             getParams() {
-                var params = this.params || {};
+                let params = this.params || {};
                 // handle attributes
-                for (var x = 0; x < this.attributes.length; x++) {
-                    var item = this.attributes[x];
+                for (let x = 0; x < this.attributes.length; x++) {
+                    let item = this.attributes[x];
                     if (item.name.indexOf('param-') === 0) {
-                        var name = item.name.slice(6);
-                        var segments = name.split('-');
+                        let name = item.name.slice(6);
+                        let segments = name.split('-');
                         name = segments[0] + segments.slice(1).map(this._toCamelCase).join('');
                         params[name] = item.value;
                     }
                 }
                 // handle props
-                var props = Object.getOwnPropertyNames(this).filter(function (p) {
+                let props = Object.getOwnPropertyNames(this).filter(function (p) {
                     return p.indexOf('param') == 0
                 });
                 props.forEach(function (k, i) {
@@ -185,7 +185,7 @@ For links with custom attributes for state params you should be using `property-
             }
 
             _computeLink() {
-                var params = this.getParams();
+                let params = this.getParams();
                 this.generatedUrl = this.uiRouter.stateService.href(this.state, params, this._assembleOptions());
                 // bwcompat
                 this.generatedURL = this.generatedUrl;
@@ -193,7 +193,7 @@ For links with custom attributes for state params you should be using `property-
             }
 
             _updateMarkup() {
-                var slottedNodes = Polymer.dom(this).getEffectiveChildNodes();
+                let slottedNodes = Polymer.dom(this).getEffectiveChildNodes();
                 // when updating the element the node might already wrap with A tag, so get the children
                 if (slottedNodes.length === 1 && Node.ELEMENT_NODE == slottedNodes[0].nodeType &&
                     slottedNodes[0].classList.contains("uirouter-link")) {
@@ -202,7 +202,7 @@ For links with custom attributes for state params you should be using `property-
                 while (this.hasChildNodes()) {
                     this.removeChild(this.lastChild);
                 }
-                var link = document.createElement('a');
+                let link = document.createElement('a');
                 link.className = 'uirouter-link';
                 link.href = this.generatedUrl;
                 if (this.linkTarget) {
@@ -211,7 +211,7 @@ For links with custom attributes for state params you should be using `property-
                 if (this.linkRel) {
                     link.rel = this.linkRel;
                 }
-                for (var i = 0; i < slottedNodes.length; i++) {
+                for (let i = 0; i < slottedNodes.length; i++) {
                     link.appendChild(slottedNodes[i]);
                 }
                 this.appendChild(link);

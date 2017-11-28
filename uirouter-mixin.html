@@ -47,7 +47,7 @@ limitations under the License.
         /** This is a [[StateBuilder.builder]] function for `views`. */
         // https://ui-router.github.io/ng1/docs/latest/classes/ng1.stateprovider.html#decorator
         function polymerViewsBuilder(state) {
-            var views = {}, viewsObject = state.views || {"$default": {component: state.component}};
+            let views = {}, viewsObject = state.views || {"$default": {component: state.component}};
 
             let names = Object.keys(viewsObject);
             names.forEach(function (name) {

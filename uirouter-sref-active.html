@@ -43,9 +43,9 @@ Element that sets CSS class on itself when any route used by `uirouter-sref` ele
                 this.removeEventListener('uirouter-sref-detached', this.srefDetached.bind(this));
             }
             _checkTransition() {
-                var isActive = false;
-                for (var i = 0; i < this._registered.length; i++) {
-                    var included = this.uiRouter.stateService.includes(
+                let isActive = false;
+                for (let i = 0; i < this._registered.length; i++) {
+                    let included = this.uiRouter.stateService.includes(
                         this._registered[i].name, this._registered[i].params
                     );
                     if (included) {
@@ -53,8 +53,8 @@ Element that sets CSS class on itself when any route used by `uirouter-sref` ele
                         break
                     }
                 }
-                var splitClasses = this.active.split(' ');
-                for (var i = 0; i < splitClasses.length; i++) {
+                let splitClasses = this.active.split(' ');
+                for (let i = 0; i < splitClasses.length; i++) {
                     this.classList.toggle(splitClasses[i], isActive);
                 }
             }
@@ -67,8 +67,8 @@ Element that sets CSS class on itself when any route used by `uirouter-sref` ele
                 this._checkTransition();
             }
             srefDetached(event) {
-                var hash = event.detail.state + JSON.stringify(event.detail.params);
-                for (var i = 0; i < this._registered.length; i++) {
+                let hash = event.detail.state + JSON.stringify(event.detail.params);
+                for (let i = 0; i < this._registered.length; i++) {
                     if (this._registered[i].hash === hash) {
                         this._registered.splice(i, 1);
                         break;
