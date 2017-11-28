@@ -17,15 +17,28 @@
 
         <h1>Bar component</h1>
 
+        <p>[[counter]] [[clock]]</p>
+
         <div style="padding: 10px">
             <p>Another <em>ui-router-view</em> element lives here that will stomp descendant views of `bar`</p>
-            <uirouter-uiview class="inner-ui-view"></uirouter-uiview>
+            <uirouter-uiview class="inner-ui-view" counter="[[counter]]" clock="[[clock]]"
+                             pass-downwards="[[passDownwards]]">
+
+            </uirouter-uiview>
         </div>
     </template>
 
     <script>
         Polymer({
             is: 'bar-comp',
+            properties: {
+                passDownwards: {
+                    type: Array,
+                    value: function () {
+                        return ['counter', 'clock']
+                    }
+                }
+            }
         });
     </script>
 </dom-module>

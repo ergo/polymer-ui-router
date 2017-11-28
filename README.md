@@ -34,8 +34,8 @@ To use `polymer-ui-router` with webpack you need to shim the UMD namespace for e
 
 First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. 
 
-Install bower and npm dependencies.
+Install bower and npm dependencies (quick way is `yarn bower`).
 
-Then run `polymer serve` to serve your application locally.
+Then run `yarn serve` to serve your application locally.
 
 Run `yarn bundle` to to build ui-router core for dev.

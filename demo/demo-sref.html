@@ -52,37 +52,93 @@
                         </li>
                         <li>
                             <uirouter-sref state="arg" params='{"argumentId":123, "somename":8}'>With arguments as
-                                <em>single object</em>
+                                single JSON object
                             </uirouter-sref>
                         </li>
                         <li>
-                            <uirouter-sref state="dynamic" param-argument-id$="[[someValue]]"
-                                           generated-url="{{generatedUrl2}}">Updated by binding after 2 seconds (uses
-                                prop$ notation)
+                            <uirouter-sref state="arg" params="[[boundParams]]">With arguments as single object
                             </uirouter-sref>
+                        </li>
+                        <li>
+                            <uirouter-sref state="dynamic" param-argument-id="[[someValue]]"
+                                           param-somename="[[someValue2]]"
+                                           param-foo="[[someFoo]]"
+                                           generated-url="{{generatedUrl2}}">Has params updated by binding every 5
+                                seconds
+                            </uirouter-sref>
+                        </li>
+                        <li>
+                            <uirouter-sref id="MARKED" state="dynamic"
+                                           params="[[testGenUrl(someValue, someValue2, someFoo)]]"
+                                           generated-url="{{generatedUrl2}}">Updated from function
+                            </uirouter-sref>
+                        </li>
+                        <li>
+                            <a href="#/prefix/arg/[[someBar]]?somename=[[someFoo]]">Working with path directly will work too</a>
+                        </li>
+                        <li>
+                            <a href="https://google.com">External link</a>
                         </li>
                     </ul>
                 </template>
+
+                Parameters after transition:
+                <pre>[[stringified(currentParams)]]</pre>
+
             </template>
         </dom-bind>
 
         <script>
+            var counter = 0;
+
             function initRouterDemo() {
                 var demoApp = document.getElementById('demo-app');
+                demoApp.stringified = function (input) {
+                    return JSON.stringify(input, null, 4)
+                };
+                // simple url gen function
+                demoApp.testGenUrl = function (someValue, someValue2, someFoo) {
+                    return {
+                        argumentId: someValue,
+                        somename: someValue2,
+                        foo: someFoo
+                    }
+                }
+                // EXAMPLE: listen on router success
+                window.document.addEventListener('uirouter-success', function (event) {
+                    demoApp.currentParams = event.detail.transition.params();
+                });
+
+                demoApp.someFoo = '12345';
+                demoApp.someBaz = '12345789';
+                demoApp.someBar = 'this-is-a-test';
+                demoApp.boundParams = {argumentId: 123456, somename: 'someothervalue'};
+
+                // set the default states
                 demoApp.routerStates = [
-                    {name: "root", url: "/somerootprefix"},
-                    {name: "foo", url: "/foo", component: "foo-comp", parent:"root"},
-                    {name: "arg", url: "/arg/:argumentId?:somename", component: "arguments-comp", parent:"root"},
-                    {name: "dynamic", url: "/dynamic/:argumentId", component: "arguments-comp", parent:"root"}
+                    {name: "root", url: "/prefix"},
+                    {name: "foo", url: "/foo", component: "foo-comp", parent: "root"},
+                    {name: "arg", url: "/arg/:argumentId?somename", component: "arguments-comp", parent: "root"},
+                    {
+                        name: "dynamic",
+                        url: "/dynamic/:argumentId?somename&foo",
+                        component: "arguments-comp",
+                        parent: "root"
+                    }
                 ];
             }
 
             initRouterDemo();
-            setTimeout(function () {
+            setInterval(function () {
                 var demoApp = document.getElementById('demo-app');
-                demoApp.someValue = 'updatedParam';
+                counter = counter + 1;
+                demoApp.someValue = counter;
+                counter = counter + 1;
+                demoApp.someValue2 = counter;
+                counter = counter + 1;
+                demoApp.someFoo = counter;
                 console.log('updated param via binding');
-            }, 2000);
+            }, 5000);
         </script>
     </demo-snippet>
 </div>
