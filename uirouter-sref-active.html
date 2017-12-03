@@ -76,9 +76,6 @@ Element that sets CSS class on itself when any route used by `uirouter-sref` ele
                 }
                 this._checkTransition();
             }
-            _attachDom(dom) {
-                this.appendChild(dom);
-            }
         }
         // Register the new element with the browser
         customElements.define(UiRouterSrefActive.is, UiRouterSrefActive);

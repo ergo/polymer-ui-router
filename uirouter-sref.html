@@ -109,9 +109,9 @@ For links with custom attributes for state params you should be using `property-
                 let props = Object.getOwnPropertyNames(this).filter(function (p) {
                     return p.indexOf('param') == 0
                 });
-                props.forEach(function (k, i) {
+                props.forEach((k, i) => {
                     params[k[5].toLocaleLowerCase() + k.slice(6)] = this[k];
-                }.bind(this));
+                });
                 this._params = params;
                 return params;
             }
@@ -150,9 +150,9 @@ For links with custom attributes for state params you should be using `property-
                     new CustomEvent('uirouter-sref-attached',
                         {detail: {state: this.state, params: this._params}, bubbles: true, composed: true}));
                 this.addEventListener('click', this.handleClick.bind(this));
-                this._observer = new MutationObserver(function (mutations) {
+                this._observer = new MutationObserver(mutations => {
                     this._computeLink();
-                }.bind(this));
+                });
                 this._observer.observe(this, {attributes: true});
             }
 
@@ -193,7 +193,7 @@ For links with custom attributes for state params you should be using `property-
             }
 
             _updateMarkup() {
-                let slottedNodes = Polymer.dom(this).getEffectiveChildNodes();
+                let slottedNodes = this.childNodes;
                 // when updating the element the node might already wrap with A tag, so get the children
                 if (slottedNodes.length === 1 && Node.ELEMENT_NODE == slottedNodes[0].nodeType &&
                     slottedNodes[0].classList.contains("uirouter-link")) {
@@ -211,9 +211,7 @@ For links with custom attributes for state params you should be using `property-
                 if (this.linkRel) {
                     link.rel = this.linkRel;
                 }
-                for (let i = 0; i < slottedNodes.length; i++) {
-                    link.appendChild(slottedNodes[i]);
-                }
+                slottedNodes.forEach(n => link.appendChild(n));
                 this.appendChild(link);
             }
 
@@ -223,10 +221,6 @@ For links with custom attributes for state params you should be using `property-
                     this._computeLink();
                     this.uiRouter.stateService.go(this.state, this._params, this._assembleOptions());
                 }
-            }
-
-            _attachDom(dom) {
-                this.appendChild(dom);
             }
         }
 

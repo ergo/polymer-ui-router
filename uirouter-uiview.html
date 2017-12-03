@@ -108,17 +108,17 @@ properties set on them for easy access to router object.
             // should call this callback when the polymer-ui-view element is destroyed
             this.deregister = this.uiRouter.viewService.registerUIView(this.activeUIView);
             // registers observers that will pass down props to child elements
-            this.passDownwards.forEach(function (p) {
+            this.passDownwards.forEach(p => {
                 if (!Object.hasOwnProperty('__passdownProp-' + p)) {
-                    this['__passdownProp-' + p] = function (newVal) {
-                        let child = Polymer.dom(this).firstElementChild;
+                    this['__passdownProp-' + p] = newVal => {
+                        let child = this.firstChild;
                         if (child !== null) {
                             child[p] = this[p];
                         }
-                    }.bind(this);
+                    };
                     this._createPropertyObserver(p, '__passdownProp-' + p, true);
                 }
-            }.bind(this));
+            });
         }
 
         disconnectedCallback() {
@@ -133,11 +133,10 @@ properties set on them for easy access to router object.
             // a state is targeting this uiview
             // Now we need to use the `newConfig` data to
             // update which component is inside this ui-view
-            let root = this;
             let componentType = (newConfig && newConfig.viewDecl.component) || this.component || "";
-            let child = Polymer.dom(root).firstElementChild;
+            let child = this.firstChild;
             if (child !== null) {
-                Polymer.dom(root).removeChild(child)
+                this.removeChild(child)
             }
             if (componentType.length > 0) {
                 let elem = document.createElement(componentType);
@@ -165,17 +164,12 @@ properties set on them for easy access to router object.
                         elem[key] = resolvedData[key];
                     });
                     elem.uiRouterParams = transition.params();
-                    this.passDownwards.forEach(function (p) {
+                    this.passDownwards.forEach(p => {
                         elem[p] = this[p];
-                    }.bind(this));
+                    });
                 }
-                Polymer.dom(root).appendChild(elem);
+                this.appendChild(elem);
             }
-            Polymer.dom.flush();
-        }
-
-        _attachDom(dom) {
-            this.appendChild(dom);
         }
     }
     // Register the new element with the browser

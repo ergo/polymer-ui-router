@@ -50,7 +50,7 @@ limitations under the License.
             let views = {}, viewsObject = state.views || {"$default": {component: state.component}};
 
             let names = Object.keys(viewsObject);
-            names.forEach(function (name) {
+            names.forEach(name => {
                 let config = viewsObject[name];
                 name = name || "$default"; // Account for views: { "": { component... } }
                 if (Object.keys(config).length == 0) return;
