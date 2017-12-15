@@ -210,6 +210,11 @@ Polymer element for UI Router Core
                     if (this.initCallback !== null) {
                         this.initCallback(this.uiRouter);
                     }
+
+                    this.dispatchEvent(
+                        new CustomEvent('uirouter-init',
+                            {detail: {uiRouter: this.uiRouter}, bubbles: true, composed: true}));
+
                     this.uiRouter.urlService.listen();
                     this.uiRouter.urlService.sync();
                 }
