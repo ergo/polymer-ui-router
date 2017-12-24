@@ -40,7 +40,7 @@
 
 
                     <url-bar></url-bar>
-
+                    [[someValue]]
                     <ul>
                         <li>
                             <uirouter-sref state="foo" reload>Foo (<span>this</span> <strong>restomps</strong> <em>every click</em>)</uirouter-sref>
@@ -48,7 +48,7 @@
                         <li>
                             <uirouter-sref state="foo">
                                 <!-- testing different kind of nodes -->
-                                Foo (<span>this</span> <strong>does not</strong> <em>restomp</em>)
+                                Foo (<span>this</span> <strong>does not</strong> <em>restomp</em>) counter: [[someValue]]
                             </uirouter-sref>
                         </li>
                         <li>
@@ -70,7 +70,7 @@
                                            param-somename="[[someValue2]]"
                                            param-foo="[[someFoo]]"
                                            generated-url="{{generatedUrl2}}">Has params updated by binding every 5
-                                seconds
+                                seconds  counter: [[someValue]]
                             </uirouter-sref>
                         </li>
                         <li>
