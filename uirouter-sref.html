@@ -193,12 +193,16 @@ For links with custom attributes for state params you should be using `property-
             }
 
             _updateMarkup() {
-                let slottedNodes = this.childNodes;
-                // when updating the element the node might already wrap with A tag, so get the children
-                if (slottedNodes.length === 1 && Node.ELEMENT_NODE == slottedNodes[0].nodeType &&
-                    slottedNodes[0].classList.contains("uirouter-link")) {
-                    slottedNodes = slottedNodes[0].childNodes;
+                let slottedNodes = [];
+                for (let i = 0; i < this.childNodes.length; i++) {
+                    // when updating the element the node might already wrap with A tag, so get the children
+                    if (this.childNodes[i] === Node.ELEMENT_NODE && slottedNodes[0].classList.contains("uirouter-link")) {
+                        slottedNodes = slottedNodes[0].childNodes;
+                        break
+                    }
+                    slottedNodes.push(this.childNodes[i]);
                 }
+
                 while (this.hasChildNodes()) {
                     this.removeChild(this.lastChild);
                 }

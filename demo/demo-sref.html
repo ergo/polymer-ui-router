@@ -46,6 +46,12 @@
                             <uirouter-sref state="foo" reload>Foo (<span>this</span> <strong>restomps</strong> <em>every click</em>)</uirouter-sref>
                         </li>
                         <li>
+                            <uirouter-sref state="foo">
+                                <!-- testing different kind of nodes -->
+                                Foo (<span>this</span> <strong>does not</strong> <em>restomp</em>)
+                            </uirouter-sref>
+                        </li>
+                        <li>
                             <uirouter-sref state="arg" param-argument-id="99" param-somename="abc"
                                            generated-url="{{generatedUrl}}">With arguments directly
                             </uirouter-sref>
