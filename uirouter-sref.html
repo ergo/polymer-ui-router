@@ -196,8 +196,11 @@ For links with custom attributes for state params you should be using `property-
                 let slottedNodes = [];
                 for (let i = 0; i < this.childNodes.length; i++) {
                     // when updating the element the node might already wrap with A tag, so get the children
-                    if (this.childNodes[i] === Node.ELEMENT_NODE && slottedNodes[i].classList.contains("uirouter-link")) {
-                        slottedNodes = slottedNodes[i].childNodes;
+                    if (this.childNodes[i].nodeType === Node.ELEMENT_NODE && this.childNodes[i].classList.contains("uirouter-link")) {
+                        slottedNodes = [];
+                        for (var j = 0; j < this.childNodes[i].childNodes.length; j++) {
+                            slottedNodes.push(this.childNodes[i].childNodes[j]);
+                        }
                         break
                     }
                     slottedNodes.push(this.childNodes[i]);
