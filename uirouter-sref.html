@@ -177,10 +177,12 @@ For links with custom attributes for state params you should be using `property-
 
             _updateMarkup: function () {
                 var slottedNodes = Polymer.dom(this).getEffectiveChildNodes();
-                // when updating the element the node might already wrap with A tag, so get the children
-                if (slottedNodes.length === 1 && Node.ELEMENT_NODE == slottedNodes[0].nodeType &&
-                    slottedNodes[0].classList.contains("uirouter-link")) {
-                    slottedNodes = slottedNodes[0].childNodes;
+                for (var i = 0; i < slottedNodes; i++) {
+                    // when updating the element the node might already wrap with A tag, so get the children
+                    if (slottedNodes[i] === Node.ELEMENT_NODE && slottedNodes[i].classList.contains("uirouter-link")) {
+                        slottedNodes = slottedNodes[i].childNodes;
+                        break
+                    }
                 }
                 while (this.hasChildNodes()) {
                     this.removeChild(this.lastChild);
