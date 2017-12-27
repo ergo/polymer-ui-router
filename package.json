@@ -1,7 +1,7 @@
 {
     "name": "polymer-ui-router",
-    "description": "State-based routing for Polymer 1.x",
-    "version": "0.1.8",
+    "description": "State-based routing for Polymer 1.x/2.x",
+    "version": "0.1.9",
     "homepage": "",
     "contributors": [
         "Christopher Thielen"
@@ -24,7 +24,7 @@
     "private": true,
     "license": "http://www.apache.org/licenses/LICENSE-2.0",
     "dependencies": {
-        "@uirouter/core": "^5.0.11",
+        "@uirouter/core": "^5.0.13",
         "bower": ""
     },
     "devDependencies": {

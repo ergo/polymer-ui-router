@@ -1,3 +1,11 @@
+0.1.9 (2017-12-27)
+------------------
+
+- Bumped ui router core to 5.0.13
+- `<uirouter-sref>` fixed some bugs related to handle existing links
+
+
+
 0.1.8 (2017-11-28)
 ------------------
 This is the last release that will support Polymer 1.x, next version onwards will support only Polymer 2.x.
