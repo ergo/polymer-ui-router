@@ -1,7 +1,13 @@
-0.2.0 (2017-XX-XX)
+0.2.0 (2017-12-XX)
 ------------------
-Converted the code to Polymer 2.0
+- First release based purely on webcomponents v1, es6 and Polymer 2.x
+- Bumped ui router core to 5.0.13
 
+0.1.9 (2017-12-27)
+------------------
+
+- Bumped ui router core to 5.0.13
+- `<uirouter-sref>` fixed some bugs related to handle existing links
 
 0.1.8 (2017-11-28)
 ------------------
