@@ -2,7 +2,8 @@
 
 ## UI Router wrapper for Polymer 2.x+
 
-https://ui-router.github.io/
+Use https://ui-router.github.io/core/docs/latest/ and https://ui-router.github.io/ 
+For general UI-Router documentation.
 
 UI-Router is one of most popular routing solutions, 
 with ports for angular 1.x, 2.x+ and react - now also available for Polymer.

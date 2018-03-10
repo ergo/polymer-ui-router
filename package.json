@@ -1,6 +1,6 @@
 {
     "name": "polymer-ui-router",
-    "description": "State-based routing for Polymer 1.x",
+    "description": "State-based routing for Polymer 2.x",
     "version": "0.2.0",
     "homepage": "",
     "contributors": [
