@@ -1,5 +1,5 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="uirouter-behavior.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="uirouter-mixin.html">
 
 <!--
 `uirouter-sref-active`
@@ -12,38 +12,40 @@ Element that sets CSS class on itself when any route used by `uirouter-sref` ele
 
 <script>
     (function () {
-        Polymer({
 
-            is: 'uirouter-sref-active',
-            behaviors: [
-                UIRouterBehavior
-            ],
-            properties: {
-                active: {
-                    type: String,
-                    value: 'route-active'
-                },
-                _registered: {
-                    type: Array,
-                    value: function () {
-                        return []
+        class UiRouterSrefActive extends UiRouterMixin(Polymer.Element) {
+            static get is() { return "uirouter-sref-active"; }
+            static get properties() {
+                return {
+                    active: {
+                        type: String,
+                        value: 'route-active'
+                    },
+                    _registered: {
+                        type: Array,
+                        value: function () {
+                            return []
+                        }
                     }
                 }
-            },
-            attached: function () {
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
                 this._transListener = this.uiRouter.transitionService.onSuccess({}, this._checkTransition.bind(this));
-                this.listen(this, 'uirouter-sref-attached', 'srefAttached');
-                this.listen(this, 'uirouter-sref-detached', 'srefDetached');
-            },
-            detached: function () {
+                this.addEventListener('uirouter-sref-attached', this.srefAttached.bind(this));
+                this.addEventListener('uirouter-sref-detached', this.srefDetached.bind(this));
+            }
+            disconnectedCallback() {
+                super.disconnectedCallback();
                 this._transListener();
-                this.unlisten(this, 'uirouter-sref-attached', 'srefAttached');
-                this.unlisten(this, 'uirouter-sref-detached', 'srefDetached');
-            },
-            _checkTransition: function () {
-                var isActive = false;
-                for (var i = 0; i < this._registered.length; i++) {
-                    var included = this.uiRouter.stateService.includes(
+                this.removeEventListener('uirouter-sref-attached', this.srefAttached.bind(this));
+                this.removeEventListener('uirouter-sref-detached', this.srefDetached.bind(this));
+            }
+            _checkTransition() {
+                let isActive = false;
+                for (let i = 0; i < this._registered.length; i++) {
+                    let included = this.uiRouter.stateService.includes(
                         this._registered[i].name, this._registered[i].params
                     );
                     if (included) {
@@ -51,22 +53,22 @@ Element that sets CSS class on itself when any route used by `uirouter-sref` ele
                         break
                     }
                 }
-                var splitClasses = this.active.split(' ');
-                for (var i = 0; i < splitClasses.length; i++) {
-                    this.toggleClass(splitClasses[i], isActive);
+                let splitClasses = this.active.split(' ');
+                for (let i = 0; i < splitClasses.length; i++) {
+                    this.classList.toggle(splitClasses[i], isActive);
                 }
-            },
-            srefAttached: function (event) {
+            }
+            srefAttached(event) {
                 this._registered.push({
                     name: event.detail.state,
                     params: event.detail.params,
                     hash: event.detail.state + JSON.stringify(event.detail.params)
                 });
                 this._checkTransition();
-            },
-            srefDetached: function (event) {
-                var hash = event.detail.state + JSON.stringify(event.detail.params);
-                for (var i = 0; i < this._registered.length; i++) {
+            }
+            srefDetached(event) {
+                let hash = event.detail.state + JSON.stringify(event.detail.params);
+                for (let i = 0; i < this._registered.length; i++) {
                     if (this._registered[i].hash === hash) {
                         this._registered.splice(i, 1);
                         break;
@@ -74,6 +76,9 @@ Element that sets CSS class on itself when any route used by `uirouter-sref` ele
                 }
                 this._checkTransition();
             }
-        });
+        }
+        // Register the new element with the browser
+        customElements.define(UiRouterSrefActive.is, UiRouterSrefActive);
+
     })()
 </script>

@@ -1,6 +1,6 @@
 # \<polymer-ui-router\>
 
-## UI Router wrapper for Polymer 1.x/2.x
+## UI Router wrapper for Polymer 2.x+
 
 https://ui-router.github.io/
 

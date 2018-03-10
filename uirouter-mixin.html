@@ -15,22 +15,20 @@ limitations under the License.
 
 -->
 
-<link rel="import" href="../polymer/polymer.html">
 <script src="vendor/ui-router-core.js"></script>
 <script>
 
-
-    var UIRouterBehavior;
+    window.UiRouterMixin = null;
     (function () {
         // encapsulate global router instance
-        var routerCore = window['@uirouter/core'];
-        var uirouter = new routerCore.UIRouter();
+        let routerCore = window['@uirouter/core'];
+        let uirouter = new routerCore.UIRouter();
         uirouter.viewService.uiviewcount = 0;
         uirouter.viewService.viewconfigcount = 0;
 
         // Create an internal ViewConfig representation from a state.views object
         function viewConfigFactory(pathnodes, viewDeclaration) {
-            var config = {
+            let config = {
                 $id: uirouter.viewService.viewconfigcount++,
                 path: pathnodes,
                 viewDecl: viewDeclaration,
@@ -49,10 +47,10 @@ limitations under the License.
         /** This is a [[StateBuilder.builder]] function for `views`. */
         // https://ui-router.github.io/ng1/docs/latest/classes/ng1.stateprovider.html#decorator
         function polymerViewsBuilder(state) {
-            var views = {}, viewsObject = state.views || {"$default": {component: state.component}};
+            let views = {}, viewsObject = state.views || {"$default": {component: state.component}};
 
             let names = Object.keys(viewsObject);
-            names.forEach(function (name) {
+            names.forEach(name => {
                 let config = viewsObject[name];
                 name = name || "$default"; // Account for views: { "": { component... } }
                 if (Object.keys(config).length == 0) return;
@@ -72,21 +70,31 @@ limitations under the License.
 
         uirouter.stateRegistry.decorator('views', polymerViewsBuilder);
 
-        /**
-         * @polymerBehavior
+        /*
+         * This mixin does something really complicated.
+         * @polymer
+         * @mixinFunction
          */
-        UIRouterBehavior = {
-            properties: {
-                /** Shared UI router global instance */
-                uiRouter: {
-                    type: Object,
-                    value: function () {
-                        return uirouter;
+        UiRouterMixin = function(superClass) {
+            return class extends superClass {
+                constructor() {
+                    super();
+                }
+
+                static get properties() {
+                    return {
+                        /** Shared UI router global instance */
+                        uiRouter: {
+                            type: Object,
+                            value: function () {
+                                return uirouter;
+                            }
+                        }
                     }
                 }
             }
         };
-        window.UIRouterBehavior = UIRouterBehavior;
+        window.UiRouterMixin = UiRouterMixin;
     })();
 
 

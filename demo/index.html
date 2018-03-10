@@ -74,6 +74,7 @@
                         location-plugin="[[locationPlugin]]"
                         states="[[routerStates]]" visualizer debug-tracing auto-start
                         init-callback="[[initCallback]]"
+                        on-uirouter-exit="handleExit"
                         on-uirouter-success="handleSuccess">
                     </uirouter-router>
 
@@ -209,8 +210,12 @@
                     }
                 ];
                 demoApp.handleSuccess = function (event) {
+                    console.log('handleSuccess event listener', event.detail);
                     demoApp.currentState = event.detail.transition.to().name;
                     demoApp.paramsJson = JSON.stringify(event.detail.transition.params());
+                };
+                demoApp.handleExit = function (event) {
+                    console.log('handleExit event listener', event.detail);
                 };
                 // set the default not found route in onStart callback
                 demoApp.initCallback = function (uiRouter) {
