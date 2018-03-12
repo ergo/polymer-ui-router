@@ -40,3 +40,7 @@ Install bower and npm dependencies (quick way is `yarn bower`).
 Then run `yarn serve` to serve your application locally.
 
 Run `yarn bundle` to to build ui-router core for dev.
+
+## TIPS
+
+Set a <base href="$path"> tag in your index.html to let the router know the static/base part of your URL
