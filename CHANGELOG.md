@@ -1,3 +1,7 @@
+0.2.1 (2018-)
+------------------
+- Bumped ui router core to 5.0.17
+
 0.2.0 (2018-02-17)
 ------------------
 - First release based purely on webcomponents v1, es6 and Polymer 2.x
