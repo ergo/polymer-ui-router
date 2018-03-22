@@ -134,6 +134,10 @@ properties set on them for easy access to router object.
             // Now we need to use the `newConfig` data to
             // update which component is inside this ui-view
             let componentType = (newConfig && newConfig.viewDecl.component) || this.component || "";
+            let isAbstract = (newConfig && newConfig.viewDecl['$context'].self.abstract === true);
+            if (isAbstract){
+                componentType = 'uirouter-uiview'
+            }
             let child = this.firstChild;
             if (child !== null) {
                 this.removeChild(child)
@@ -156,13 +160,19 @@ properties set on them for easy access to router object.
                             resolvedData[token] = transition.injector().get(token);
                         });
                     }
-                    elem.uiRouterTransition = transition;
-                    elem.uiRouterResolvedData = resolvedData;
                     Object.keys(resolvedData).filter(function (key) {
                         return ["$transition$", "$stateParams", "$state$"].indexOf(key) === -1
                     }).forEach(function (key) {
                         elem[key] = resolvedData[key];
                     });
+                    if (isAbstract){
+                        elem.component = this.components;
+                        elem.name = this.name;
+                        elem.passDownwards = this.passDownwards;
+                        elem.doNotAttachRouterInfo = this.doNotAttachRouterInfo;
+                    }
+                    elem.uiRouterTransition = transition;
+                    elem.uiRouterResolvedData = resolvedData;
                     elem.uiRouterParams = transition.params();
                     this.passDownwards.forEach(p => {
                         elem[p] = this[p];
