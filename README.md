@@ -23,6 +23,18 @@ Some features of UI Router:
 * Views can be nested inside other views
 * Transition and lifecycle API's
 
+## Example usage
+
+    // top-level
+    <uirouter-router id="ui-router" states="[[routerStates]]" auto-start>
+    </uirouter-router>
+    
+    // view level
+    <uirouter-sref state="user.contacts" param-test="test">Contacts</uirouter-sref>
+    
+    // this injects new views based on router state
+    <uirouter-uiview></uirouter-uiview>
+
 
 ## Webpack users
 
@@ -38,8 +50,6 @@ First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polyme
 Install bower and npm dependencies (quick way is `yarn bower`).
 
 Then run `yarn serve` to serve your application locally.
-
-Run `yarn bundle` to to build ui-router core for dev.
 
 ## TIPS
 
