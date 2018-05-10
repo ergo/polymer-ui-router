@@ -6,25 +6,67 @@
 
     <title>polymer-ui-router test</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../uirouter-router.html">
+    <link rel="import" href="../all-imports.html">
   </head>
   <body>
-    <test-fixture id="basic">
+
+    <test-fixture id="BasicTestFixture">
       <template>
-        <polymer-ui-router></polymer-ui-router>
+        <uirouter-router auto-start></uirouter-router>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="ManualStartTestFixture">
+      <template>
+        <uirouter-router></uirouter-router>
       </template>
     </test-fixture>
 
     <script>
-      suite('polymer-ui-router', function() {
-        test('instantiating the element works', function() {
-          var element = fixture('basic');
-          assert.equal(element.is, 'polymer-ui-router');
+      suite('polymer-ui-router', () => {
+
+        test('instantiating the element with default properties works', () => {
+          const element = fixture('BasicTestFixture');
+            console.log('c',element.uiRouter.stateRegistry.get());
+            console.dir(element.uiRouter.stateRegistry.get());
+            assert.lengthOf(element.states, 0);
+            assert.equal(element.autoStart, true);
+            assert.equal(element.visualizer, false);
+            assert.isNull(element.initCallback);
+            assert.equal(element.debugTracing, false);
+            assert.isFunction(element.locationPlugin);
+            assert.isFunction(element.servicesPlugin);
+            assert.isObject(element.uiRouter);
+            let allStates = element.uiRouter.stateRegistry.get();
+            let rootState = allStates[0];
+            assert.lengthOf(allStates, 1);
+            assert.isTrue(rootState.abstract);
+            assert.equal(rootState.name, "");
         });
+
+        test('manual start of router works', () => {
+          // Create a test fixture
+          const element = fixture('ManualStartTestFixture');
+            let routerStates = [
+                {name: "index_route", url: "/index", component: "index-comp"},
+                {name: "foo", url: "/foo", component: "foo-comp"},
+                {name: "arg", url: "/arg/:argumentId?:test", component: "arguments-comp"},
+                {name: "user", url: "/bar", component: "bar-comp"},
+                {name: "state_a", parent: 'user', url: "/a", component: "baz-a-comp"},
+            ];
+            element.states = routerStates;
+            element.connectedCallback();
+            console.log(element.uiRouter.stateRegistry.get())
+            assert.isObject(element.uiRouter);
+            assert.lengthOf(element.states, 5);
+            assert.lengthOf(element.uiRouter.stateRegistry.get(), 6);
+        });
+
       });
     </script>
+
   </body>
 </html>

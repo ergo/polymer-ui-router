@@ -27,6 +27,14 @@ Some features of UI Router:
 
 ## Example usage
 
+    let routerStates = [
+       {name: "index_route", url: "/index", component: "index-comp"},
+       {name: "foo", url: "/foo", component: "foo-comp"},
+       {name: "arg", url: "/arg/:argumentId?:test", component: "arguments-comp"},
+       {name: "user", url: "/bar", component: "bar-comp"},
+       {name: "state_a", parent: 'bar.baz', url: "/a", component: "baz-a-comp"},
+       {name: "state_b", parent: 'bar.baz', url: "/b", component: "baz-b-comp"}
+       ]
     // top-level
     <uirouter-router id="ui-router" states="[[routerStates]]" auto-start>
     </uirouter-router>
