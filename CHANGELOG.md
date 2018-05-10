@@ -1,6 +1,12 @@
-0.2.1 (2018-)
+1.0.0 (2018-04-10)
+------------------
+- Bumped ui router core to 5.0.19
+- Stable release
+
+0.2.1 (2018-04-10)
 ------------------
 - Bumped ui router core to 5.0.17
+- Handle abstract states properly
 
 0.2.0 (2018-02-17)
 ------------------
