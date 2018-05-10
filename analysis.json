@@ -2,146 +2,160 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`polymer-ui-router`\nPolymer element for UI Router Core\n\nInvoked after a transition successfully completes..",
+      "description": "`polymer-ui-router`\nPolymer element for UI Router Core",
       "summary": "",
       "path": "uirouter-router.html",
       "properties": [
         {
           "name": "states",
-          "type": "Array",
+          "type": "Array | null | undefined",
           "description": "Array of state definitions to create when router gets initialized",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 92,
+              "line": 95,
               "column": 24
             },
             "end": {
-              "line": 97,
+              "line": 100,
               "column": 25
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Array"
+            }
           },
           "defaultValue": "[]"
         },
         {
           "name": "autoStart",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Start router when element is attached",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 99,
+              "line": 102,
               "column": 24
             },
             "end": {
-              "line": 102,
+              "line": 105,
               "column": 25
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "visualizer",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Enable router register itself with visualizer",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 104,
+              "line": 107,
               "column": 24
             },
             "end": {
-              "line": 107,
+              "line": 110,
               "column": 25
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "initCallback",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "a function executed when router gets started, accepts uiRouter as argument",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 112,
               "column": 24
             },
             "end": {
-              "line": 112,
+              "line": 115,
               "column": 25
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Object"
+            }
           },
           "defaultValue": "null"
         },
         {
           "name": "debugTracing",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Enable debug messages",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 114,
+              "line": 117,
               "column": 24
             },
             "end": {
-              "line": 117,
+              "line": 120,
               "column": 25
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "locationPlugin",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "Location plugin used by router",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 119,
+              "line": 122,
               "column": 24
             },
             "end": {
-              "line": 129,
+              "line": 132,
               "column": 25
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Object"
+            }
           }
         },
         {
           "name": "servicesPlugin",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "Services plugin used by router",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 131,
+              "line": 134,
               "column": 24
             },
             "end": {
-              "line": 136,
+              "line": 139,
               "column": 25
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Object"
+            }
           }
         }
       ],
@@ -152,11 +166,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 141,
+              "line": 144,
               "column": 16
             },
             "end": {
-              "line": 148,
+              "line": 151,
               "column": 17
             }
           },
@@ -165,7 +179,10 @@
             {
               "name": "state"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "connectedCallback",
@@ -173,16 +190,19 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 150,
+              "line": 153,
               "column": 16
             },
             "end": {
-              "line": 195,
+              "line": 197,
               "column": 17
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_factoryF",
@@ -190,11 +210,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 197,
+              "line": 199,
               "column": 16
             },
             "end": {
-              "line": 203,
+              "line": 205,
               "column": 17
             }
           },
@@ -211,16 +231,19 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 206,
+              "line": 208,
               "column": 16
             },
             "end": {
-              "line": 212,
+              "line": 214,
               "column": 17
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         }
       ],
       "staticMethods": [],
@@ -237,7 +260,7 @@
           "column": 12
         },
         "end": {
-          "line": 214,
+          "line": 216,
           "column": 13
         }
       },
@@ -250,164 +273,115 @@
           "description": "Array of state definitions to create when router gets initialized",
           "sourceRange": {
             "start": {
-              "line": 92,
+              "line": 95,
               "column": 24
             },
             "end": {
-              "line": 97,
+              "line": 100,
               "column": 25
             }
           },
           "metadata": {},
-          "type": "Array"
+          "type": "Array | null | undefined"
         },
         {
           "name": "auto-start",
           "description": "Start router when element is attached",
           "sourceRange": {
             "start": {
-              "line": 99,
+              "line": 102,
               "column": 24
             },
             "end": {
-              "line": 102,
+              "line": 105,
               "column": 25
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "visualizer",
           "description": "Enable router register itself with visualizer",
           "sourceRange": {
             "start": {
-              "line": 104,
+              "line": 107,
               "column": 24
             },
             "end": {
-              "line": 107,
+              "line": 110,
               "column": 25
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "init-callback",
           "description": "a function executed when router gets started, accepts uiRouter as argument",
           "sourceRange": {
             "start": {
-              "line": 109,
+              "line": 112,
               "column": 24
             },
             "end": {
-              "line": 112,
+              "line": 115,
               "column": 25
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         },
         {
           "name": "debug-tracing",
           "description": "Enable debug messages",
           "sourceRange": {
             "start": {
-              "line": 114,
+              "line": 117,
               "column": 24
             },
             "end": {
-              "line": 117,
+              "line": 120,
               "column": 25
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "location-plugin",
           "description": "Location plugin used by router",
           "sourceRange": {
             "start": {
-              "line": 119,
+              "line": 122,
               "column": 24
             },
             "end": {
-              "line": 129,
+              "line": 132,
               "column": 25
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         },
         {
           "name": "services-plugin",
           "description": "Services plugin used by router",
           "sourceRange": {
             "start": {
-              "line": 131,
+              "line": 134,
               "column": 24
             },
             "end": {
-              "line": 136,
+              "line": 139,
               "column": 25
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         }
       ],
-      "events": [
-        {
-          "type": "CustomEvent",
-          "name": "uirouter-before",
-          "description": "uirouter-before",
-          "metadata": {}
-        },
-        {
-          "type": "CustomEvent",
-          "name": "uirouter-enter",
-          "description": "uirouter-enter",
-          "metadata": {}
-        },
-        {
-          "type": "CustomEvent",
-          "name": "uirouter-error",
-          "description": "uirouter-error",
-          "metadata": {}
-        },
-        {
-          "type": "CustomEvent",
-          "name": "uirouter-exit",
-          "description": "uirouter-exit",
-          "metadata": {}
-        },
-        {
-          "type": "CustomEvent",
-          "name": "uirouter-finish",
-          "description": "uirouter-finish",
-          "metadata": {}
-        },
-        {
-          "type": "CustomEvent",
-          "name": "uirouter-retain",
-          "description": "uirouter-retain",
-          "metadata": {}
-        },
-        {
-          "type": "CustomEvent",
-          "name": "uirouter-start",
-          "description": "uirouter-start",
-          "metadata": {}
-        },
-        {
-          "type": "CustomEvent",
-          "name": "uirouter-success",
-          "description": "uirouter-success",
-          "metadata": {}
-        }
-      ],
+      "events": [],
       "styling": {
         "cssVariables": [],
         "selectors": []
@@ -422,7 +396,7 @@
       "properties": [
         {
           "name": "state",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "The name of the state to link to",
           "privacy": "public",
           "sourceRange": {
@@ -437,13 +411,14 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_updateState\""
+              "observer": "\"_updateState\"",
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "inherit",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Sets whether or not the transition's parameter values should be inherited from the current parameter values.",
           "privacy": "public",
           "sourceRange": {
@@ -457,13 +432,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "custom",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "your own Transition Options inside this property and use them, e.g., from a Transition Hook",
           "privacy": "public",
           "sourceRange": {
@@ -477,13 +454,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Object"
+            }
           },
           "defaultValue": "null"
         },
         {
           "name": "noLocation",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Changes how the Transition interacts with the browser's location bar",
           "privacy": "public",
           "sourceRange": {
@@ -497,13 +476,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "reload",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "force states which are currently active to reload",
           "privacy": "public",
           "sourceRange": {
@@ -517,13 +498,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "relative",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "When transitioning to relative path (e.g '^'),\nthis option defines which state to be relative from.",
           "privacy": "public",
           "sourceRange": {
@@ -537,13 +520,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"$state.current\""
         },
         {
           "name": "linkRel",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "",
           "privacy": "public",
           "sourceRange": {
@@ -557,12 +542,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
           "name": "linkTarget",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "",
           "privacy": "public",
           "sourceRange": {
@@ -576,12 +563,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
           "name": "params",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "The parameter values to use (as key/values)",
           "privacy": "public",
           "sourceRange": {
@@ -596,14 +585,15 @@
           },
           "metadata": {
             "polymer": {
-              "observer": "\"_updateParams\""
+              "observer": "\"_updateParams\"",
+              "attributeType": "Object"
             }
           },
           "defaultValue": "null"
         },
         {
           "name": "_params",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "compiled params",
           "privacy": "protected",
           "sourceRange": {
@@ -617,13 +607,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Object"
+            }
           },
           "defaultValue": "null"
         },
         {
           "name": "generatedURL",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Link url generated by this element (legacy)",
           "privacy": "public",
           "sourceRange": {
@@ -638,13 +630,14 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "generatedUrl",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Link url generated by this element",
           "privacy": "public",
           "sourceRange": {
@@ -659,13 +652,14 @@
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "String"
             }
           }
         },
         {
           "name": "debounceTime",
-          "type": "number",
+          "type": "number | null | undefined",
           "description": "Time that (in ms) url generator should debounce before generating url",
           "privacy": "public",
           "sourceRange": {
@@ -679,7 +673,9 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Number"
+            }
           },
           "defaultValue": "0"
         }
@@ -745,7 +741,10 @@
             {
               "name": "oldValue"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_updateState",
@@ -769,7 +768,10 @@
             {
               "name": "oldValue"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "connectedCallback",
@@ -786,7 +788,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "disconnectedCallback",
@@ -803,7 +808,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "computeLink",
@@ -820,7 +828,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_assembleOptions",
@@ -854,7 +865,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_updateMarkup",
@@ -866,12 +880,15 @@
               "column": 12
             },
             "end": {
-              "line": 217,
+              "line": 222,
               "column": 13
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "handleClick",
@@ -879,11 +896,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 219,
+              "line": 224,
               "column": 12
             },
             "end": {
-              "line": 225,
+              "line": 230,
               "column": 13
             }
           },
@@ -892,28 +909,10 @@
             {
               "name": "event"
             }
-          ]
-        },
-        {
-          "name": "_attachDom",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 227,
-              "column": 12
-            },
-            "end": {
-              "line": 229,
-              "column": 13
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "dom"
-            }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         }
       ],
       "staticMethods": [],
@@ -930,7 +929,7 @@
           "column": 8
         },
         "end": {
-          "line": 230,
+          "line": 231,
           "column": 9
         }
       },
@@ -952,7 +951,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "inherit",
@@ -968,7 +967,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "custom",
@@ -984,7 +983,7 @@
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         },
         {
           "name": "no-location",
@@ -1000,7 +999,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "reload",
@@ -1016,7 +1015,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "relative",
@@ -1032,7 +1031,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "link-rel",
@@ -1048,7 +1047,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "link-target",
@@ -1064,7 +1063,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "params",
@@ -1080,7 +1079,7 @@
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         },
         {
           "name": "generated-u-r-l",
@@ -1096,7 +1095,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "generated-url",
@@ -1112,7 +1111,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "debounce-time",
@@ -1128,7 +1127,7 @@
             }
           },
           "metadata": {},
-          "type": "number"
+          "type": "number | null | undefined"
         }
       ],
       "events": [
@@ -1159,7 +1158,7 @@
       "properties": [
         {
           "name": "active",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "",
           "privacy": "public",
           "sourceRange": {
@@ -1173,13 +1172,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"route-active\""
         },
         {
           "name": "_registered",
-          "type": "Array",
+          "type": "Array | null | undefined",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
@@ -1193,7 +1194,9 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Array"
+            }
           },
           "defaultValue": "[]"
         }
@@ -1214,7 +1217,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "disconnectedCallback",
@@ -1231,7 +1237,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_checkTransition",
@@ -1248,7 +1257,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "srefAttached",
@@ -1269,7 +1281,10 @@
             {
               "name": "event"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "srefDetached",
@@ -1290,28 +1305,10 @@
             {
               "name": "event"
             }
-          ]
-        },
-        {
-          "name": "_attachDom",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 78,
-              "column": 12
-            },
-            "end": {
-              "line": 80,
-              "column": 13
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "dom"
-            }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         }
       ],
       "staticMethods": [],
@@ -1328,7 +1325,7 @@
           "column": 8
         },
         "end": {
-          "line": 81,
+          "line": 78,
           "column": 9
         }
       },
@@ -1350,7 +1347,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         }
       ],
       "events": [],
@@ -1368,7 +1365,7 @@
       "properties": [
         {
           "name": "component",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "default component type to use",
           "privacy": "public",
           "sourceRange": {
@@ -1382,12 +1379,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
           "name": "name",
-          "type": "string",
+          "type": "string | null | undefined",
           "description": "Name of ui-view partial",
           "privacy": "public",
           "sourceRange": {
@@ -1401,12 +1400,14 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           }
         },
         {
           "name": "doNotAttachRouterInfo",
-          "type": "boolean",
+          "type": "boolean | null | undefined",
           "description": "Do not attach router info onto element: `uiRouter...`",
           "privacy": "public",
           "sourceRange": {
@@ -1420,13 +1421,15 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Boolean"
+            }
           },
           "defaultValue": "false"
         },
         {
           "name": "passDownwards",
-          "type": "Array",
+          "type": "Array | null | undefined",
           "description": "Explicit names of properties to pass down to stomped elements",
           "privacy": "public",
           "sourceRange": {
@@ -1440,7 +1443,9 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Array"
+            }
           },
           "defaultValue": "[]"
         }
@@ -1503,7 +1508,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "connectedCallback",
@@ -1520,7 +1528,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "disconnectedCallback",
@@ -1537,7 +1548,10 @@
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_configUpdated",
@@ -1549,7 +1563,7 @@
               "column": 8
             },
             "end": {
-              "line": 174,
+              "line": 182,
               "column": 9
             }
           },
@@ -1558,28 +1572,10 @@
             {
               "name": "newConfig"
             }
-          ]
-        },
-        {
-          "name": "_attachDom",
-          "description": "",
-          "privacy": "protected",
-          "sourceRange": {
-            "start": {
-              "line": 176,
-              "column": 8
-            },
-            "end": {
-              "line": 178,
-              "column": 9
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "dom"
-            }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         }
       ],
       "staticMethods": [],
@@ -1596,7 +1592,7 @@
           "column": 4
         },
         "end": {
-          "line": 179,
+          "line": 183,
           "column": 5
         }
       },
@@ -1618,7 +1614,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "name",
@@ -1634,7 +1630,7 @@
             }
           },
           "metadata": {},
-          "type": "string"
+          "type": "string | null | undefined"
         },
         {
           "name": "do-not-attach-router-info",
@@ -1650,7 +1646,7 @@
             }
           },
           "metadata": {},
-          "type": "boolean"
+          "type": "boolean | null | undefined"
         },
         {
           "name": "pass-downwards",
@@ -1666,7 +1662,7 @@
             }
           },
           "metadata": {},
-          "type": "Array"
+          "type": "Array | null | undefined"
         }
       ],
       "events": [],
@@ -1680,13 +1676,13 @@
   ],
   "mixins": [
     {
-      "description": "This mixin does something really complicated.",
+      "description": "This mixin adds ui uiRouter property with router instance to element",
       "summary": "",
       "path": "uirouter-mixin.html",
       "properties": [
         {
           "name": "uiRouter",
-          "type": "Object",
+          "type": "Object | null | undefined",
           "description": "Shared UI router global instance",
           "privacy": "public",
           "sourceRange": {
@@ -1700,7 +1696,9 @@
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "Object"
+            }
           }
         }
       ],
@@ -1735,7 +1733,7 @@
             }
           },
           "metadata": {},
-          "type": "Object"
+          "type": "Object | null | undefined"
         }
       ],
       "events": [],

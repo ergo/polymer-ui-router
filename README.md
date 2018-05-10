@@ -39,10 +39,14 @@ Some features of UI Router:
     <uirouter-router id="ui-router" states="[[routerStates]]" auto-start>
     </uirouter-router>
     
-    // view level
-    <uirouter-sref state="user.contacts" param-test="test">Contacts</uirouter-sref>
+    // view level, generates A tags
+    <uirouter-sref state="foo" reload>Foo (this restomps every click)</uirouter-sref>
+    <uirouter-sref state="arg" param-argument-id="99">
+        With arguments directly
+    </uirouter-sref>
     
-    // this injects new views based on router state
+    // this injects new views based on router state, /index path will 
+    // result in <index-comp/> being stomped
     <uirouter-uiview></uirouter-uiview>
 
 
