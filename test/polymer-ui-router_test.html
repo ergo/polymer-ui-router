@@ -6,10 +6,10 @@
 
     <title>polymer-ui-router test</title>
 
-    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../wct-browser-legacy/browser.js"></script>
 
-    <link rel="import" href="../all-imports.html">
+    <script type="module" src="../all-imports.js"></script>
   </head>
   <body>
 
@@ -25,48 +25,49 @@
       </template>
     </test-fixture>
 
-    <script>
-      suite('polymer-ui-router', () => {
+    <script type="module">
+import '../all-imports.js';
+suite('polymer-ui-router', () => {
 
-        test('instantiating the element with default properties works', () => {
-          const element = fixture('BasicTestFixture');
-            console.log('c',element.uiRouter.stateRegistry.get());
-            console.dir(element.uiRouter.stateRegistry.get());
-            assert.lengthOf(element.states, 0);
-            assert.equal(element.autoStart, true);
-            assert.equal(element.visualizer, false);
-            assert.isNull(element.initCallback);
-            assert.equal(element.debugTracing, false);
-            assert.isFunction(element.locationPlugin);
-            assert.isFunction(element.servicesPlugin);
-            assert.isObject(element.uiRouter);
-            let allStates = element.uiRouter.stateRegistry.get();
-            let rootState = allStates[0];
-            assert.lengthOf(allStates, 1);
-            assert.isTrue(rootState.abstract);
-            assert.equal(rootState.name, "");
-        });
+  test('instantiating the element with default properties works', () => {
+    const element = fixture('BasicTestFixture');
+      console.log('c',element.uiRouter.stateRegistry.get());
+      console.dir(element.uiRouter.stateRegistry.get());
+      assert.lengthOf(element.states, 0);
+      assert.equal(element.autoStart, true);
+      assert.equal(element.visualizer, false);
+      assert.isNull(element.initCallback);
+      assert.equal(element.debugTracing, false);
+      assert.isFunction(element.locationPlugin);
+      assert.isFunction(element.servicesPlugin);
+      assert.isObject(element.uiRouter);
+      let allStates = element.uiRouter.stateRegistry.get();
+      let rootState = allStates[0];
+      assert.lengthOf(allStates, 1);
+      assert.isTrue(rootState.abstract);
+      assert.equal(rootState.name, "");
+  });
 
-        test('manual start of router works', () => {
-          // Create a test fixture
-          const element = fixture('ManualStartTestFixture');
-            let routerStates = [
-                {name: "index_route", url: "/index", component: "index-comp"},
-                {name: "foo", url: "/foo", component: "foo-comp"},
-                {name: "arg", url: "/arg/:argumentId?:test", component: "arguments-comp"},
-                {name: "user", url: "/bar", component: "bar-comp"},
-                {name: "state_a", parent: 'user', url: "/a", component: "baz-a-comp"},
-            ];
-            element.states = routerStates;
-            element.connectedCallback();
-            console.log(element.uiRouter.stateRegistry.get())
-            assert.isObject(element.uiRouter);
-            assert.lengthOf(element.states, 5);
-            assert.lengthOf(element.uiRouter.stateRegistry.get(), 6);
-        });
+  test('manual start of router works', () => {
+    // Create a test fixture
+    const element = fixture('ManualStartTestFixture');
+      let routerStates = [
+          {name: "index_route", url: "/index", component: "index-comp"},
+          {name: "foo", url: "/foo", component: "foo-comp"},
+          {name: "arg", url: "/arg/:argumentId?:test", component: "arguments-comp"},
+          {name: "user", url: "/bar", component: "bar-comp"},
+          {name: "state_a", parent: 'user', url: "/a", component: "baz-a-comp"},
+      ];
+      element.states = routerStates;
+      element.connectedCallback();
+      console.log(element.uiRouter.stateRegistry.get())
+      assert.isObject(element.uiRouter);
+      assert.lengthOf(element.states, 5);
+      assert.lengthOf(element.uiRouter.stateRegistry.get(), 6);
+  });
 
-      });
-    </script>
+});
+</script>
 
   </body>
 </html>

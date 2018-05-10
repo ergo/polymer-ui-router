@@ -5,35 +5,29 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
     <title>Polymer-ui-router complex demo</title>
-    <script>
-        window.Polymer = {
-            dom: 'shadow',
-            lazyRegister: true
-        };
-    </script>
     <script src="//unpkg.com/ui-router-visualizer"></script>
-    <script src="../vendor/ui-router-core.min.js"></script>
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../@uirouter/core/_bundles/ui-router-core.min.js"></script>
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
-    <link rel="import" href="../../polymer/polymer.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../iron-demo-helpers/url-bar.html">
+    <script type="module" src="../../@polymer/polymer/polymer-legacy.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/url-bar.js"></script>
 
 
-    <link rel="import" href="../uirouter-router.html">
-    <link rel="import" href="../uirouter-uiview.html">
-    <link rel="import" href="../uirouter-sref.html">
-    <link rel="import" href="../uirouter-sref-active.html">
-    <link rel="import" href="../demo/views/index-comp.html">
-    <link rel="import" href="../demo/views/foo-comp.html">
-    <link rel="import" href="../demo/views/bar-comp.html">
-    <link rel="import" href="../demo/views/baz-a-comp.html">
-    <link rel="import" href="../demo/views/baz-b-comp.html">
-    <link rel="import" href="../demo/views/footer-comp.html">
-    <link rel="import" href="../demo/views/header-comp.html">
-    <link rel="import" href="../demo/views/arguments-comp.html">
-    <link rel="import" href="../demo/views/resolve-comp.html">
+    <script type="module" src="../uirouter-router.js"></script>
+    <script type="module" src="../uirouter-uiview.js"></script>
+    <script type="module" src="../uirouter-sref.js"></script>
+    <script type="module" src="../uirouter-sref-active.js"></script>
+    <script type="module" src="./views/index-comp.js"></script>
+    <script type="module" src="./views/foo-comp.js"></script>
+    <script type="module" src="./views/bar-comp.js"></script>
+    <script type="module" src="./views/baz-a-comp.js"></script>
+    <script type="module" src="./views/baz-b-comp.js"></script>
+    <script type="module" src="./views/footer-comp.js"></script>
+    <script type="module" src="./views/header-comp.js"></script>
+    <script type="module" src="./views/arguments-comp.js"></script>
+    <script type="module" src="./views/resolve-comp.js"></script>
 
 
 </head>
@@ -143,88 +137,97 @@
             </template>
         </dom-bind>
 
-        <script>
-            function initRouterDemo() {
-                var demoApp = document.getElementById('demo-app');
-                demoApp.loading = false;
-                demoApp.dynamicRouteName = 'foo';
-                demoApp.dynamicName = 'Foo (this will update via binding in 3s)';
+        <script type="module">
+import { Base } from '@polymer/polymer/polymer-legacy.js';
+import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
+import '@polymer/iron-demo-helpers/demo-snippet.js';
+import '@polymer/iron-demo-helpers/url-bar.js';
+import '../uirouter-router.js';
+import '../uirouter-uiview.js';
+import '../uirouter-sref.js';
+import '../uirouter-sref-active.js';
+import './views/index-comp.js';
+import './views/foo-comp.js';
+import './views/bar-comp.js';
+import './views/baz-a-comp.js';
+import './views/baz-b-comp.js';
+import './views/footer-comp.js';
+import './views/header-comp.js';
+import './views/arguments-comp.js';
+import './views/resolve-comp.js';
+function initRouterDemo() {
+    var demoApp = document.getElementById('demo-app');
+    demoApp.loading = false;
+    demoApp.dynamicRouteName = 'foo';
+    demoApp.dynamicName = 'Foo (this will update via binding in 3s)';
 
-                //showcase that bindings and sref-active elements update on child changes
-                setTimeout(function () {
-                    demoApp.dynamicRouteName = 'index_route';
-                    demoApp.dynamicName = 'Index';
-                }, 3000);
-                var routerCore = window['@uirouter/core'];
-                demoApp.locationPlugin = routerCore.hashLocationPlugin;
-                demoApp.routerStates = [
-                    {name: "index_route", url: "/index", component: "index-comp"},
-                    {name: "foo", url: "/foo", component: "foo-comp"},
-                    {name: "arg", url: "/arg/:argumentId?:test", component: "arguments-comp"},
-                    {
-                        name: "resolve", url: "/resolve?:test", component: "resolve-comp",
-                        resolve: [{
-                            token: 'person',
-                            deps: ['$transition$'],
-                            resolveFn: function (trans) {
-                                return new Promise(function (resolve, reject) {
-                                    demoApp.loading = true;
-                                    setTimeout(resolve, 1000, 'one');
-                                }).then(function () {
-                                    demoApp.loading = false;
-                                    return {id: 1, username: 'some user'};
-                                });
-                            }
-                        }]
-                    },
-                    {
-                        name: "bar", url: "/bar", component: "bar-comp",
-                        views: {
-                            'footer': {component: 'footer-comp'}
-                        }
-                    },
-                    {
-                        name: "bar.baz", url: "/baz", component: "baz-comp",
-                        views: {
-                            '!header': {component: 'header-comp'}
-                        },
-                        lazyLoad: function () {
-                            // test loading dynamicly elements
-                            console.log('Lazy loading');
-                            return new Promise(function (resolve, reject) {
-                                Polymer.Base.importHref('../demo/views/baz-comp.html',
-                                    function (e) {
-                                        resolve('ok');
-                                    }, function () {
-                                        reject('error')
-                                    });
-
-                            });
-                        }
-                    },
-                    {
-                        name: "state_a", parent: 'bar.baz', url: "/a", component: "baz-a-comp"
-                    },
-                    {
-                        name: "state_b", parent: 'bar.baz', url: "/b", component: "baz-b-comp"
-                    }
-                ];
-                demoApp.handleSuccess = function (event) {
-                    console.log('handleSuccess event listener', event.detail);
-                    demoApp.currentState = event.detail.transition.to().name;
-                    demoApp.paramsJson = JSON.stringify(event.detail.transition.params());
-                };
-                demoApp.handleExit = function (event) {
-                    console.log('handleExit event listener', event.detail);
-                };
-                // set the default not found route in onStart callback
-                demoApp.initCallback = function (uiRouter) {
-                    console.log('Executing additional operations on router object');
-                    uiRouter.urlService.rules.otherwise('/index');
+    //showcase that bindings and sref-active elements update on child changes
+    setTimeout(function () {
+        demoApp.dynamicRouteName = 'index_route';
+        demoApp.dynamicName = 'Index';
+    }, 3000);
+    var routerCore = window['@uirouter/core'];
+    demoApp.locationPlugin = routerCore.hashLocationPlugin;
+    demoApp.routerStates = [
+        {name: "index_route", url: "/index", component: "index-comp"},
+        {name: "foo", url: "/foo", component: "foo-comp"},
+        {name: "arg", url: "/arg/:argumentId?:test", component: "arguments-comp"},
+        {
+            name: "resolve", url: "/resolve?:test", component: "resolve-comp",
+            resolve: [{
+                token: 'person',
+                deps: ['$transition$'],
+                resolveFn: function (trans) {
+                    return new Promise(function (resolve, reject) {
+                        demoApp.loading = true;
+                        setTimeout(resolve, 1000, 'one');
+                    }).then(function () {
+                        demoApp.loading = false;
+                        return {id: 1, username: 'some user'};
+                    });
                 }
+            }]
+        },
+        {
+            name: "bar", url: "/bar", component: "bar-comp",
+            views: {
+                'footer': {component: 'footer-comp'}
             }
-            initRouterDemo();
-        </script>
+        },
+        {
+            name: "bar.baz", url: "/baz", component: "baz-comp",
+            views: {
+                '!header': {component: 'header-comp'}
+            },
+            lazyLoad: function () {
+                // test loading dynamicly elements
+                console.log('Lazy loading');
+                return import('../demo/views/baz-comp.js');
+            }
+        },
+        {
+            name: "state_a", parent: 'bar.baz', url: "/a", component: "baz-a-comp"
+        },
+        {
+            name: "state_b", parent: 'bar.baz', url: "/b", component: "baz-b-comp"
+        }
+    ];
+    demoApp.handleSuccess = function (event) {
+        console.log('handleSuccess event listener', event.detail);
+        demoApp.currentState = event.detail.transition.to().name;
+        demoApp.paramsJson = JSON.stringify(event.detail.transition.params());
+    };
+    demoApp.handleExit = function (event) {
+        console.log('handleExit event listener', event.detail);
+    };
+    // set the default not found route in onStart callback
+    demoApp.initCallback = function (uiRouter) {
+        console.log('Executing additional operations on router object');
+        uiRouter.urlService.rules.otherwise('/index');
+    }
+}
+initRouterDemo();
+</script>
     </demo-snippet>
 </div>
 </body>

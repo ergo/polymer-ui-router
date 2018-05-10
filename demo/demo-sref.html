@@ -5,22 +5,16 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
     <title>uirouter-sref demo</title>
-    <script>
-        window.Polymer = {
-            dom: 'shadow',
-            lazyRegister: true
-        };
-    </script>
     <script src="//unpkg.com/ui-router-visualizer"></script>
-    <script src="../vendor/ui-router-core.min.js"></script>
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../@uirouter/core/_bundles/ui-router-core.min.js"></script>
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
-    <link rel="import" href="../../polymer/polymer.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../iron-demo-helpers/url-bar.html">
-    <link rel="import" href="../uirouter-router.html">
-    <link rel="import" href="../uirouter-sref.html">
+    <script type="module" src="../../@polymer/polymer/polymer-legacy.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/url-bar.js"></script>
+    <script type="module" src="../uirouter-router.js"></script>
+    <script type="module" src="../uirouter-sref.js"></script>
 </head>
 <body>
 
@@ -94,58 +88,64 @@
             </template>
         </dom-bind>
 
-        <script>
-            var counter = 0;
+        <script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
+import '@polymer/iron-demo-helpers/demo-snippet.js';
+import '@polymer/iron-demo-helpers/url-bar.js';
+import '../uirouter-router.js';
+import '../uirouter-sref.js';
+var counter = 0;
 
-            function initRouterDemo() {
-                var demoApp = document.getElementById('demo-app');
-                demoApp.stringified = function (input) {
-                    return JSON.stringify(input, null, 4)
-                };
-                // simple url gen function
-                demoApp.testGenUrl = function (someValue, someValue2, someFoo) {
-                    return {
-                        argumentId: someValue,
-                        somename: someValue2,
-                        foo: someFoo
-                    }
-                }
-                // EXAMPLE: listen on router success
-                window.document.addEventListener('uirouter-success', function (event) {
-                    demoApp.currentParams = event.detail.transition.params();
-                });
+function initRouterDemo() {
+    var demoApp = document.getElementById('demo-app');
+    demoApp.stringified = function (input) {
+        return JSON.stringify(input, null, 4)
+    };
+    // simple url gen function
+    demoApp.testGenUrl = function (someValue, someValue2, someFoo) {
+        return {
+            argumentId: someValue,
+            somename: someValue2,
+            foo: someFoo
+        }
+    }
+    // EXAMPLE: listen on router success
+    window.document.addEventListener('uirouter-success', function (event) {
+        demoApp.currentParams = event.detail.transition.params();
+    });
 
-                demoApp.someFoo = '12345';
-                demoApp.someBaz = '12345789';
-                demoApp.someBar = 'this-is-a-test';
-                demoApp.boundParams = {argumentId: 123456, somename: 'someothervalue'};
+    demoApp.someFoo = '12345';
+    demoApp.someBaz = '12345789';
+    demoApp.someBar = 'this-is-a-test';
+    demoApp.boundParams = {argumentId: 123456, somename: 'someothervalue'};
 
-                // set the default states
-                demoApp.routerStates = [
-                    {name: "root", url: "/prefix"},
-                    {name: "foo", url: "/foo", component: "foo-comp", parent: "root"},
-                    {name: "arg", url: "/arg/:argumentId?somename", component: "arguments-comp", parent: "root"},
-                    {
-                        name: "dynamic",
-                        url: "/dynamic/:argumentId?somename&foo",
-                        component: "arguments-comp",
-                        parent: "root"
-                    }
-                ];
-            }
+    // set the default states
+    demoApp.routerStates = [
+        {name: "root", url: "/prefix"},
+        {name: "foo", url: "/foo", component: "foo-comp", parent: "root"},
+        {name: "arg", url: "/arg/:argumentId?somename", component: "arguments-comp", parent: "root"},
+        {
+            name: "dynamic",
+            url: "/dynamic/:argumentId?somename&foo",
+            component: "arguments-comp",
+            parent: "root"
+        }
+    ];
+}
 
-            initRouterDemo();
-            setInterval(function () {
-                var demoApp = document.getElementById('demo-app');
-                counter = counter + 1;
-                demoApp.someValue = counter;
-                counter = counter + 1;
-                demoApp.someValue2 = counter;
-                counter = counter + 1;
-                demoApp.someFoo = counter;
-                console.log('updated param via binding');
-            }, 5000);
-        </script>
+initRouterDemo();
+setInterval(function () {
+    var demoApp = document.getElementById('demo-app');
+    counter = counter + 1;
+    demoApp.someValue = counter;
+    counter = counter + 1;
+    demoApp.someValue2 = counter;
+    counter = counter + 1;
+    demoApp.someFoo = counter;
+    console.log('updated param via binding');
+}, 5000);
+</script>
     </demo-snippet>
 </div>
 </body>
