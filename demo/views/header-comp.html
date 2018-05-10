@@ -8,8 +8,11 @@
     </template>
 
     <script>
-        Polymer({
-            is: 'header-comp',
-        });
+
+        class HeaderComp extends Polymer.Element {
+            static get is() { return 'header-comp'; }
+        }
+        customElements.define(HeaderComp.is, HeaderComp);
+
     </script>
 </dom-module>

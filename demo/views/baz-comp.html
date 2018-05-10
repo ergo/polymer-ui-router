@@ -35,7 +35,7 @@
 
         </style>
 
-        <h1>Baz component</h1>
+        <h1>"baz-comp" component</h1>
 
         <p><em>ui-router-view</em> element lives here that will stomp descendant views of `baz`</p>
 
@@ -58,16 +58,19 @@
     </template>
 
     <script>
-        Polymer({
-            is: 'baz-comp',
-            properties: {
-                passDownwards: {
-                    type: Array,
-                    value: function () {
-                        return ['counter', 'clock']
+        class BazComp extends Polymer.Element {
+            static get is() { return 'baz-comp'; }
+            static get properties() {
+                return {
+                    passDownwards: {
+                        type: Array,
+                        value: function () {
+                            return ['counter', 'clock']
+                        }
                     }
                 }
             }
-        });
+        }
+        customElements.define(BazComp.is, BazComp);
     </script>
 </dom-module>

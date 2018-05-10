@@ -9,19 +9,28 @@
             }
         </style>
 
-        <h1>arguments component</h1>
+        <h1>"arguments-comp" component</h1>
 
         <p>Current route arguments (taken from attached `uiRouterTransition` object)</p>
         <blockquote>[[currentParams]]</blockquote>
     </template>
 
     <script>
-        Polymer({
-            is: 'arguments-comp',
 
-            attached: function(){
+        class ArgumentsComp extends Polymer.Element {
+            static get is() { return 'arguments-comp'; }
+            static get properties() {
+                return {
+                    currentParams: Object,
+                    uiRouterTransition: Object
+                }
+            }
+
+            connectedCallback(){
+                super.connectedCallback();
                 this.currentParams = JSON.stringify(this.uiRouterTransition.params());
             }
-        });
+        }
+        customElements.define(ArgumentsComp.is, ArgumentsComp);
     </script>
 </dom-module>

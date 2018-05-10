@@ -4,15 +4,18 @@
         <style>
         </style>
 
-        <h3>Default component</h3>
+        <h3>"default-comp" component</h3>
 
         <p>Used when other component was not set</p>
 
     </template>
 
     <script>
-        Polymer({
-            is: 'default-comp',
-        });
+        class DefaultComp extends Polymer.Element {
+            static get is() { return 'default-comp'; }
+        }
+        customElements.define(DefaultComp.is, DefaultComp);
+
+
     </script>
 </dom-module>

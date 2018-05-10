@@ -4,22 +4,32 @@
         <style>
         </style>
 
-        <h1>Foo component</h1>
+        <h1>"foo-comp" component</h1>
 
-        <p>If <em>uirouter-uiview</em> component had some bindings passed from parent you should see them here:</p>
+        <p>If <em>uirouter-uiview</em> component had some bindings passed from
+            parent you should see them here:</p>
         <p>[[counter]] [[clock]]</p>
     </template>
 
     <script>
-        Polymer({
-            is: 'foo-comp',
 
-            attached: function () {
-                console.log('foo component is attached')
-            },
-            detached: function () {
-                console.log('foo component is detached')
-            },
-        });
+        class FooComp extends Polymer.Element {
+            static get is() {
+                return 'foo-comp';
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                console.log('foo component is attached');
+            }
+
+            disconnectedCallback() {
+                super.disconnectedCallback();
+                console.log('foo component is detached');
+            }
+
+        }
+
+        customElements.define(FooComp.is, FooComp);
     </script>
 </dom-module>

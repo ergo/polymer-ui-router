@@ -8,8 +8,11 @@
     </template>
 
     <script>
-        Polymer({
-            is: 'footer-comp',
-        });
+
+        class FooterComp extends Polymer.Element {
+            static get is() { return 'footer-comp'; }
+        }
+        customElements.define(FooterComp.is, FooterComp);
+
     </script>
 </dom-module>

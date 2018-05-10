@@ -15,7 +15,7 @@
 
         </style>
 
-        <h1>Bar component</h1>
+        <h1>"bar-comp" component</h1>
 
         <p>[[counter]] [[clock]]</p>
 
@@ -29,16 +29,21 @@
     </template>
 
     <script>
-        Polymer({
-            is: 'bar-comp',
-            properties: {
-                passDownwards: {
-                    type: Array,
-                    value: function () {
-                        return ['counter', 'clock']
+
+        class BarComp extends Polymer.Element {
+            static get is() { return 'bar-comp'; }
+            static get properties() {
+                return {
+                    passDownwards: {
+                        type: Array,
+                        value: function () {
+                            return ['counter', 'clock']
+                        }
                     }
                 }
             }
-        });
+        }
+        customElements.define(BarComp.is, BarComp);
+
     </script>
 </dom-module>

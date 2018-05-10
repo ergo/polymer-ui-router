@@ -4,13 +4,14 @@
         <style>
         </style>
 
-        <h3>Baz B component</h3>
+        <h3>"baz-b-comp" component</h3>
 
     </template>
 
     <script>
-        Polymer({
-            is: 'baz-b-comp',
-        });
+        class BazBComp extends Polymer.Element {
+            static get is() { return 'baz-b-comp'; }
+        }
+        customElements.define(BazBComp.is, BazBComp);
     </script>
 </dom-module>
