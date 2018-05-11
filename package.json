@@ -1,5 +1,5 @@
 {
-  "description": "State-based routing for Polymer 2.x",
+  "description": "State-based routing for Web Components",
   "keywords": [
     "web-components",
     "polymer",
@@ -16,7 +16,7 @@
   },
   "homepage": "",
   "name": "polymer-ui-router",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "contributors": [
     "Christopher Thielen"
   ],
