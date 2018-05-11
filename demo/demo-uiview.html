@@ -5,36 +5,30 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
     <title>uirouter-uiview demo</title>
-    <script>
-        window.Polymer = {
-            dom: 'shadow',
-            lazyRegister: true
-        };
-    </script>
     <script src="//unpkg.com/ui-router-visualizer"></script>
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
-    <link rel="import" href="../../polymer/polymer.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../iron-demo-helpers/url-bar.html">
+    <script type="module" src="../../@polymer/polymer/polymer-legacy.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/url-bar.js"></script>
 
 
-    <link rel="import" href="../uirouter-router.html">
-    <link rel="import" href="../uirouter-uiview.html">
-    <link rel="import" href="../uirouter-sref.html">
-    <link rel="import" href="../uirouter-sref-active.html">
-    <link rel="import" href="../demo/views/index-comp.html">
-    <link rel="import" href="../demo/views/foo-comp.html">
-    <link rel="import" href="../demo/views/bar-comp.html">
-    <link rel="import" href="../demo/views/baz-comp.html">
-    <link rel="import" href="../demo/views/baz-a-comp.html">
-    <link rel="import" href="../demo/views/baz-b-comp.html">
-    <link rel="import" href="../demo/views/footer-comp.html">
-    <link rel="import" href="../demo/views/header-comp.html">
-    <link rel="import" href="../demo/views/arguments-comp.html">
-    <link rel="import" href="../demo/views/resolve-comp.html">
-    <link rel="import" href="../demo/views/default-comp.html">
+    <script type="module" src="../uirouter-router.js"></script>
+    <script type="module" src="../uirouter-uiview.js"></script>
+    <script type="module" src="../uirouter-sref.js"></script>
+    <script type="module" src="../uirouter-sref-active.js"></script>
+    <script type="module" src="./views/index-comp.js"></script>
+    <script type="module" src="./views/foo-comp.js"></script>
+    <script type="module" src="./views/bar-comp.js"></script>
+    <script type="module" src="./views/baz-comp.js"></script>
+    <script type="module" src="./views/baz-a-comp.js"></script>
+    <script type="module" src="./views/baz-b-comp.js"></script>
+    <script type="module" src="./views/footer-comp.js"></script>
+    <script type="module" src="./views/header-comp.js"></script>
+    <script type="module" src="./views/arguments-comp.js"></script>
+    <script type="module" src="./views/resolve-comp.js"></script>
+    <script type="module" src="./views/default-comp.js"></script>
 
 
 </head>
@@ -89,45 +83,64 @@
                 </template>
             </template>
 
-            <script>
-                function initRouterDemo() {
-                    var demoApp = document.getElementById('demo-app');
-                    demoApp.counter = 0;
-                    demoApp.clock = new Date();
-                    demoApp.passDownwards = ['counter', 'clock'];
-                    demoApp.routerStates = [
-                        {name: "index_route", url: "/index", component: "index-comp"},
-                        {name: "foo", url: "/foo", component: "foo-comp"},
-                        {
-                            name: "bar", url: "/bar", component: "bar-comp",
-                            views: {
-                                'footer': {component: 'footer-comp'}
-                            }
-                        },
-                        {
-                            name: "bar.baz", url: "/baz", component: "baz-comp",
-                            views: {
-                                '!header': {component: 'header-comp'}
-                            }
-                        },
-                        {
-                            name: "state_a", parent: 'bar.baz', url: "/a", component: "baz-a-comp"
-                        },
-                        {
-                            name: "state_b", parent: 'bar.baz', url: "/b", component: "baz-b-comp"
-                        },
-                        {name: "ab", url: "/abstract_path", abstract:true},
-                        {name: "ab.deeper", url: "/deeper", component: "foo-comp"}
-                    ];
-                }
+            <script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
+import '@polymer/iron-demo-helpers/demo-snippet.js';
+import '@polymer/iron-demo-helpers/url-bar.js';
+import '../uirouter-router.js';
+import '../uirouter-uiview.js';
+import '../uirouter-sref.js';
+import '../uirouter-sref-active.js';
+import './views/index-comp.js';
+import './views/foo-comp.js';
+import './views/bar-comp.js';
+import './views/baz-comp.js';
+import './views/baz-a-comp.js';
+import './views/baz-b-comp.js';
+import './views/footer-comp.js';
+import './views/header-comp.js';
+import './views/arguments-comp.js';
+import './views/resolve-comp.js';
+import './views/default-comp.js';
+function initRouterDemo() {
+    var demoApp = document.getElementById('demo-app');
+    demoApp.counter = 0;
+    demoApp.clock = new Date();
+    demoApp.passDownwards = ['counter', 'clock'];
+    demoApp.routerStates = [
+        {name: "index_route", url: "/index", component: "index-comp"},
+        {name: "foo", url: "/foo", component: "foo-comp"},
+        {
+            name: "bar", url: "/bar", component: "bar-comp",
+            views: {
+                'footer': {component: 'footer-comp'}
+            }
+        },
+        {
+            name: "bar.baz", url: "/baz", component: "baz-comp",
+            views: {
+                '!header': {component: 'header-comp'}
+            }
+        },
+        {
+            name: "state_a", parent: 'bar.baz', url: "/a", component: "baz-a-comp"
+        },
+        {
+            name: "state_b", parent: 'bar.baz', url: "/b", component: "baz-b-comp"
+        },
+        {name: "ab", url: "/abstract_path", abstract:true},
+        {name: "ab.deeper", url: "/deeper", component: "foo-comp"}
+    ];
+}
 
-                initRouterDemo();
-                setInterval(function () {
-                    var demoApp = document.getElementById('demo-app');
-                    demoApp.counter = demoApp.counter + 1;
-                    demoApp.clock = new Date();
-                }, 2000);
-            </script>
+initRouterDemo();
+setInterval(function () {
+    var demoApp = document.getElementById('demo-app');
+    demoApp.counter = demoApp.counter + 1;
+    demoApp.clock = new Date();
+}, 2000);
+</script>
     </demo-snippet>
 </div>
 </body>

@@ -1,6 +1,6 @@
 # \<polymer-ui-router\>
 
-## UI Router Web Component wrapper (using minimal bits from Polymer 2.x base element)
+## UI Router Web Component wrapper (using minimal bits from Polymer 3.x base element)
 
 Use https://ui-router.github.io/core/docs/latest/ and https://ui-router.github.io/ 
 For general UI-Router documentation.
@@ -49,13 +49,6 @@ Some features of UI Router:
     // result in <index-comp/> being stomped
     <uirouter-uiview></uirouter-uiview>
 
-
-## Webpack users
-
-To use `polymer-ui-router` with webpack you need to shim the UMD namespace for everything to function correctly.
-
-    let UIRouterCore = require('../bower_components/polymer-ui-router/vendor/ui-router-core.js')
-    window['@uirouter/core'] = UIRouterCore;
 
 ## Install the Polymer-CLI
 

@@ -5,22 +5,16 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
     <title>uirouter-sref-active demo</title>
-    <script>
-        window.Polymer = {
-            dom: 'shadow',
-            lazyRegister: true
-        };
-    </script>
     <script src="//unpkg.com/ui-router-visualizer"></script>
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
-    <link rel="import" href="../../polymer/polymer.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../iron-demo-helpers/url-bar.html">
-    <link rel="import" href="../uirouter-router.html">
-    <link rel="import" href="../uirouter-sref.html">
-    <link rel="import" href="../uirouter-sref-active.html">
+    <script type="module" src="../../@polymer/polymer/polymer-legacy.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+    <script type="module" src="../../@polymer/iron-demo-helpers/url-bar.js"></script>
+    <script type="module" src="../uirouter-router.js"></script>
+    <script type="module" src="../uirouter-sref.js"></script>
+    <script type="module" src="../uirouter-sref-active.js"></script>
 </head>
 <body>
 <!--->
@@ -61,17 +55,24 @@
                 </template>
             </template>
         </dom-bind>
-        <script>
-            function initRouterDemo() {
-                var demoApp = document.getElementById('demo-app');
-                demoApp.routerStates = [
-                    {name: "foo", url: "/foo", component: "foo-comp"},
-                    {name: "bar", url: "/bar", component: "bar-comp"},
-                ];
-            }
+        <script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
+import '@polymer/iron-demo-helpers/demo-snippet.js';
+import '@polymer/iron-demo-helpers/url-bar.js';
+import '../uirouter-router.js';
+import '../uirouter-sref.js';
+import '../uirouter-sref-active.js';
+function initRouterDemo() {
+    var demoApp = document.getElementById('demo-app');
+    demoApp.routerStates = [
+        {name: "foo", url: "/foo", component: "foo-comp"},
+        {name: "bar", url: "/bar", component: "bar-comp"},
+    ];
+}
 
-            initRouterDemo();
-        </script>
+initRouterDemo();
+</script>
     </demo-snippet>
 </div>
 </body>

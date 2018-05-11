@@ -2,9 +2,9 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`polymer-ui-router`\nPolymer element for UI Router Core",
+      "description": "`polymer-ui-router`\n Polymer element for UI Router Core",
       "summary": "",
-      "path": "uirouter-router.html",
+      "path": "uirouter-router.js",
       "properties": [
         {
           "name": "states",
@@ -13,12 +13,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 95,
-              "column": 24
+              "line": 93,
+              "column": 12
             },
             "end": {
-              "line": 100,
-              "column": 25
+              "line": 98,
+              "column": 13
             }
           },
           "metadata": {
@@ -35,12 +35,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 102,
-              "column": 24
+              "line": 100,
+              "column": 12
             },
             "end": {
-              "line": 105,
-              "column": 25
+              "line": 103,
+              "column": 13
             }
           },
           "metadata": {
@@ -57,12 +57,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 107,
-              "column": 24
+              "line": 105,
+              "column": 12
             },
             "end": {
-              "line": 110,
-              "column": 25
+              "line": 108,
+              "column": 13
             }
           },
           "metadata": {
@@ -79,12 +79,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 112,
-              "column": 24
+              "line": 110,
+              "column": 12
             },
             "end": {
-              "line": 115,
-              "column": 25
+              "line": 113,
+              "column": 13
             }
           },
           "metadata": {
@@ -101,12 +101,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 117,
-              "column": 24
+              "line": 115,
+              "column": 12
             },
             "end": {
-              "line": 120,
-              "column": 25
+              "line": 118,
+              "column": 13
             }
           },
           "metadata": {
@@ -123,12 +123,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 122,
-              "column": 24
+              "line": 120,
+              "column": 12
             },
             "end": {
-              "line": 132,
-              "column": 25
+              "line": 130,
+              "column": 13
             }
           },
           "metadata": {
@@ -144,12 +144,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 134,
-              "column": 24
+              "line": 132,
+              "column": 12
             },
             "end": {
-              "line": 139,
-              "column": 25
+              "line": 137,
+              "column": 13
             }
           },
           "metadata": {
@@ -166,12 +166,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 144,
-              "column": 16
+              "line": 142,
+              "column": 4
             },
             "end": {
-              "line": 151,
-              "column": 17
+              "line": 149,
+              "column": 5
             }
           },
           "metadata": {},
@@ -190,12 +190,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 153,
-              "column": 16
+              "line": 151,
+              "column": 4
             },
             "end": {
-              "line": 197,
-              "column": 17
+              "line": 195,
+              "column": 5
             }
           },
           "metadata": {},
@@ -210,12 +210,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 199,
-              "column": 16
+              "line": 197,
+              "column": 4
             },
             "end": {
-              "line": 205,
-              "column": 17
+              "line": 203,
+              "column": 5
             }
           },
           "metadata": {},
@@ -231,12 +231,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 208,
-              "column": 16
+              "line": 206,
+              "column": 4
             },
             "end": {
-              "line": 214,
-              "column": 17
+              "line": 212,
+              "column": 5
             }
           },
           "metadata": {},
@@ -256,12 +256,12 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 87,
-          "column": 12
+          "line": 85,
+          "column": 0
         },
         "end": {
-          "line": 216,
-          "column": 13
+          "line": 214,
+          "column": 1
         }
       },
       "privacy": "public",
@@ -273,12 +273,12 @@
           "description": "Array of state definitions to create when router gets initialized",
           "sourceRange": {
             "start": {
-              "line": 95,
-              "column": 24
+              "line": 93,
+              "column": 12
             },
             "end": {
-              "line": 100,
-              "column": 25
+              "line": 98,
+              "column": 13
             }
           },
           "metadata": {},
@@ -289,12 +289,12 @@
           "description": "Start router when element is attached",
           "sourceRange": {
             "start": {
-              "line": 102,
-              "column": 24
+              "line": 100,
+              "column": 12
             },
             "end": {
-              "line": 105,
-              "column": 25
+              "line": 103,
+              "column": 13
             }
           },
           "metadata": {},
@@ -305,12 +305,12 @@
           "description": "Enable router register itself with visualizer",
           "sourceRange": {
             "start": {
-              "line": 107,
-              "column": 24
+              "line": 105,
+              "column": 12
             },
             "end": {
-              "line": 110,
-              "column": 25
+              "line": 108,
+              "column": 13
             }
           },
           "metadata": {},
@@ -321,12 +321,12 @@
           "description": "a function executed when router gets started, accepts uiRouter as argument",
           "sourceRange": {
             "start": {
-              "line": 112,
-              "column": 24
+              "line": 110,
+              "column": 12
             },
             "end": {
-              "line": 115,
-              "column": 25
+              "line": 113,
+              "column": 13
             }
           },
           "metadata": {},
@@ -337,12 +337,12 @@
           "description": "Enable debug messages",
           "sourceRange": {
             "start": {
-              "line": 117,
-              "column": 24
+              "line": 115,
+              "column": 12
             },
             "end": {
-              "line": 120,
-              "column": 25
+              "line": 118,
+              "column": 13
             }
           },
           "metadata": {},
@@ -353,12 +353,12 @@
           "description": "Location plugin used by router",
           "sourceRange": {
             "start": {
-              "line": 122,
-              "column": 24
+              "line": 120,
+              "column": 12
             },
             "end": {
-              "line": 132,
-              "column": 25
+              "line": 130,
+              "column": 13
             }
           },
           "metadata": {},
@@ -369,12 +369,12 @@
           "description": "Services plugin used by router",
           "sourceRange": {
             "start": {
-              "line": 134,
-              "column": 24
+              "line": 132,
+              "column": 12
             },
             "end": {
-              "line": 139,
-              "column": 25
+              "line": 137,
+              "column": 13
             }
           },
           "metadata": {},
@@ -390,9 +390,9 @@
       "tagname": "uirouter-router"
     },
     {
-      "description": "`uirouter-sref`\nElement that generates `<a>` tag with contents.\n\nFor links with custom attributes for state params you should be using `property-foo$=[[value]]` notation.",
+      "description": "`uirouter-sref`\n Element that generates `<a>` tag with contents.\n\n For links with custom attributes for state params you should be using `property-foo$=[[value]]` notation.",
       "summary": "",
-      "path": "uirouter-sref.html",
+      "path": "uirouter-sref.js",
       "properties": [
         {
           "name": "state",
@@ -401,12 +401,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 23,
-              "column": 20
+              "line": 22,
+              "column": 12
             },
             "end": {
-              "line": 26,
-              "column": 21
+              "line": 25,
+              "column": 13
             }
           },
           "metadata": {
@@ -423,12 +423,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 28,
-              "column": 20
+              "line": 27,
+              "column": 12
             },
             "end": {
-              "line": 31,
-              "column": 21
+              "line": 30,
+              "column": 13
             }
           },
           "metadata": {
@@ -445,12 +445,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 33,
-              "column": 20
+              "line": 32,
+              "column": 12
             },
             "end": {
-              "line": 36,
-              "column": 21
+              "line": 35,
+              "column": 13
             }
           },
           "metadata": {
@@ -467,12 +467,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 38,
-              "column": 20
+              "line": 37,
+              "column": 12
             },
             "end": {
-              "line": 41,
-              "column": 21
+              "line": 40,
+              "column": 13
             }
           },
           "metadata": {
@@ -489,12 +489,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 43,
-              "column": 20
+              "line": 42,
+              "column": 12
             },
             "end": {
-              "line": 46,
-              "column": 21
+              "line": 45,
+              "column": 13
             }
           },
           "metadata": {
@@ -511,12 +511,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 49,
-              "column": 20
+              "line": 48,
+              "column": 12
             },
             "end": {
-              "line": 52,
-              "column": 21
+              "line": 51,
+              "column": 13
             }
           },
           "metadata": {
@@ -533,12 +533,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 53,
-              "column": 20
+              "line": 52,
+              "column": 12
             },
             "end": {
-              "line": 53,
-              "column": 35
+              "line": 52,
+              "column": 27
             }
           },
           "metadata": {
@@ -554,12 +554,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 54,
-              "column": 20
+              "line": 53,
+              "column": 12
             },
             "end": {
-              "line": 54,
-              "column": 38
+              "line": 53,
+              "column": 30
             }
           },
           "metadata": {
@@ -575,12 +575,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 56,
-              "column": 20
+              "line": 55,
+              "column": 12
             },
             "end": {
-              "line": 60,
-              "column": 21
+              "line": 59,
+              "column": 13
             }
           },
           "metadata": {
@@ -598,12 +598,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 62,
-              "column": 20
+              "line": 61,
+              "column": 12
             },
             "end": {
-              "line": 65,
-              "column": 21
+              "line": 64,
+              "column": 13
             }
           },
           "metadata": {
@@ -620,12 +620,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 69,
-              "column": 20
+              "line": 68,
+              "column": 12
             },
             "end": {
-              "line": 72,
-              "column": 21
+              "line": 71,
+              "column": 13
             }
           },
           "metadata": {
@@ -642,12 +642,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 76,
-              "column": 20
+              "line": 75,
+              "column": 12
             },
             "end": {
-              "line": 79,
-              "column": 21
+              "line": 78,
+              "column": 13
             }
           },
           "metadata": {
@@ -664,12 +664,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 83,
-              "column": 20
+              "line": 82,
+              "column": 12
             },
             "end": {
-              "line": 86,
-              "column": 21
+              "line": 85,
+              "column": 13
             }
           },
           "metadata": {
@@ -687,12 +687,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 90,
-              "column": 12
+              "line": 89,
+              "column": 4
             },
             "end": {
-              "line": 93,
-              "column": 13
+              "line": 92,
+              "column": 5
             }
           },
           "metadata": {},
@@ -708,12 +708,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 95,
-              "column": 12
+              "line": 94,
+              "column": 4
             },
             "end": {
-              "line": 116,
-              "column": 13
+              "line": 115,
+              "column": 5
             }
           },
           "metadata": {},
@@ -725,12 +725,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 119,
-              "column": 12
+              "line": 118,
+              "column": 4
             },
             "end": {
-              "line": 130,
-              "column": 13
+              "line": 129,
+              "column": 5
             }
           },
           "metadata": {},
@@ -752,12 +752,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 132,
-              "column": 12
+              "line": 131,
+              "column": 4
             },
             "end": {
-              "line": 143,
-              "column": 13
+              "line": 142,
+              "column": 5
             }
           },
           "metadata": {},
@@ -779,12 +779,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 145,
-              "column": 12
+              "line": 144,
+              "column": 4
             },
             "end": {
-              "line": 156,
-              "column": 13
+              "line": 155,
+              "column": 5
             }
           },
           "metadata": {},
@@ -799,12 +799,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 158,
-              "column": 12
+              "line": 157,
+              "column": 4
             },
             "end": {
-              "line": 165,
-              "column": 13
+              "line": 164,
+              "column": 5
             }
           },
           "metadata": {},
@@ -819,12 +819,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 167,
-              "column": 12
+              "line": 166,
+              "column": 4
             },
             "end": {
-              "line": 174,
-              "column": 13
+              "line": 173,
+              "column": 5
             }
           },
           "metadata": {},
@@ -839,12 +839,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 176,
-              "column": 12
+              "line": 175,
+              "column": 4
             },
             "end": {
-              "line": 184,
-              "column": 13
+              "line": 183,
+              "column": 5
             }
           },
           "metadata": {},
@@ -856,12 +856,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 186,
-              "column": 12
+              "line": 185,
+              "column": 4
             },
             "end": {
-              "line": 192,
-              "column": 13
+              "line": 191,
+              "column": 5
             }
           },
           "metadata": {},
@@ -876,12 +876,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 194,
-              "column": 12
+              "line": 193,
+              "column": 4
             },
             "end": {
-              "line": 222,
-              "column": 13
+              "line": 221,
+              "column": 5
             }
           },
           "metadata": {},
@@ -896,12 +896,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 224,
-              "column": 12
+              "line": 223,
+              "column": 4
             },
             "end": {
-              "line": 230,
-              "column": 13
+              "line": 229,
+              "column": 5
             }
           },
           "metadata": {},
@@ -925,12 +925,12 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 15,
-          "column": 8
+          "line": 14,
+          "column": 0
         },
         "end": {
-          "line": 231,
-          "column": 9
+          "line": 230,
+          "column": 1
         }
       },
       "privacy": "public",
@@ -942,12 +942,12 @@
           "description": "The name of the state to link to",
           "sourceRange": {
             "start": {
-              "line": 23,
-              "column": 20
+              "line": 22,
+              "column": 12
             },
             "end": {
-              "line": 26,
-              "column": 21
+              "line": 25,
+              "column": 13
             }
           },
           "metadata": {},
@@ -958,12 +958,12 @@
           "description": "Sets whether or not the transition's parameter values should be inherited from the current parameter values.",
           "sourceRange": {
             "start": {
-              "line": 28,
-              "column": 20
+              "line": 27,
+              "column": 12
             },
             "end": {
-              "line": 31,
-              "column": 21
+              "line": 30,
+              "column": 13
             }
           },
           "metadata": {},
@@ -974,12 +974,12 @@
           "description": "your own Transition Options inside this property and use them, e.g., from a Transition Hook",
           "sourceRange": {
             "start": {
-              "line": 33,
-              "column": 20
+              "line": 32,
+              "column": 12
             },
             "end": {
-              "line": 36,
-              "column": 21
+              "line": 35,
+              "column": 13
             }
           },
           "metadata": {},
@@ -990,12 +990,12 @@
           "description": "Changes how the Transition interacts with the browser's location bar",
           "sourceRange": {
             "start": {
-              "line": 38,
-              "column": 20
+              "line": 37,
+              "column": 12
             },
             "end": {
-              "line": 41,
-              "column": 21
+              "line": 40,
+              "column": 13
             }
           },
           "metadata": {},
@@ -1006,12 +1006,12 @@
           "description": "force states which are currently active to reload",
           "sourceRange": {
             "start": {
-              "line": 43,
-              "column": 20
+              "line": 42,
+              "column": 12
             },
             "end": {
-              "line": 46,
-              "column": 21
+              "line": 45,
+              "column": 13
             }
           },
           "metadata": {},
@@ -1022,12 +1022,12 @@
           "description": "When transitioning to relative path (e.g '^'),\nthis option defines which state to be relative from.",
           "sourceRange": {
             "start": {
-              "line": 49,
-              "column": 20
+              "line": 48,
+              "column": 12
             },
             "end": {
-              "line": 52,
-              "column": 21
+              "line": 51,
+              "column": 13
             }
           },
           "metadata": {},
@@ -1038,12 +1038,12 @@
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 53,
-              "column": 20
+              "line": 52,
+              "column": 12
             },
             "end": {
-              "line": 53,
-              "column": 35
+              "line": 52,
+              "column": 27
             }
           },
           "metadata": {},
@@ -1054,12 +1054,12 @@
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 54,
-              "column": 20
+              "line": 53,
+              "column": 12
             },
             "end": {
-              "line": 54,
-              "column": 38
+              "line": 53,
+              "column": 30
             }
           },
           "metadata": {},
@@ -1070,12 +1070,12 @@
           "description": "The parameter values to use (as key/values)",
           "sourceRange": {
             "start": {
-              "line": 56,
-              "column": 20
+              "line": 55,
+              "column": 12
             },
             "end": {
-              "line": 60,
-              "column": 21
+              "line": 59,
+              "column": 13
             }
           },
           "metadata": {},
@@ -1086,12 +1086,12 @@
           "description": "Link url generated by this element (legacy)",
           "sourceRange": {
             "start": {
-              "line": 69,
-              "column": 20
+              "line": 68,
+              "column": 12
             },
             "end": {
-              "line": 72,
-              "column": 21
+              "line": 71,
+              "column": 13
             }
           },
           "metadata": {},
@@ -1102,12 +1102,12 @@
           "description": "Link url generated by this element",
           "sourceRange": {
             "start": {
-              "line": 76,
-              "column": 20
+              "line": 75,
+              "column": 12
             },
             "end": {
-              "line": 79,
-              "column": 21
+              "line": 78,
+              "column": 13
             }
           },
           "metadata": {},
@@ -1118,12 +1118,12 @@
           "description": "Time that (in ms) url generator should debounce before generating url",
           "sourceRange": {
             "start": {
-              "line": 83,
-              "column": 20
+              "line": 82,
+              "column": 12
             },
             "end": {
-              "line": 86,
-              "column": 21
+              "line": 85,
+              "column": 13
             }
           },
           "metadata": {},
@@ -1152,9 +1152,9 @@
       "tagname": "uirouter-sref"
     },
     {
-      "description": "`uirouter-sref-active`\n\nElement that sets CSS class on itself when any route used by `uirouter-sref` element that is its child is active.",
+      "description": "`uirouter-sref-active`\n\n Element that sets CSS class on itself when any route used by `uirouter-sref` element that is its child is active.",
       "summary": "",
-      "path": "uirouter-sref-active.html",
+      "path": "uirouter-sref-active.js",
       "properties": [
         {
           "name": "active",
@@ -1163,12 +1163,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 19,
-              "column": 20
+              "line": 18,
+              "column": 12
             },
             "end": {
-              "line": 22,
-              "column": 21
+              "line": 21,
+              "column": 13
             }
           },
           "metadata": {
@@ -1185,12 +1185,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 23,
-              "column": 20
+              "line": 22,
+              "column": 12
             },
             "end": {
-              "line": 28,
-              "column": 21
+              "line": 27,
+              "column": 13
             }
           },
           "metadata": {
@@ -1208,12 +1208,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 32,
-              "column": 12
+              "line": 31,
+              "column": 4
             },
             "end": {
-              "line": 37,
-              "column": 13
+              "line": 36,
+              "column": 5
             }
           },
           "metadata": {},
@@ -1228,12 +1228,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 38,
-              "column": 12
+              "line": 37,
+              "column": 4
             },
             "end": {
-              "line": 43,
-              "column": 13
+              "line": 42,
+              "column": 5
             }
           },
           "metadata": {},
@@ -1248,12 +1248,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 44,
-              "column": 12
+              "line": 43,
+              "column": 4
             },
             "end": {
-              "line": 59,
-              "column": 13
+              "line": 58,
+              "column": 5
             }
           },
           "metadata": {},
@@ -1268,12 +1268,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 60,
-              "column": 12
+              "line": 59,
+              "column": 4
             },
             "end": {
-              "line": 67,
-              "column": 13
+              "line": 66,
+              "column": 5
             }
           },
           "metadata": {},
@@ -1292,12 +1292,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 68,
-              "column": 12
+              "line": 67,
+              "column": 4
             },
             "end": {
-              "line": 77,
-              "column": 13
+              "line": 76,
+              "column": 5
             }
           },
           "metadata": {},
@@ -1321,12 +1321,12 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 15,
-          "column": 8
+          "line": 14,
+          "column": 0
         },
         "end": {
-          "line": 78,
-          "column": 9
+          "line": 77,
+          "column": 1
         }
       },
       "privacy": "public",
@@ -1338,12 +1338,12 @@
           "description": "",
           "sourceRange": {
             "start": {
-              "line": 19,
-              "column": 20
+              "line": 18,
+              "column": 12
             },
             "end": {
-              "line": 22,
-              "column": 21
+              "line": 21,
+              "column": 13
             }
           },
           "metadata": {},
@@ -1359,9 +1359,9 @@
       "tagname": "uirouter-sref-active"
     },
     {
-      "description": "`uirouter-uiview`\n\nA UI-Router viewport component, which is filled in by a view components based on active state.\nComponents stomped with this element will have `uiRouterTransition`, `uiRouterResolvedData`, `uiRouterParams`\nproperties set on them for easy access to router object.\n\n`uiRouterResolvedData` keys will also be resolved onto components as separate properties.",
+      "description": "`uirouter-uiview`\n\n A UI-Router viewport component, which is filled in by a view components based on active state.\n Components stomped with this element will have `uiRouterTransition`, `uiRouterResolvedData`, `uiRouterParams`\n properties set on them for easy access to router object.\n\n `uiRouterResolvedData` keys will also be resolved onto components as separate properties.",
       "summary": "",
-      "path": "uirouter-uiview.html",
+      "path": "uirouter-uiview.js",
       "properties": [
         {
           "name": "component",
@@ -1370,12 +1370,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 38,
-              "column": 16
+              "line": 41,
+              "column": 12
             },
             "end": {
-              "line": 38,
-              "column": 33
+              "line": 41,
+              "column": 29
             }
           },
           "metadata": {
@@ -1391,12 +1391,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 40,
-              "column": 16
+              "line": 43,
+              "column": 12
             },
             "end": {
-              "line": 40,
-              "column": 28
+              "line": 43,
+              "column": 24
             }
           },
           "metadata": {
@@ -1412,12 +1412,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 42,
-              "column": 16
+              "line": 45,
+              "column": 12
             },
             "end": {
-              "line": 45,
-              "column": 17
+              "line": 48,
+              "column": 13
             }
           },
           "metadata": {
@@ -1434,12 +1434,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 49,
-              "column": 16
+              "line": 52,
+              "column": 12
             },
             "end": {
-              "line": 54,
-              "column": 17
+              "line": 57,
+              "column": 13
             }
           },
           "metadata": {
@@ -1457,12 +1457,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 58,
-              "column": 8
+              "line": 61,
+              "column": 4
             },
             "end": {
-              "line": 60,
-              "column": 9
+              "line": 63,
+              "column": 5
             }
           },
           "metadata": {},
@@ -1478,12 +1478,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 62,
-              "column": 8
+              "line": 65,
+              "column": 4
             },
             "end": {
-              "line": 65,
-              "column": 9
+              "line": 68,
+              "column": 5
             }
           },
           "metadata": {},
@@ -1499,12 +1499,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 67,
-              "column": 8
+              "line": 70,
+              "column": 4
             },
             "end": {
-              "line": 102,
-              "column": 9
+              "line": 105,
+              "column": 5
             }
           },
           "metadata": {},
@@ -1519,12 +1519,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 104,
-              "column": 8
+              "line": 107,
+              "column": 4
             },
             "end": {
-              "line": 121,
-              "column": 9
+              "line": 124,
+              "column": 5
             }
           },
           "metadata": {},
@@ -1539,12 +1539,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 123,
-              "column": 8
+              "line": 126,
+              "column": 4
             },
             "end": {
-              "line": 126,
-              "column": 9
+              "line": 129,
+              "column": 5
             }
           },
           "metadata": {},
@@ -1559,12 +1559,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 128,
-              "column": 8
+              "line": 131,
+              "column": 4
             },
             "end": {
-              "line": 182,
-              "column": 9
+              "line": 185,
+              "column": 5
             }
           },
           "metadata": {},
@@ -1588,12 +1588,12 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 33,
-          "column": 4
+          "line": 36,
+          "column": 0
         },
         "end": {
-          "line": 183,
-          "column": 5
+          "line": 186,
+          "column": 1
         }
       },
       "privacy": "public",
@@ -1605,12 +1605,12 @@
           "description": "default component type to use",
           "sourceRange": {
             "start": {
-              "line": 38,
-              "column": 16
+              "line": 41,
+              "column": 12
             },
             "end": {
-              "line": 38,
-              "column": 33
+              "line": 41,
+              "column": 29
             }
           },
           "metadata": {},
@@ -1621,12 +1621,12 @@
           "description": "Name of ui-view partial",
           "sourceRange": {
             "start": {
-              "line": 40,
-              "column": 16
+              "line": 43,
+              "column": 12
             },
             "end": {
-              "line": 40,
-              "column": 28
+              "line": 43,
+              "column": 24
             }
           },
           "metadata": {},
@@ -1637,12 +1637,12 @@
           "description": "Do not attach router info onto element: `uiRouter...`",
           "sourceRange": {
             "start": {
-              "line": 42,
-              "column": 16
+              "line": 45,
+              "column": 12
             },
             "end": {
-              "line": 45,
-              "column": 17
+              "line": 48,
+              "column": 13
             }
           },
           "metadata": {},
@@ -1653,12 +1653,12 @@
           "description": "Explicit names of properties to pass down to stomped elements",
           "sourceRange": {
             "start": {
-              "line": 49,
-              "column": 16
+              "line": 52,
+              "column": 12
             },
             "end": {
-              "line": 54,
-              "column": 17
+              "line": 57,
+              "column": 13
             }
           },
           "metadata": {},
@@ -1678,7 +1678,7 @@
     {
       "description": "This mixin adds ui uiRouter property with router instance to element",
       "summary": "",
-      "path": "uirouter-mixin.html",
+      "path": "uirouter-mixin.js",
       "properties": [
         {
           "name": "uiRouter",
@@ -1687,12 +1687,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 86,
-              "column": 24
+              "line": 82,
+              "column": 16
             },
             "end": {
-              "line": 91,
-              "column": 25
+              "line": 87,
+              "column": 17
             }
           },
           "metadata": {
@@ -1708,28 +1708,28 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 77,
-          "column": 8
+          "line": 73,
+          "column": 0
         },
         "end": {
-          "line": 95,
-          "column": 9
+          "line": 91,
+          "column": 2
         }
       },
       "privacy": "public",
-      "name": "UiRouterMixin",
+      "name": "UiRouterMixinInternal",
       "attributes": [
         {
           "name": "ui-router",
           "description": "Shared UI router global instance",
           "sourceRange": {
             "start": {
-              "line": 86,
-              "column": 24
+              "line": 82,
+              "column": 16
             },
             "end": {
-              "line": 91,
-              "column": 25
+              "line": 87,
+              "column": 17
             }
           },
           "metadata": {},
