@@ -60,4 +60,4 @@ Then run `yarn serve` to serve your application locally.
 
 ## TIPS
 
-Set a <base href="$path"> tag in your index.html to let the router know the static/base part of your URL
+Set a `<base href="$path">` tag in your index.html to let the router know the static/base part of your URL

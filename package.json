@@ -16,7 +16,7 @@
   },
   "homepage": "",
   "name": "polymer-ui-router",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "contributors": [
     "Christopher Thielen"
   ],
@@ -31,7 +31,7 @@
   "engines": {
     "node": ">=4.0.0"
   },
-  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "license": "Apache-2.0",
   "dependencies": {
     "@uirouter/core": "^5.0.19",
     "@polymer/polymer": "^3.0.0"
