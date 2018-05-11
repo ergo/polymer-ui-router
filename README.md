@@ -1,6 +1,6 @@
 # \<polymer-ui-router\>
 
-## UI Router wrapper for Polymer 2.x+
+## UI Router Web Component wrapper (using minimal bits from Polymer 2.x base element)
 
 Use https://ui-router.github.io/core/docs/latest/ and https://ui-router.github.io/ 
 For general UI-Router documentation.
@@ -8,7 +8,7 @@ For general UI-Router documentation.
 **Demo page: https://www.webcomponents.org/element/ergo/polymer-ui-router**
 
 UI-Router is one of most popular routing solutions, 
-with ports for angular 1.x, 2.x+ and react - now also available for Polymer.
+with ports for angular 1.x, 2.x+ and react - now also available for Web Components.
 
 UI-Router provides state based routing. Each feature of an application is defined as a state. One state is active at any time, and UI-Router manages the transitions between the states.
 
@@ -67,4 +67,4 @@ Then run `yarn serve` to serve your application locally.
 
 ## TIPS
 
-Set a <base href="$path"> tag in your index.html to let the router know the static/base part of your URL
+Set a `<base href="$path">` tag in your index.html to let the router know the static/base part of your URL
