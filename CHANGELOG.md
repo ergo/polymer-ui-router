@@ -1,4 +1,8 @@
-1.0.0 (2018-04-10)
+3.0.0 (2018-05-12)
+------------------
+- First module release
+
+1.0.0 (2018-05-10)
 ------------------
 - Bumped ui router core to 5.0.19
 - Stable release
