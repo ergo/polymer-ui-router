@@ -1,16 +1,17 @@
-/**
-`uirouter-sref-active`
-
-Element that sets CSS class on itself when any route used by `uirouter-sref` element that is its child is active.
-
-@demo demo/demo-sref-active.html uirouter-sref-active element demo
-
-*/
-
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 
 import UiRouterMixin from './uirouter-mixin.js';
 
+/**
+ `uirouter-sref-active`
+
+ Element that sets CSS class on itself when any route used by `uirouter-sref` element that is its child is active.
+
+ @customElement
+ @polymer
+ @demo demo/demo-sref-active.html uirouter-sref-active element demo
+
+ */
 class UiRouterSrefActive extends UiRouterMixin(PolymerElement) {
     static get is() { return "uirouter-sref-active"; }
     static get properties() {

@@ -1,15 +1,14 @@
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-class BazBComp extends PolymerElement {
-  static get template() {
-    return html`
-        <style>
-        </style>
-
-        <h3>"baz-b-comp" component</h3>
+let tmpl = document.createElement('template');
+tmpl.innerHTML = `
+        <h3>"baz-b-comp" native component</h3>
 `;
-  }
 
-  static get is() { return 'baz-b-comp'; }
+class BazBComp extends HTMLElement {
+    constructor() {
+        super();
+        let shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.appendChild(tmpl.content.cloneNode(true));
+    }
 }
-customElements.define(BazBComp.is, BazBComp);
+
+customElements.define('baz-b-comp', BazBComp);

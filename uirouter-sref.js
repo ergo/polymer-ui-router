@@ -1,16 +1,17 @@
-/**
-`uirouter-sref`
-Element that generates `<a>` tag with contents.
-
-For links with custom attributes for state params you should be using `property-foo$=[[value]]` notation.
-
-@demo demo/demo-sref.html uirouter-sref element demo
-*/
-
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 
 import UiRouterMixin from './uirouter-mixin.js';
 
+/**
+ `uirouter-sref`
+ Element that generates `<a>` tag with contents.
+
+ For links with custom attributes for state params you should be using `property-foo$=[[value]]` notation.
+
+ @customElement
+ @polymer
+ @demo demo/demo-sref.html uirouter-sref element demo
+ */
 class UiRouterSref extends UiRouterMixin(PolymerElement) {
     static get is() {
         return "uirouter-sref";

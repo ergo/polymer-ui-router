@@ -14,23 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 */
-/**
-`uirouter-uiview`
-
-A UI-Router viewport component, which is filled in by a view components based on active state.
-Components stomped with this element will have `uiRouterTransition`, `uiRouterResolvedData`, `uiRouterParams`
-properties set on them for easy access to router object.
-
-`uiRouterResolvedData` keys will also be resolved onto components as separate properties.
-
-@demo demo/demo-uiview.html uirouter-uiview element demo
-
-*/
 
 import UiRouterMixin from './uirouter-mixin.js';
 import * as routerCore from '@uirouter/core';
 
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+
+/**
+ `uirouter-uiview`
+
+ A UI-Router viewport component, which is filled in by a view components based on active state.
+ Components stomped with this element will have `uiRouterTransition`, `uiRouterResolvedData`, `uiRouterParams`
+ properties set on them for easy access to router object.
+
+ `uiRouterResolvedData` keys will also be resolved onto components as separate properties.
+
+ @customElement
+ @polymer
+ @demo demo/demo-uiview.html uirouter-uiview element demo
+
+ */
 class UiRouterUiView extends UiRouterMixin(PolymerElement) {
     static get is() { return "uirouter-uiview"; }
     static get properties() {

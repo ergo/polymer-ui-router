@@ -1,17 +1,16 @@
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-class DefaultComp extends PolymerElement {
-  static get template() {
-    return html`
-        <style>
-        </style>
-
-        <h3>"default-comp" component</h3>
+let tmpl = document.createElement('template');
+tmpl.innerHTML = `
+        <h3>"default-comp" native web component</h3>
 
         <p>Used when other component was not set</p>
 `;
-  }
 
-  static get is() { return 'default-comp'; }
+class DefaultComp extends HTMLElement {
+    constructor() {
+        super();
+        let shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.appendChild(tmpl.content.cloneNode(true));
+    }
 }
-customElements.define(DefaultComp.is, DefaultComp);
+
+customElements.define('default-comp', DefaultComp);

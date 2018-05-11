@@ -15,13 +15,6 @@ limitations under the License.
 
 */
 
-/**
-`polymer-ui-router`
-Polymer element for UI Router Core
-
-@demo demo/index.html
-*/
-
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 
 import UiRouterMixin from './uirouter-mixin.js';
@@ -83,6 +76,13 @@ import * as routerCore from '@uirouter/core';
  * @param {transition} transition object.
  */
 
+/**
+ `polymer-ui-router`
+ Polymer element for UI Router Core
+ @customElement
+ @polymer
+ @demo demo/index.html
+ */
 class UiRouterRouter extends UiRouterMixin(PolymerElement) {
     static get is() {
         return "uirouter-router";

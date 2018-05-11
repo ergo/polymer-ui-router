@@ -1,19 +1,16 @@
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+let tmpl = document.createElement('template');
+tmpl.innerHTML = `
+        <h3>"default-comp" native web component</h3>
 
-class IndexComp extends PolymerElement {
-  static get template() {
-    return html`
-        <style>
-        </style>
-
-        <h1>"index-comp" component</h1>
+        <p>Used when other component was not set</p>
 `;
-  }
 
-  static get is() {
-      return 'index-comp';
-  }
+class IndexComp extends HTMLElement {
+    constructor() {
+        super();
+        let shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.appendChild(tmpl.content.cloneNode(true));
+    }
 }
 
-customElements.define(IndexComp.is, IndexComp);
+customElements.define('index-comp', IndexComp);
