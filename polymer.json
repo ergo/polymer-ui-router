@@ -1,8 +1,23 @@
 {
+  "entrypoint": "index.html",
+  "shell": "all-imports.js",
+  "moduleResolution": "node",
   "npm": true,
   "lint": {
     "rules": [
       "polymer-3"
     ]
-  }
+  },
+  "builds": [
+    {
+      "name": "es5prod",
+      "preset": "es5-bundled",
+      "addServiceWorker": true
+    },
+    {
+      "name": "es6prod",
+      "preset": "es6-unbundled",
+      "addServiceWorker": true
+    }
+  ]
 }
