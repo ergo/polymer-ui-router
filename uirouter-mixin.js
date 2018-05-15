@@ -92,5 +92,5 @@ let UiRouterMixinInternal = function(superClass) {
 };
 
 const UiRouterMixin = dedupingMixin(UiRouterMixinInternal);
-
+export {uirouter};
 export default UiRouterMixin;
