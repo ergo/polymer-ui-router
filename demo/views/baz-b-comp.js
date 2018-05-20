@@ -1,5 +1,5 @@
-let tmpl = document.createElement('template');
-tmpl.innerHTML = `
+let BazBElemTmpl = document.createElement('template');
+BazBElemTmpl.innerHTML = `
         <h3>"baz-b-comp" native component</h3>
 `;
 
@@ -7,7 +7,7 @@ class BazBComp extends HTMLElement {
     constructor() {
         super();
         let shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.appendChild(tmpl.content.cloneNode(true));
+        shadowRoot.appendChild(BazBElemTmpl.content.cloneNode(true));
     }
 }
 
