@@ -75,8 +75,10 @@ let UiRouterMixinInternal = function(superClass) {
     return class extends superClass {
         constructor() {
             super();
+            this.uiRouter = uirouter;
         }
 
+        // for polymer mixin compatibility
         static get properties() {
             return {
                 /** Shared UI router global instance */

@@ -1,5 +1,3 @@
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
 import UiRouterMixin from './uirouter-mixin.js';
 
 /**
@@ -12,31 +10,25 @@ import UiRouterMixin from './uirouter-mixin.js';
  @demo demo/demo-sref-active.html uirouter-sref-active element demo
 
  */
-class UiRouterSrefActive extends UiRouterMixin(PolymerElement) {
+class UiRouterSrefActive extends UiRouterMixin(HTMLElement) {
     static get is() { return "uirouter-sref-active"; }
-    static get properties() {
-        return {
-            active: {
-                type: String,
-                value: 'route-active'
-            },
-            _registered: {
-                type: Array,
-                value: function () {
-                    return []
-                }
-            }
-        }
+
+    static get observedAttributes() {
+        return ['active'];
+    }
+
+    constructor(){
+        super();
+        this.active = this.getAttribute('active') || 'route-active';
+        this._registered = [];
     }
 
     connectedCallback() {
-        super.connectedCallback();
         this._transListener = this.uiRouter.transitionService.onSuccess({}, this._checkTransition.bind(this));
         this.addEventListener('uirouter-sref-attached', this.srefAttached.bind(this));
         this.addEventListener('uirouter-sref-detached', this.srefDetached.bind(this));
     }
     disconnectedCallback() {
-        super.disconnectedCallback();
         this._transListener();
         this.removeEventListener('uirouter-sref-attached', this.srefAttached.bind(this));
         this.removeEventListener('uirouter-sref-detached', this.srefDetached.bind(this));

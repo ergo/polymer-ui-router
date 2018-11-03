@@ -119,6 +119,7 @@ class UiRouterUiView extends UiRouterMixin(PolymerElement) {
                         child[p] = this[p];
                     }
                 };
+                // need to get rid of that
                 this._createPropertyObserver(p, '__passdownProp-' + p, true);
             }
         });
